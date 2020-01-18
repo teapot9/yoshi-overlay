@@ -11,11 +11,10 @@ S="${WORKDIR}/NP2kai-rev.${PV}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X sdl1 i286"
+IUSE="X sdl1 i286 libretro"
 
 # SDL1 currently not supported
-REQUIRED_USE="gcw0? ( !X !libretro )
-	libretro? ( !X !gcw0 )
+REQUIRED_USE="libretro? ( !X !sdl1 i286 )
 	!sdl1"
 DEPEND="X? ( x11-libs/gtk+:2 virtual/libusb )
 	sdl1? ( media-libs/libsdl media-libs/sdl-ttf media-libs/sdl-mixer )
@@ -50,7 +49,7 @@ src_compile() {
 	if use X; then
 		cd ./x11
 		emake || die "emake failed"
-	else
+	elif ! use libretro; then
 		cd ./sdl2
 		if ! use sdl1 && ! use i286; then
 			emake -f Makefile21.unix || die "emake failed"
@@ -61,6 +60,9 @@ src_compile() {
 		elif use sdl1 && use i286; then
 			emake -f Makefile.unix SDL_VERSION=1 || die "emake failed"
 		fi
+	else
+		cd ./sdl2
+		emake || die "emake failed"
 	fi
 }
 
@@ -68,13 +70,16 @@ src_install() {
 	if use X; then
 		cd ./x11
 		emake DESTDIR="${D}" install || die "emake install failed"
-	else
+	elif ! use libretro; then
 		cd ./sdl2
 		if ! use i286; then
 			emake -f Makefile21.unix DESTDIR="${D}" prefix="/usr" install || die "emake install failed"
 		else
 			emake -f Makefile.unix DESTDIR="${D}" prefix="/usr" install || die "emake install failed"
 		fi
+	else
+		cd ./sdl2
+		emake DESTDIR="${D}" libdir="/usr/lib" LIBRETRO_DIR="libretro" install || die "emake install failed"
 	fi
 	einstalldocs
 }
