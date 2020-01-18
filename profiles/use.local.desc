@@ -1,1 +1,5 @@
 app-doc/sdl2-manpage:sdl1 - Install as SDL2_* rather than SDL_* for compatibility with SDL1
+app-emulation/np2kai:sdl1 - Build using the SDL1.2 rather than the SDL2 library
+app-emulation/np2kai:i286 - Build for i286 platform rather than the i386
+app-emulation/np2kai:gcw0 - Build the GCW Zero OPK file
+app-emulation/np2kai:libretro - Build the libretro shared library
