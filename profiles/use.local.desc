@@ -1,0 +1,1 @@
+app-doc/sdl2-manpage:sdl1 - Install as SDL2_* rather than SDL_* for compatibility with SDL1
