@@ -23,7 +23,7 @@ src_configure() {
 
 src_install() {
 	if [[ -f Makefile ]] || [[ -f GNUmakefile ]] || [[ -f makefile ]] ; then
-		emake INSTALL_PREFIX="${D}" install
+		emake INSTALL_PREFIX="${D}/usr" install
 	fi
 	einstalldocs
 }
