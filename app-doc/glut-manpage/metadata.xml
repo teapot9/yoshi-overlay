@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<use>
+		<flag name="glut">Install the GLUT man pages</flag>
+		<flag name="gle">Install the GLE man pages</flag>
+	</use>
+</pkgmetadata>
