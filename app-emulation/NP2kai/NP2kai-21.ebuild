@@ -5,8 +5,8 @@ EAPI=7
 
 DESCRIPTION="NP2kai is PC-9801 series emulator"
 HOMEPAGE="https://github.com/AZO234/NP2kai"
-SRC_URI="https://github.com/AZO234/NP2kai/archive/rev.${PV}.tar.gz"
-S="${WORKDIR}/NP2kai-rev.${PV}"
+SRC_URI="https://github.com/AZO234/${PN}/archive/rev.${PV}.tar.gz"
+S="${WORKDIR}/${PN}-rev.${PV}"
 
 LICENSE="MIT"
 SLOT="0"
