@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<use>
+		<flag name="gl">Install the latest OpenGL man pages</flag>
+		<flag name="es">Install the latest OpenGL ES man pages</flag>
+	</use>
+</pkgmetadata>
