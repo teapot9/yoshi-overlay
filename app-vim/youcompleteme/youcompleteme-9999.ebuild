@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/ycm-core/YouCompleteMe.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
-IUSE="+clang +regex csharp go javascript rust java"
+IUSE="+clang +regex"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 "
