@@ -20,7 +20,10 @@ IUSE="+clang +regex"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 "
 DEPEND="${PYTHON_DEPS}
-	>=app-editors/vim-7.4.1578[python,${PYTHON_SINGLE_USEDEP}]
+	|| (
+		>=app-editors/vim-7.4.1578[python,${PYTHON_SINGLE_USEDEP}]
+		>=app-editors/vim-7.4.1578[python,${PYTHON_SINGLE_USEDEP}]
+	)
 	$(python_gen_cond_dep '
 		dev-libs/boost[python,threads,${PYTHON_MULTI_USEDEP}]
 	')
