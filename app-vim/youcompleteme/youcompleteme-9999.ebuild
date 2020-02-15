@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python3_6 )
 EPYTHON="python3.6"
 #VIM_PLUGIN_VIM_VERSION="7.0"
-inherit git-r3 vim-plugin python-r1 vcs-clean
+inherit git-r3 vim-plugin python-single-r1 vcs-clean
 
 DESCRIPTION="vim plugin: a code-completion engine for Vim"
 HOMEPAGE="https://github.com/ycm-core/YouCompleteMe"
@@ -20,21 +20,21 @@ IUSE="+clang +regex"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 "
 DEPEND="${PYTHON_DEPS}
-	$(python_gen_any_dep '
-		>=app-editors/vim-7.4.1578[python,${PYTHON_USEDEP}]
-		dev-libs/boost[python,threads,${PYTHON_USEDEP}]
+	>=app-editors/vim-7.4.1578[python,${PYTHON_SINGLE_USEDEP}]
+	$(python_gen_cond_dep '
+		dev-libs/boost[python,threads,${PYTHON_MULTI_USEDEP}]
 	')
 	clang? ( >=sys-devel/clang-9.0.0 )
 "
 RDEPEND="${DEPEND}
-	$(python_gen_any_dep '
-		dev-python/bottle[${PYTHON_USEDEP}]
-		virtual/python-futures[${PYTHON_USEDEP}]
-		dev-python/future[${PYTHON_USEDEP}]
-		dev-python/sh[${PYTHON_USEDEP}]
-		dev-python/waitress[${PYTHON_USEDEP}]
-		dev-python/requests[${PYTHON_USEDEP}]
-		dev-python/jedi[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '
+		dev-python/bottle[${PYTHON_MULTI_USEDEP}]
+		virtual/python-futures[${PYTHON_MULTI_USEDEP}]
+		dev-python/future[${PYTHON_MULTI_USEDEP}]
+		dev-python/sh[${PYTHON_MULTI_USEDEP}]
+		dev-python/waitress[${PYTHON_MULTI_USEDEP}]
+		dev-python/requests[${PYTHON_MULTI_USEDEP}]
+		dev-python/jedi[${PYTHON_MULTI_USEDEP}]
 	')
 "
 BDEPEND="dev-util/cmake
