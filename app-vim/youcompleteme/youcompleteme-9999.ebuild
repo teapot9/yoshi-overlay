@@ -3,8 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_6 )
-EPYTHON="python3.6"
+PYTHON_COMPAT=( python3_{6,7,8} )
 #VIM_PLUGIN_VIM_VERSION="7.0"
 inherit git-r3 vim-plugin python-single-r1 vcs-clean
 
@@ -22,7 +21,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 DEPEND="${PYTHON_DEPS}
 	|| (
 		>=app-editors/vim-7.4.1578[python,${PYTHON_SINGLE_USEDEP}]
-		>=app-editors/vim-7.4.1578[python,${PYTHON_SINGLE_USEDEP}]
+		>=app-editors/gvim-7.4.1578[python,${PYTHON_SINGLE_USEDEP}]
 	)
 	$(python_gen_cond_dep '
 		dev-libs/boost[python,threads,${PYTHON_MULTI_USEDEP}]
