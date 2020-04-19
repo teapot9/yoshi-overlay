@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<use>
+		<flag name="executable">Build the executable</flag>
+		<flag name="opencv">Enable support for media-libs/opencv</flag>
+		<flag name="cuda">Enable NVIDIA CUDA toolkit support</flag>
+		<flag name="models">Install models</flag>
+	</use>
+</pkgmetadata>
