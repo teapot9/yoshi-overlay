@@ -1,0 +1,21 @@
+From 9bed164c0c695d60be89464be675b8c02c26365f Mon Sep 17 00:00:00 2001
+From: Philipp A <flying-sheep@web.de>
+Date: Tue, 2 Jun 2020 13:23:08 +0200
+Subject: [PATCH] #include <QMap> in world.h
+
+---
+ world.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/world.h b/world.h
+index c029805..07b7e46 100644
+--- a/world.h
++++ b/world.h
+@@ -4,6 +4,7 @@
+ 
+ #include <QObject>
+ #include <QRunnable>
++#include <QMap>
+ #include "./worldinfo.h"
+ #include "./worldheader.h"
+ #include "./handle.h"
