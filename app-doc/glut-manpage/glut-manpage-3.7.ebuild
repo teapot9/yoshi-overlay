@@ -2,11 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+MY_PN="glut"
+MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="GLUT library manpages"
 HOMEPAGE="http://freeglut.sourceforge.net/"
-SRC_URI="https://www.opengl.org/resources/libraries/glut/glut-3.7.tar.gz"
-S="${WORKDIR}/glut-${PV}"
+SRC_URI="https://www.opengl.org/resources/libraries/${MY_PN}/${MY_P}.tar.gz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="GLUT"
 SLOT="0"
@@ -18,25 +20,19 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
+MANPAGES_GLUT="./man/glut"
+MANPAGES_GLE="./man/gle"
+
 src_compile() {
 	:
 }
 
 src_install() {
-	if use glut; then
-		cd ./man/glut
-		for f in *.man; do
-			mv "${f}" "${f/.man/.3xglut}"
+	for dir in $(usex glut "${MANPAGES_GLUT}" '') $(usex gle "${MANPAGES_GLE}" ''); do
+		for manpage in "${dir}"/*.man; do
+			mv "${manpage}" "${manpage/%.man/.3}"
 		done
-		doman *.3xglut
-		cd ../..
-	fi
-	if use gle; then
-		cd ./man/gle
-		for f in *.man; do
-			mv "${f}" "${f/.man/.3xgle}"
-		done
-		doman *.3xgle
-		cd ../..
-	fi
+		doman "${dir}"/*.3
+	done
 }
+
