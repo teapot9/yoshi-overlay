@@ -17,7 +17,8 @@ IUSE="+gl +es"
 REQUIRED_USE="|| ( gl es )"
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND="app-text/docbook-xsl-ns-stylesheets
+BDEPEND="
+	app-text/docbook-xsl-ns-stylesheets
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt
 	app-text/docbook-xml-dtd
@@ -27,15 +28,15 @@ MANPAGESDIR_ES=es3
 MANPAGESDIR_GL=gl4
 
 src_compile() {
-	if use es; then
-		xsltproc --noout --nonet /usr/share/sgml/docbook/xsl-stylesheets/manpages/docbook.xsl "${MANPAGESDIR_ES}"/*.xml || die "xsltproc failed"
-	fi
-	if use gl; then
-		xsltproc --noout --nonet /usr/share/sgml/docbook/xsl-stylesheets/manpages/docbook.xsl "${MANPAGESDIR_GL}"/*.xml || die "xsltproc failed"
-	fi
+	mkdir build
+	cd build
+	for manpagedir in $(usex gl "${MANPAGESDIR_GL}" '') $(usex es "${MANPAGESDIR_ES}" ''); do
+		xsltproc --xinclude --noout --nonet /usr/share/sgml/docbook/xsl-stylesheets/manpages/docbook.xsl ../"${manpagedir}"/*.xml || die "xsltproc failed"
+	done
 }
 
 src_install() {
-	doman *.3G
+	doman build/*.3G
 	einstalldocs
 }
+
