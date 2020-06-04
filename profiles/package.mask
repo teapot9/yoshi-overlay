@@ -1,0 +1,3 @@
+# Masked for removal
+# Prefer using app-vim/youcompleteme from thegreatmcpain overlay
+app-vim/youcompleteme::yoshi-overlay
