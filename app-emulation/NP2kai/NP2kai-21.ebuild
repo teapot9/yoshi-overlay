@@ -5,43 +5,35 @@ EAPI=7
 
 DESCRIPTION="NP2kai is PC-9801 series emulator"
 HOMEPAGE="https://github.com/AZO234/NP2kai"
-SRC_URI="https://github.com/AZO234/${PN}/archive/rev.${PV}.tar.gz"
+SRC_URI="https://github.com/AZO234/${PN}/archive/rev.${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${PN}-rev.${PV}"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X sdl1 i286 libretro"
+IUSE="X +ia32 libretro"
 
 # SDL1 currently not supported
-REQUIRED_USE="libretro? ( !X !sdl1 i286 )
-	!sdl1"
-DEPEND="X? ( x11-libs/gtk+:2 virtual/libusb )
-	sdl1? ( media-libs/libsdl media-libs/sdl-ttf media-libs/sdl-mixer )
-	!sdl1? ( media-libs/libsdl2 media-libs/sdl2-ttf media-libs/sdl2-mixer )"
+REQUIRED_USE="libretro? ( !X ia32 )"
+DEPEND="
+	X? ( x11-libs/gtk+:2 virtual/libusb )
+	media-libs/libsdl2
+	media-libs/sdl2-ttf
+	media-libs/sdl2-mixer
+"
 RDEPEND="${DEPEND}"
-BDEPEND=""
+BDEPEND="X? ( sys-devel/automake )"
 
-src_prepare() {
-	eapply "${FILESDIR}/${PV}/${P}-fix-sdl2-makefile.patch"
-	eapply "${FILESDIR}/${PV}/${P}-fix-sdl2-makefile21.patch"
-
-	eapply_user
-}
+PATCHES=(
+	"${FILESDIR}/${P}-fix-sdl2-makefile.patch"
+	"${FILESDIR}/${P}-fix-sdl2-makefile21.patch"
+)
 
 src_configure() {
 	if use X; then
 		cd ./x11
 		./autogen.sh
-		if ! use sdl1 && ! use i286; then
-			econf --enable-ia32 || die "econf failed"
-		elif ! use sdl1 && use i286; then
-			econf || die "econf failed"
-		elif use sdl1 && ! use i286; then
-			econf --enable-sdl --enable-sdlmixer --enable-sdlttf --enable-sdl2=no --enable-sdl2mixer=no --enable-sdl2ttf=no --enable-ia32 || die "econf failed"
-		elif use sdl1 && use i286; then
-			econf --enable-sdl --enable-sdlmixer --enable-sdlttf --enable-sdl2=no --enable-sdl2mixer=no --enable-sdl2ttf=no || die "econf failed"
-		fi
+		econf $(use_enable ia32)
 	fi
 }
 
@@ -51,15 +43,7 @@ src_compile() {
 		emake || die "emake failed"
 	elif ! use libretro; then
 		cd ./sdl2
-		if ! use sdl1 && ! use i286; then
-			emake -f Makefile21.unix || die "emake failed"
-		elif ! use sdl1 && use i286; then
-			emake -f Makefile.unix || die "emake failed"
-		elif use sdl1 && ! use i286; then
-			emake -f Makefile21.unix SDL_VERSION=1 || die "emake failed"
-		elif use sdl1 && use i286; then
-			emake -f Makefile.unix SDL_VERSION=1 || die "emake failed"
-		fi
+		emake $(usex ia32 '-f Makefile.unix' '-f Makefile21.unix') || die "emake failed"
 	else
 		cd ./sdl2
 		emake || die "emake failed"
@@ -69,17 +53,21 @@ src_compile() {
 src_install() {
 	if use X; then
 		cd ./x11
-		emake DESTDIR="${D}" install || die "emake install failed"
+		emake DESTDIR="${ED}" install || die "emake install failed"
 	elif ! use libretro; then
 		cd ./sdl2
-		if ! use i286; then
-			emake -f Makefile21.unix DESTDIR="${D}" prefix="/usr" install || die "emake install failed"
-		else
-			emake -f Makefile.unix DESTDIR="${D}" prefix="/usr" install || die "emake install failed"
-		fi
+		emake \
+			$(usex ia32 '-f Makefile.unix' '-f Makefile21.unix') \
+			DESTDIR="${ED}" \
+			prefix="/usr" \
+			install || die "emake install failed"
 	else
 		cd ./sdl2
-		emake DESTDIR="${D}" libdir="/usr/lib" LIBRETRO_DIR="libretro" install || die "emake install failed"
+		emake \
+			DESTDIR="${ED}" \
+			libdir="/usr/lib" \
+			LIBRETRO_DIR="libretro" \
+			install || die "emake install failed"
 	fi
 	einstalldocs
 }

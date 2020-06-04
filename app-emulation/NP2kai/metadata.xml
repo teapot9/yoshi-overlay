@@ -2,8 +2,7 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<use>
-		<flag name="i286">Build an i286 emulator rather than an i386 one</flag>
+		<flag name="ia32">Build an i386 emulator rather than an i286 one</flag>
 		<flag name="libretro">Build as a libretro library</flag>
-		<flag name="sdl1">Build using the SDL1 rather than the SDL2</flag>
 	</use>
 </pkgmetadata>
