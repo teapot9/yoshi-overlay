@@ -19,14 +19,18 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
+SBIN_EXECUTABLES=(
+	'cmkinit'
+	'cmkinitramfs'
+)
+
 python_install_all() {
-	default
+	distutils-r1_python_install_all
 
 	# distutils can only install to /usr/bin
 	elog 'Moving scripts to sbin'
-	local sbinmove='cmkinit cmkinitramfs'
 	dodir '/usr/sbin'
-	for target in ${sbinmove}; do
+	for target in "${SBIN_EXECUTABLES[@]}"; do
 		mv "${ED}/usr/bin/${target}" "${ED}/usr/sbin/${target}" || die 'sbin script move failed'
 	done
 }
