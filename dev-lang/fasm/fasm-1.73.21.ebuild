@@ -11,7 +11,7 @@ S="${WORKDIR}/${PN}"
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+bootstrap"
+IUSE="+bootstrap +examples"
 
 REQUIRED_USE="^^ ( amd64 x86 )"
 DEPEND=""
@@ -19,7 +19,7 @@ RDEPEND="${DEPEND}"
 BDEPEND="|| ( dev-lang/fasm-bin dev-lang/fasm )"
 
 DOCS=("fasm.txt" "license.txt" "whatsnew.txt")
-DATAS=("tools" "examples")
+DATAS=("tools")
 DATA_DIR="/usr/share/${PN}"
 
 case "${ARCH}" in
@@ -39,6 +39,7 @@ src_compile() {
 src_install() {
 	dobin "${SOURCES}/fasm"
 
+	use examples && DATAS+=("examples")
 	# Remove binary files (they can be built with fasm)
 	find "${DATAS[@]}" -type f -executable -delete
 	find "${DATAS[@]}" -type f -name "*.o" -delete
