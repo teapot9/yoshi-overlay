@@ -3,7 +3,7 @@
 
 EAPI=7
 
-DESCRIPTION="Flat Assembler"
+DESCRIPTION="flat assembler"
 HOMEPAGE="http://flatassembler.net/"
 SRC_URI="https://flatassembler.net/${P}.tgz"
 S="${WORKDIR}/${PN}"
