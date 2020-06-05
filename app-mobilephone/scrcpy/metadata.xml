@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
 <pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<longdescription lang="en">
+		This application provides display and control of Android devices
+		connected on USB (or over TCP/IP). It does not require any root access.
+	</longdescription>
 	<use>
-		<flag name="lto">Build using Link Time Optimizations (LTO)</flag>
 		<flag name="bin-server">Use prebuilt binary Android server</flag>
 	</use>
 </pkgmetadata>
