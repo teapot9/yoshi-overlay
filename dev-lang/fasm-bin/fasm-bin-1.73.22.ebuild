@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+
 MY_PN="fasm"
 MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="Flat Assembler"
+DESCRIPTION="flat assembler"
 HOMEPAGE="http://flatassembler.net/"
 SRC_URI="https://flatassembler.net/${MY_P}.tgz"
 S="${WORKDIR}/${MY_PN}"
@@ -13,7 +14,7 @@ S="${WORKDIR}/${MY_PN}"
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="+examples"
 
 REQUIRED_USE="^^ ( amd64 x86 )"
 DEPEND=""
@@ -21,7 +22,7 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 DOCS=("fasm.txt" "license.txt" "whatsnew.txt")
-DATAS=("tools" "examples")
+DATAS=("tools")
 DATA_DIR="/opt/${MY_PN}"
 
 case "${ARCH}" in
@@ -33,6 +34,7 @@ src_install() {
 	into "/opt"
 	newbin "${EXEC}" "fasm"
 
+	use examples && DATAS+=("examples")
 	# Remove binary files (they can be built with fasm)
 	find "${DATAS[@]}" -type f -executable -delete
 	find "${DATAS[@]}" -type f -name "*.o" -delete
