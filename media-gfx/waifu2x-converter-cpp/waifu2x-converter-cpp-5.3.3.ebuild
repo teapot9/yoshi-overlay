@@ -7,7 +7,7 @@ inherit cmake-utils
 
 DESCRIPTION="Improved fork of Waifu2X C++ using OpenCL and OpenCV"
 HOMEPAGE="https://github.com/DeadSix27/waifu2x-converter-cpp"
-SRC_URI="https://github.com/DeadSix27/${PN}/archive/v${PV}.tar.gz"
+SRC_URI="https://github.com/DeadSix27/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT BSD"
 SLOT="0"
