@@ -11,27 +11,40 @@ S="${WORKDIR}/${PN}"
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="+bootstrap"
 
+REQUIRED_USE="^^ ( amd64 x86 )"
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND=""
+BDEPEND="|| ( dev-lang/fasm-bin dev-lang/fasm )"
+
+DOCS=("fasm.txt" "license.txt" "whatsnew.txt")
+DATAS=("tools" "examples")
+DATA_DIR="/usr/share/${PN}"
+
+case "${ARCH}" in
+amd64) SOURCES="${S}/source/Linux/x64" ;;
+x86) SOURCES="${S}/source/Linux" ;;
+esac
 
 src_compile() {
-	if use amd64; then
-		./fasm.x64 "./source/Linux/x64/fasm.asm" "fasm.out" || die "fasm failed"
-	elif use x86; then
-		./fasm "./source/Linux/fasm.asm" "fasm.out" || die "fasm failed"
-	else
-		die "unknown architecture"
+	cd "${SOURCES}"
+	fasm "fasm.asm" "fasm" || die "fasm failed"
+	if use bootstrap; then
+		./fasm "fasm.asm" "fasm-final"
+		mv "fasm-final" "fasm"
 	fi
 }
 
 src_install() {
-	mkdir -p "${D}/usr/bin"
-	install -m 755 "fasm.out" "${D}/usr/bin/fasm"
-	mkdir -p "${D}/usr/share/fasm"
-	cp -r "tools" "${D}/usr/share/fasm/"
+	dobin "${SOURCES}/fasm"
+
+	# Remove binary files (they can be built with fasm)
+	find "${DATAS[@]}" -type f -executable -delete
+	find "${DATAS[@]}" -type f -name "*.o" -delete
+	# Install fasm data and docs
+	insinto "${DATA_DIR}"
+	doins -r "${DATAS[@]}"
 	einstalldocs
 }
 

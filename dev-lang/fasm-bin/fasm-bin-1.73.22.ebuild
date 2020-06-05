@@ -2,42 +2,36 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+MY_PN="fasm"
+MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="Flat Assembler"
 HOMEPAGE="http://flatassembler.net/"
-SRC_URI="https://flatassembler.net/${P}.tgz"
-S="${WORKDIR}/${PN}"
+SRC_URI="https://flatassembler.net/${MY_P}.tgz"
+S="${WORKDIR}/${MY_PN}"
 
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+bootstrap"
+IUSE=""
 
 REQUIRED_USE="^^ ( amd64 x86 )"
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND="|| ( dev-lang/fasm-bin dev-lang/fasm )"
+BDEPEND=""
 
 DOCS=("fasm.txt" "license.txt" "whatsnew.txt")
 DATAS=("tools" "examples")
-DATA_DIR="/usr/share/${PN}"
+DATA_DIR="/opt/${MY_PN}"
 
 case "${ARCH}" in
-amd64) SOURCES="${S}/source/Linux/x64" ;;
-x86) SOURCES="${S}/source/Linux" ;;
+amd64) EXEC="${S}/fasm.x64" ;;
+x86) EXEC="${S}/fasm" ;;
 esac
 
-src_compile() {
-	cd "${SOURCES}"
-	fasm "fasm.asm" "fasm" || die "fasm failed"
-	if use bootstrap; then
-		./fasm "fasm.asm" "fasm-final"
-		mv "fasm-final" "fasm"
-	fi
-}
-
 src_install() {
-	dobin "${SOURCES}/fasm"
+	into "/opt"
+	newbin "${EXEC}" "fasm"
 
 	# Remove binary files (they can be built with fasm)
 	find "${DATAS[@]}" -type f -executable -delete
