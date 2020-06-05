@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<longdescription>
+		A feature rich cross platform Transmission BitTorrent client.
+		Faster and has more functionality than the built-in web GUI.
+	</longdescription>
+</pkgmetadata>
