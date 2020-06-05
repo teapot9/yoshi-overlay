@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<longdescription lang="en">
+		Man-pages created by hands following online API document at
+		https://wiki.libsdl.org/CategoryAPI.
+	</longdescription>
+	<use>
+		<flag name="sdl1">Enable compatibility with SDL1 man pages</flag>
+	</use>
+</pkgmetadata>
