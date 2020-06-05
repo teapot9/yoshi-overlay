@@ -7,9 +7,9 @@ inherit git-r3
 
 DESCRIPTION="OpenGL and OpenGL ES reference page sources"
 HOMEPAGE="https://github.com/KhronosGroup/OpenGL-Refpages"
-EGIT_REPO_URI="https://github.com/KhronosGroup/OpenGL-Refpages"
+EGIT_REPO_URI="https://github.com/KhronosGroup/${PN}.git"
 
-LICENSE="Apache-2.0"
+LICENSE="Apache-2.0 CC-BY-4.0"
 SLOT="0"
 KEYWORDS=""
 IUSE="+gl +es"
@@ -20,8 +20,8 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	app-text/docbook-xsl-ns-stylesheets
 	app-text/docbook-xsl-stylesheets
-	dev-libs/libxslt
 	app-text/docbook-xml-dtd
+	dev-libs/libxslt
 "
 
 MANPAGESDIR_ES=es3
