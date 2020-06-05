@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
 <pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<longdescription lang="en">
+		This is a reimplementation of waifu2x converter function, in C++, using OpenCV.
+		This is also a reimplementation of waifu2x python version by Hector Martin.
+		You can use this as command-line tool of image noise reduction or/and scaling.
+	</longdescription>
 	<use>
-		<flag name="executable">Build the executable</flag>
-		<flag name="opencv">Enable support for media-libs/opencv</flag>
-		<flag name="cuda">Enable NVIDIA CUDA toolkit support</flag>
 		<flag name="models">Install models</flag>
 	</use>
 </pkgmetadata>
