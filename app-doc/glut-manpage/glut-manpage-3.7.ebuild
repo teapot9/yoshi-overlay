@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+
 MY_PN="glut"
 MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="GLUT library manpages"
-HOMEPAGE="http://freeglut.sourceforge.net/"
+DESCRIPTION="Original GLUT library manpages"
+HOMEPAGE="https://www.opengl.org/resources/libraries/glut/"
 SRC_URI="https://www.opengl.org/resources/libraries/${MY_PN}/${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
