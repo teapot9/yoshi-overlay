@@ -3,13 +3,14 @@
 
 EAPI=7
 
+BINARY_SERVER_PN="scrcpy-server"
+
 inherit meson ninja-utils
 
-BINARY_SERVER_PN="scrcpy-server"
 DESCRIPTION="Display and control your Android device"
 HOMEPAGE="https://github.com/Genymobile/scrcpy"
 SRC_URI="
-	https://github.com/Genymobile/${PN}/archive/v${PV}.tar.gz
+	https://github.com/Genymobile/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
 	bin-server? ( https://github.com/Genymobile/${PN}/releases/download/v${PV}/${BINARY_SERVER_PN}-v${PV} )
 "
 
@@ -31,6 +32,8 @@ BDEPEND="
 		virtual/jdk
 	)
 "
+
+DOCS=("README.md" "FAQ.md" "DEVELOP.md")
 
 src_configure() {
 	local emesonargs=(
