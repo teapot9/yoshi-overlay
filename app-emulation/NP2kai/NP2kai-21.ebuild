@@ -3,7 +3,7 @@
 
 EAPI=7
 
-DESCRIPTION="NP2kai is PC-9801 series emulator"
+DESCRIPTION="Neko Project II kai is a PC-9801 series emulator"
 HOMEPAGE="https://github.com/AZO234/NP2kai"
 SRC_URI="https://github.com/AZO234/${PN}/archive/rev.${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${PN}-rev.${PV}"
@@ -13,7 +13,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="X +ia32 libretro"
 
-# SDL1 currently not supported
 REQUIRED_USE="libretro? ( !X ia32 )"
 DEPEND="
 	X? ( x11-libs/gtk+:2 virtual/libusb )
@@ -71,3 +70,4 @@ src_install() {
 	fi
 	einstalldocs
 }
+
