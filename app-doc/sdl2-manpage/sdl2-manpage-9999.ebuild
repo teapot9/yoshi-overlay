@@ -5,7 +5,7 @@ EAPI=7
 
 inherit git-r3
 
-DESCRIPTION="Man-pages generated for SDL2"
+DESCRIPTION="Man-pages created by hands following online API document"
 HOMEPAGE="https://github.com/haxpor/sdl2-manpage"
 EGIT_REPO_URI="https://github.com/haxpor/${PN}.git"
 
@@ -14,6 +14,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="+sdl1"
 
+PROPERTIES="live"
 DEPEND="!sdl1? ( !media-libs/libsdl )"
 RDEPEND="${DEPEND}"
 BDEPEND=""
