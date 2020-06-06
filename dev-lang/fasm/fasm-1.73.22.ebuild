@@ -10,7 +10,7 @@ S="${WORKDIR}/${PN}"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="+bootstrap +examples"
 
 REQUIRED_USE="^^ ( amd64 x86 )"
