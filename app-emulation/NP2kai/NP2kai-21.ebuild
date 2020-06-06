@@ -10,7 +10,7 @@ S="${WORKDIR}/${PN}-rev.${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="X +ia32 libretro"
 
 REQUIRED_USE="libretro? ( !X ia32 )"
