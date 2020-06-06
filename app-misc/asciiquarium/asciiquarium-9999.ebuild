@@ -14,6 +14,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
+PROPERTIES="live"
 DEPEND=""
 RDEPEND="${DEPEND}
 	dev-perl/Term-Animation
