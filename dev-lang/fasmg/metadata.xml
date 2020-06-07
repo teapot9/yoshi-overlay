@@ -6,11 +6,13 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<longdescription>
-		Flat assembler is a fast assembly language compiler for the x86 architecture
-		processors, which does multiple passes to optimize the size of generated
-		machine code.
+		The flat assembler g (abbreviated to fasmg) is a new assembly engine designed
+		as a successor of the one used by flat assembler 1. Instead of having a
+		built-in support for x86 instructions, it implements them through additional
+		packages and in the same way it can be adapted to assemble for different
+		architectures and purposes.
 	</longdescription>
 	<use>
-		<flag name="bootstrap">Recompile the final fasm executable with itself</flag>
+		<flag name="bootstrap">Recompile the final fasmg executable with itself</flag>
 	</use>
 </pkgmetadata>
