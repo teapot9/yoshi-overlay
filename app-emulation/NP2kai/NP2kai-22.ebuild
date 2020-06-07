@@ -87,3 +87,10 @@ src_install() {
 	einstalldocs
 }
 
+pkg_postinst() {
+	if use gnome; then
+		einfo "Gnome users: if you have slow dialogs, try starting NP2kai with:"
+		einfo "\tdbus-launch --exit-with-session xnp2kai"
+	fi
+}
+
