@@ -11,7 +11,7 @@ HOMEPAGE="http://flatassembler.net/"
 SRC_URI="https://flatassembler.net/${MY_P}.tgz"
 S="${WORKDIR}/${MY_PN}"
 
-LICENSE="BSD-2"
+LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+examples"
@@ -32,7 +32,7 @@ esac
 
 src_install() {
 	into "/opt"
-	newbin "${EXEC}" "fasm"
+	newbin "${EXEC}" "fasm" || die
 
 	use examples && DATAS+=("examples")
 	# Remove binary files (they can be built with fasm)
