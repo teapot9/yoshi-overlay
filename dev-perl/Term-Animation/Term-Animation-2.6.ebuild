@@ -15,4 +15,3 @@ IUSE=""
 
 RDEPEND="dev-perl/Curses"
 DEPEND="${RDEPEND}"
-

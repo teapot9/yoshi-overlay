@@ -36,4 +36,3 @@ src_install() {
 		doman "${dir}"/*.3
 	done
 }
-

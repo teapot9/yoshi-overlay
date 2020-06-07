@@ -80,4 +80,3 @@ pkg_postinst() {
 		einfo "Using a prebuilt ${BINARY_SERVER_PN} binary"
 	fi
 }
-

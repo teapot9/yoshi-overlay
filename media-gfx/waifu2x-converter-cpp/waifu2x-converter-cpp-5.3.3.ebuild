@@ -45,4 +45,3 @@ src_configure() {
 pkg_postinst() {
 	use executable || elog "You only installed the library, enable the executable useflag to install it."
 }
-

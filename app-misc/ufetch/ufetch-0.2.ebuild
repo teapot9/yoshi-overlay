@@ -24,4 +24,3 @@ src_compile() {
 src_install() {
 	dobin ufetch
 }
-

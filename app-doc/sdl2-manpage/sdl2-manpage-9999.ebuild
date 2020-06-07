@@ -28,4 +28,3 @@ src_install() {
 	doman ./src/*.3
 	einstalldocs
 }
-

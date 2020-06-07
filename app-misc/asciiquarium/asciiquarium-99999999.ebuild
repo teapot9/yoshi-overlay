@@ -25,4 +25,3 @@ src_install() {
 	dobin asciiquarium
 	einstalldocs
 }
-

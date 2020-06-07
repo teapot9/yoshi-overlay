@@ -70,4 +70,3 @@ src_install() {
 	fi
 	einstalldocs
 }
-

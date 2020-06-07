@@ -27,4 +27,3 @@ src_install() {
 	emake PREFIX="${ED}/usr" install || die "emake install failed"
 	einstalldocs
 }
-

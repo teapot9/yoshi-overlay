@@ -48,4 +48,3 @@ src_install() {
 	doins -r "${DATAS[@]}"
 	einstalldocs
 }
-

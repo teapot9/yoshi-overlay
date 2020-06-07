@@ -20,4 +20,3 @@ src_install() {
 	dobin pfetch
 	einstalldocs
 }
-

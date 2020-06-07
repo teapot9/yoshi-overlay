@@ -33,4 +33,3 @@ src_install() {
 	default
 	doheader -r stb
 }
-

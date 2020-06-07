@@ -30,4 +30,3 @@ src_install() {
 	emake INSTALL_ROOT="${ED}" install || die "emake install failed"
 	einstalldocs
 }
-

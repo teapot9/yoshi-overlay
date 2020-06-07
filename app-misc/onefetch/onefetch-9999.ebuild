@@ -22,4 +22,3 @@ src_unpack() {
 	git-r3_src_unpack
 	cargo_live_src_unpack
 }
-

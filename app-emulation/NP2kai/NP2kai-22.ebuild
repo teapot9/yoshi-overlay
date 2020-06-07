@@ -93,4 +93,3 @@ pkg_postinst() {
 		einfo "\tdbus-launch --exit-with-session xnp2kai"
 	fi
 }
-
