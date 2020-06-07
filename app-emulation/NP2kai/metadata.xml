@@ -11,5 +11,6 @@
 	<use>
 		<flag name="ia32">Build an i386 emulator rather than an i286 one</flag>
 		<flag name="libretro">Build as a libretro library</flag>
+		<flag name="sdl1">Build using SDL1 rather than SDL2</flag>
 	</use>
 </pkgmetadata>
