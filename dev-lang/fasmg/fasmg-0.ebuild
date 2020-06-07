@@ -1,0 +1,54 @@
+# Copyright 2020 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=7
+
+DESCRIPTION="flat assembler"
+HOMEPAGE="http://flatassembler.net/"
+SRC_URI="https://flatassembler.net/${PN}.zip"
+S="${WORKDIR}"
+
+LICENSE="all-rights-reserved"
+SLOT="0"
+KEYWORDS="~amd64"
+IUSE="+bootstrap +examples"
+
+RESTRICT="mirror"
+PROPERTIES="live"
+REQUIRED_USE="^^ ( amd64 x86 )"
+DEPEND=""
+RDEPEND="${DEPEND}"
+BDEPEND="|| ( dev-lang/fasmg-bin dev-lang/fasmg )"
+
+DOCS=("license.txt" "docs")
+DATAS=()
+DATA_DIR="/usr/share/${PN}"
+
+case "${ARCH}" in
+amd64) SOURCES="${S}/source/linux/x64" ;;
+x86) SOURCES="${S}/source/linux" ;;
+esac
+
+src_compile() {
+	cd "${SOURCES}"
+	fasmg "fasmg.asm" "fasmg" || die "fasmg failed"
+	if use bootstrap; then
+		chmod +x fasmg
+		./fasmg "fasmg.asm" "fasmg-final" || die "fasmg failed"
+		mv "fasmg-final" "fasmg" || die
+	fi
+}
+
+src_install() {
+	dobin "${SOURCES}/fasmg" || die
+
+	use examples && DATAS+=("examples")
+	# Remove binary files (they can be built with fasm)
+	find "${DATAS[@]}" -type f -executable -delete
+	find "${DATAS[@]}" -type f -name "*.o" -delete
+	# Install fasm data and docs
+	insinto "${DATA_DIR}"
+	doins -r "${DATAS[@]}"
+	einstalldocs
+}
+

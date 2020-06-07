@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<longdescription>
+		Flat assembler is a fast assembly language compiler for the x86 architecture
+		processors, which does multiple passes to optimize the size of generated
+		machine code.
+	</longdescription>
+	<use>
+		<flag name="bootstrap">Recompile the final fasm executable with itself</flag>
+	</use>
+</pkgmetadata>
