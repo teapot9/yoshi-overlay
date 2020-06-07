@@ -32,7 +32,7 @@ src_configure() {
 	if use X; then
 		cd ./x11
 		./autogen.sh
-		econf $(use_enable ia32)
+		econf --enable-ia32=$(usex ia32)
 	fi
 }
 
@@ -42,7 +42,7 @@ src_compile() {
 		emake || die "emake failed"
 	elif ! use libretro; then
 		cd ./sdl2
-		emake $(usex ia32 '-f Makefile.unix' '-f Makefile21.unix') || die "emake failed"
+		emake $(usex ia32 '-f Makefile21.unix' '-f Makefile.unix') || die "emake failed"
 	else
 		cd ./sdl2
 		emake || die "emake failed"
@@ -56,7 +56,7 @@ src_install() {
 	elif ! use libretro; then
 		cd ./sdl2
 		emake \
-			$(usex ia32 '-f Makefile.unix' '-f Makefile21.unix') \
+			$(usex ia32 '-f Makefile21.unix' '-f Makefile.unix') \
 			DESTDIR="${ED}" \
 			prefix="/usr" \
 			install || die "emake install failed"
