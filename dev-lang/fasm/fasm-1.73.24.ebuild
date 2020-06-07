@@ -8,7 +8,7 @@ HOMEPAGE="http://flatassembler.net/"
 SRC_URI="https://flatassembler.net/${P}.tgz"
 S="${WORKDIR}/${PN}"
 
-LICENSE="BSD-2"
+LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+bootstrap +examples"
@@ -31,13 +31,13 @@ src_compile() {
 	cd "${SOURCES}"
 	fasm "fasm.asm" "fasm" || die "fasm failed"
 	if use bootstrap; then
-		./fasm "fasm.asm" "fasm-final"
-		mv "fasm-final" "fasm"
+		./fasm "fasm.asm" "fasm-final" || die "fasm failed"
+		mv "fasm-final" "fasm" || die
 	fi
 }
 
 src_install() {
-	dobin "${SOURCES}/fasm"
+	dobin "${SOURCES}/fasm" || die
 
 	use examples && DATAS+=("examples")
 	# Remove binary files (they can be built with fasm)
