@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/nothings/${PN}.git"
 LICENSE="|| ( MIT Unlicense )"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="test"
 
 PROPERTIES="live"
 DEPEND=""
@@ -27,6 +27,11 @@ src_prepare() {
 	# Move the header files in a folder so they don't pollute the include dir
 	mkdir stb || die "move header failed"
 	mv *.h stb/ || die "move header failed"
+}
+
+src_test() {
+	cd tests
+	emake INCLUDES="-I../stb" || die "Tests failed"
 }
 
 src_install() {
