@@ -15,7 +15,13 @@ IUSE="X +ia32 libretro sdl1"
 
 REQUIRED_USE="libretro? ( !X ia32 !sdl1 )"
 DEPEND="
-	X? ( x11-libs/gtk+:2 virtual/libusb:1 )
+	X? (
+		x11-libs/gtk+:2
+		virtual/libusb:1
+		media-libs/libsdl
+		media-libs/libsdl2
+		media-libs/sdl2-ttf
+	)
 	!sdl1? (
 		media-libs/libsdl2
 		media-libs/sdl2-ttf
