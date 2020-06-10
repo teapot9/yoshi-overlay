@@ -88,7 +88,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	if use gnome; then
+	if best_version gnome-base/gnome; then
 		einfo "Gnome users: if you have slow dialogs, try starting NP2kai with:"
 		einfo "\tdbus-launch --exit-with-session xnp2kai"
 	fi
