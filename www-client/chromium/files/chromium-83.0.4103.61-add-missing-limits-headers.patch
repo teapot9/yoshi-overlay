@@ -1,0 +1,12 @@
+diff --git a/chrome/browser/performance_manager/graph/policies/background_tab_loading_policy_helpers.cc b/chrome/browser/performance_manager/graph/policies/background_tab_loading_policy_helpers.cc
+index 43aa602..12788e1 100644
+--- a/chrome/browser/performance_manager/graph/policies/background_tab_loading_policy_helpers.cc
++++ b/chrome/browser/performance_manager/graph/policies/background_tab_loading_policy_helpers.cc
+@@ -2,6 +2,7 @@
+ // Use of this source code is governed by a BSD-style license that can be
+ // found in the LICENSE file.
+ 
++#include <cmath>
+ #include <limits>
+ 
+ #include "chrome/browser/performance_manager/graph/policies/background_tab_loading_policy_helpers.h"
