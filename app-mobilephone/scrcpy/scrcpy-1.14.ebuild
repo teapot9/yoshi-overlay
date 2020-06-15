@@ -29,11 +29,12 @@ RDEPEND="${DEPEND}
 BDEPEND="
 	!bin-server? (
 		dev-util/android-studio
-		virtual/jdk
+		virtual/jdk:1.8
 	)
 "
 
 DOCS=("README.md" "FAQ.md" "DEVELOP.md")
+PATCHES=("${FILESDIR}/${P}-fix-build-without-gradle.patch")
 
 src_configure() {
 	local emesonargs=(
@@ -45,32 +46,36 @@ src_configure() {
 	meson_src_configure
 }
 
-src_compile() {
-	if ! use bin-server; then
-		# Search for build tools and platforms in
-		# $ANDROID_HOME/build-tools/$VERSION and in
-		# $ANDROID_HOME/platforms/android-$VERSION
-		# We test for some files (dx, aidl, android.jar)
-		# to make sure the directory is not a ghost
-		# from an uninstalled version
-		for k in $(ls -r "${ANDROID_HOME}/build-tools"); do
-			[ -x "${ANDROID_HOME}/build-tools/${k}/dx" ] \
-				&& [ -x "${ANDROID_HOME}/build-tools/${k}/aidl" ] \
-				&& ANDROID_BUILD_TOOLS="${k}" \
-				&& break
+src_compile_server() {
+	# Search for build tools and platforms in
+	# $ANDROID_HOME/build-tools/$VERSION and in
+	# $ANDROID_HOME/platforms/android-$VERSION
+	# We test for some files (dx, aidl, android.jar)
+	# to make sure the directory is not a ghost
+	# from an uninstalled version
+	if [ -z "${ANDROID_BUILD_TOOLS:+x}" ]; then
+		for k in "${ANDROID_HOME}"/build-tools/*; do
+			[ -x "${k}/dx" ] \
+				&& [ -x "${k}/aidl" ] \
+				&& ANDROID_BUILD_TOOLS="$(basename -- "${k}")"
 		done
-		for k in $(ls -r "${ANDROID_HOME}/platforms"); do
-			[ -f "${ANDROID_HOME}/platforms/${k}/android.jar" ] \
-				&& ANDROID_PLATFORM="${k##*android-}" \
-				&& break
-		done
-
-		# Build the server
-		ANDROID_PLATFORM="${ANDROID_PLATFORM:?}" \
-			ANDROID_BUILD_TOOLS="${ANDROID_BUILD_TOOLS:?}" \
-			BUILD_DIR="./server/build" \
-			./server/build_without_gradle.sh || die "build server failed"
 	fi
+	if [ -z "${ANDROID_PLATFORM:+x}" ]; then
+		for k in "${ANDROID_HOME}"/platforms/*; do
+			[ -f "${k}/android.jar" ] \
+				&& ANDROID_PLATFORM="${k##*android-}"
+		done
+	fi
+
+	# Build the server
+	ANDROID_PLATFORM="${ANDROID_PLATFORM:?}" \
+		ANDROID_BUILD_TOOLS="${ANDROID_BUILD_TOOLS:?}" \
+		BUILD_DIR="./server/build" \
+		./server/build_without_gradle.sh || die "build server failed"
+}
+
+src_compile() {
+	use bin-server || src_compile_server
 	meson_src_compile
 }
 

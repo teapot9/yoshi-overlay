@@ -3,16 +3,18 @@
 
 EAPI=7
 
+inherit git-r3
+
 DESCRIPTION="Tiny system info for Unix-like operating systems"
 HOMEPAGE="https://gitlab.com/jschx/ufetch"
-SRC_URI="https://gitlab.com/jschx/${PN}/-/archive/v${PV}/${PN}-v${PV}.tar.bz2"
-S="${WORKDIR}/${PN}-v${PV}"
+EGIT_REPO_URI="https://gitlab.com/jschx/${PN}.git"
 
 LICENSE="ISC"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
+PROPERTIES="live"
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""

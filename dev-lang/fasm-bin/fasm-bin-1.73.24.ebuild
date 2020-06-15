@@ -32,7 +32,7 @@ esac
 
 src_install() {
 	into "/opt"
-	newbin "${EXEC}" "fasm"
+	newbin "${EXEC}" "fasm" || die
 
 	use examples && DATAS+=("examples")
 	# Remove binary files (they can be built with fasm)

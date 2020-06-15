@@ -40,4 +40,3 @@ src_install() {
 	doman build/*.3G
 	einstalldocs
 }
-

@@ -3,18 +3,20 @@
 
 EAPI=7
 
-inherit git-r3 meson
+MY_P="${PN}-v${PV}"
+
+inherit meson
 
 DESCRIPTION="pscircle visualizes Linux processes in a form of radial tree"
 HOMEPAGE="https://gitlab.com/mildlyparallel/pscircle"
-EGIT_REPO_URI="https://gitlab.com/mildlyparallel/${PN}.git"
+SRC_URI="https://gitlab.com/mildlyparallel/${PN}/-/archive/v${PV}/${MY_P}.tar.bz2"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
-PROPERTIES="live"
 DEPEND="x11-libs/cairo"
 RDEPEND="${DEPEND}
 	media-libs/libpng

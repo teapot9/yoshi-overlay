@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/dpc/vim-smarttabs.git"
 SRC_URI=""
 
 LICENSE="all-rights-reserved"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 PROPERTIES="live"
 
@@ -20,4 +20,3 @@ VIM_PLUGIN_HELPFILES=""
 VIM_PLUGIN_HELPTEXT=""
 VIM_PLUGIN_HELPURI=""
 VIM_PLUGIN_MESSAGES=""
-

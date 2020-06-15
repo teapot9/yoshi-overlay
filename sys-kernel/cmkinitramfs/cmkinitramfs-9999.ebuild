@@ -35,4 +35,3 @@ python_install_all() {
 		mv "${ED}/usr/bin/${target}" "${ED}/usr/sbin/${target}" || die 'sbin script move failed'
 	done
 }
-

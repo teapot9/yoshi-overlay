@@ -8,9 +8,9 @@ HOMEPAGE="http://flatassembler.net/"
 SRC_URI="https://flatassembler.net/${P}.tgz"
 S="${WORKDIR}/${PN}"
 
-LICENSE="BSD-2"
+LICENSE="all-rights-reserved"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="+bootstrap +examples"
 
 REQUIRED_USE="^^ ( amd64 x86 )"
@@ -48,4 +48,3 @@ src_install() {
 	doins -r "${DATAS[@]}"
 	einstalldocs
 }
-

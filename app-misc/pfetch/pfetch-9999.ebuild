@@ -3,15 +3,18 @@
 
 EAPI=7
 
+inherit git-r3
+
 DESCRIPTION="A pretty system information tool written in POSIX sh."
 HOMEPAGE="https://github.com/dylanaraps/pfetch"
-SRC_URI="https://github.com/dylanaraps/${PN}/archive/${PV}.tar.gz"
+EGIT_REPO_URI="https://github.com/dylanaraps/${PN}.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
+PROPERTIES="live"
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""

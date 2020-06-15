@@ -11,5 +11,6 @@
 	</longdescription>
 	<use>
 		<flag name="bin-server">Use prebuilt binary Android server</flag>
+		<flag name="lto">Adds support for link time optimization</flag>
 	</use>
 </pkgmetadata>

@@ -12,5 +12,8 @@
 	</longdescription>
 	<use>
 		<flag name="models">Install models</flag>
+		<flag name="cuda">Use nvidia cuda toolkit for speeding up computations. NOTE: works only for subset of nvidia graphic cards so make sure your card is supported before opening a bug about it.</flag>
+		<flag name="executable">Build the executable</flag>
+		<flag name="opencv">Use media-libs/opencv</flag>
 	</use>
 </pkgmetadata>

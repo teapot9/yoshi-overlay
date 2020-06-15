@@ -3,15 +3,18 @@
 
 EAPI=7
 
+inherit git-r3
+
 DESCRIPTION="A feature rich cross platform Transmission BitTorrent client"
 HOMEPAGE="https://github.com/transmission-remote-gui/transgui"
-SRC_URI="https://github.com/transmission-remote-gui/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/transmission-remote-gui/${PN}.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
+PROPERTIES="live"
 DEPEND="
 	>=dev-lang/fpc-2.6.2
 	>=dev-lang/lazarus-1.6.0
