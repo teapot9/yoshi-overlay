@@ -1,0 +1,14 @@
+diff --git a/base/debug/stack_trace.cc b/base/debug/stack_trace.cc
+index b1ace2f..47ac337 100644
+--- a/base/debug/stack_trace.cc
++++ b/base/debug/stack_trace.cc
+@@ -225,7 +225,9 @@ void StackTrace::Print() const {
+ }
+ 
+ void StackTrace::OutputToStream(std::ostream* os) const {
++#if defined(__GLIBC__) && !defined(_AIX)
+   OutputToStreamWithPrefix(os, nullptr);
++#endif
+ }
+ 
+ std::string StackTrace::ToString() const {
