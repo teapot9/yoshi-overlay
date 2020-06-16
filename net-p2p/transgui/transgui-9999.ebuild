@@ -23,7 +23,11 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_configure() {
-	lazbuild -B "./transgui.lpi" || die "lazbuild failed"
+	lazbuild \
+		-B \
+		--lazarusdir="/usr/share/lazarus" \
+		--primary-config-path="${S}/lazarus" \
+		"./transgui.lpi" || die "lazbuild failed"
 }
 
 src_install() {
