@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="x11-libs/cairo"
+DEPEND="x11-libs/cairo[X]"
 RDEPEND="${DEPEND}
 	media-libs/libpng
 	x11-libs/libX11
