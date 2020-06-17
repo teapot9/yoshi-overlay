@@ -21,7 +21,7 @@ PROPERTIES="live"
 REQUIRED_USE="^^ ( amd64 x86 )"
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND=""
+BDEPEND="app-arch/unzip"
 
 DOCS=("license.txt" "docs")
 DATAS=()
