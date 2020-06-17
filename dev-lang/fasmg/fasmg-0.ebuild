@@ -18,7 +18,10 @@ PROPERTIES="live"
 REQUIRED_USE="^^ ( amd64 x86 )"
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND="|| ( dev-lang/fasmg-bin dev-lang/fasmg )"
+BDEPEND="
+	|| ( dev-lang/fasmg-bin dev-lang/fasmg )
+	app-arch/unzip
+"
 
 DOCS=("license.txt" "docs")
 DATAS=()
