@@ -17,6 +17,7 @@ IUSE=""
 PROPERTIES="live"
 DEPEND=""
 RDEPEND=""
+BDEPEND="elibc_musl? ( >=virtual/rust-1.44.0 )"
 
 src_unpack() {
 	git-r3_src_unpack
