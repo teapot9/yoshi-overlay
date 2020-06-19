@@ -46,6 +46,8 @@ RDEPEND="${COMMON_DEPEND}
 DOCS=( AUTHORS CHANGELOG HACKING NEWS README onboard-defaults.conf.example
 	onboard-default-settings.gschema.override.example )
 
+PATCHES=("${FILESDIR}/${P}-fix-musl.patch")
+
 pkg_preinst() {
 	gnome2_icon_savelist
 	gnome2_schemas_savelist
