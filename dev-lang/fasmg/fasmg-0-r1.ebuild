@@ -2,10 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+MY_PV="iym4"
+MY_P="${PN}-${MY_PV}"
 
 DESCRIPTION="flat assembler"
 HOMEPAGE="http://flatassembler.net/"
-SRC_URI="https://flatassembler.net/${PN}.zip"
+SRC_URI="https://flatassembler.net/${PN}.zip -> ${MY_P}.zip"
 S="${WORKDIR}"
 
 LICENSE="all-rights-reserved"
@@ -13,8 +15,6 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+bootstrap +examples"
 
-RESTRICT="mirror"
-PROPERTIES="live"
 REQUIRED_USE="^^ ( amd64 x86 )"
 DEPEND=""
 RDEPEND="${DEPEND}"
