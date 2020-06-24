@@ -17,8 +17,9 @@ SRC_URI="
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+lto bin-server"
+IUSE="+lto bin-server multilib"
 
+REQUIRED_USE="!bin-server? ( multilib )"
 DEPEND="
 	virtual/ffmpeg
 	media-libs/libsdl2
@@ -27,16 +28,51 @@ RDEPEND="${DEPEND}
 	dev-util/android-tools
 "
 BDEPEND="
-	!bin-server? (
-		dev-util/android-studio
-		virtual/jdk:1.8
-	)
+	!bin-server? ( virtual/jdk:1.8 )
 "
+
+if [ -z "${FORCE_MANUAL_SDK}" ]; then
+	BDEPEND="${BDEPEND}
+		!bin-server? ( multilib? ( dev-util/android-sdk-update-manager ) )"
+fi
 
 DOCS=("README.md" "FAQ.md" "DEVELOP.md")
 PATCHES=("${FILESDIR}/${P}-fix-build-without-gradle.patch")
 
+pkg_pretend() {
+	[ -n "${FORCE_MANUAL_SDK}" ] \
+		&& einfo "FORCE_MANUAL_SDK set: disabling dependency on" \
+		&& einfo "dev-util/android-sdk-update-manager" \
+		&& ewarn "Make sure ANDROID_HOME is set correctly"
+}
+
+find_sdk_tools() {
+	# Search for build tools and platforms in
+	# $ANDROID_HOME/build-tools/$VERSION and in
+	# $ANDROID_HOME/platforms/android-$VERSION
+
+	if [ -z "${ANDROID_BUILD_TOOLS}" ]; then
+		for k in "${ANDROID_HOME}"/build-tools/*; do
+			[ -e "${k}" ] && ANDROID_BUILD_TOOLS="$(basename -- "${k}")"
+		done
+	fi
+
+	if [ -z "${ANDROID_PLATFORM}" ]; then
+		for k in "${ANDROID_HOME}"/platforms/*; do
+			[ -e "${k}" ] && ANDROID_PLATFORM="${k##*android-}"
+		done
+	fi
+
+	# Check something has been found
+	[ -z "${ANDROID_BUILD_TOOLS}" ] && die "ANDROID_BUILD_TOOLS not found"
+	[ -z "${ANDROID_PLATFORM}" ] && die "ANDROID_PLATFORM not found"
+	export ANDROID_BUILD_TOOLS
+	export ANDROID_PLATFORM
+}
+
 src_configure() {
+	use bin-server || find_sdk_tools
+
 	local emesonargs=(
 		$(meson_use lto b_lto)
 		-Dprebuilt_server="$(
@@ -47,31 +83,9 @@ src_configure() {
 }
 
 src_compile_server() {
-	# Search for build tools and platforms in
-	# $ANDROID_HOME/build-tools/$VERSION and in
-	# $ANDROID_HOME/platforms/android-$VERSION
-	# We test for some files (dx, aidl, android.jar)
-	# to make sure the directory is not a ghost
-	# from an uninstalled version
-	if [ -z "${ANDROID_BUILD_TOOLS:+x}" ]; then
-		for k in "${ANDROID_HOME}"/build-tools/*; do
-			[ -x "${k}/dx" ] \
-				&& [ -x "${k}/aidl" ] \
-				&& ANDROID_BUILD_TOOLS="$(basename -- "${k}")"
-		done
-	fi
-	if [ -z "${ANDROID_PLATFORM:+x}" ]; then
-		for k in "${ANDROID_HOME}"/platforms/*; do
-			[ -f "${k}/android.jar" ] \
-				&& ANDROID_PLATFORM="${k##*android-}"
-		done
-	fi
-
-	# Build the server
-	ANDROID_PLATFORM="${ANDROID_PLATFORM:?}" \
-		ANDROID_BUILD_TOOLS="${ANDROID_BUILD_TOOLS:?}" \
-		BUILD_DIR="./server/build" \
-		./server/build_without_gradle.sh || die "build server failed"
+	BUILD_DIR="./server/build" \
+		./server/build_without_gradle.sh \
+		|| die "build server failed"
 }
 
 src_compile() {
