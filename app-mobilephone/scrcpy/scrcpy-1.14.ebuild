@@ -19,7 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+lto bin-server multilib"
 
-REQUIRED_USE="!bin-server? ( multilib )"
+REQUIRED_USE="amd64? ( !bin-server? ( multilib ) )"
 DEPEND="
 	virtual/ffmpeg
 	media-libs/libsdl2
