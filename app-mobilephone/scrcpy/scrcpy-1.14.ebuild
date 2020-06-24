@@ -31,9 +31,8 @@ BDEPEND="
 	!bin-server? ( virtual/jdk:1.8 )
 "
 
-if [ -z "${FORCE_MANUAL_SDK}" ]; then
-	BDEPEND="${BDEPEND}
-		!bin-server? ( multilib? ( dev-util/android-sdk-update-manager ) )"
+if [ "${FORCE_MANUAL_SDK}" != "yes" ]; then
+	BDEPEND+=" !bin-server? ( multilib? ( dev-util/android-sdk-update-manager ) )"
 fi
 
 DOCS=("README.md" "FAQ.md" "DEVELOP.md")
