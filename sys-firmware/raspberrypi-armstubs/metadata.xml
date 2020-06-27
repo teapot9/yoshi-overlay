@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<longdescription lang="en">
+		The stub is a small piece of ARM code that is run before the kernel.
+		Its job is to set up low-level hardware like the interrupt controller
+		before passing control to the kernel.
+	</longdescription>
+</pkgmetadata>
