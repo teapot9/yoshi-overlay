@@ -1,3 +1,7 @@
-# Masked for removal
+# Masked for removal (2020-06-04)
 # Prefer using app-vim/youcompleteme from thegreatmcpain overlay
 app-vim/youcompleteme
+
+# Masked for removal (2020-06-27)
+# Prefer using app-misc/pfetch from the GURU overlay
+app-misc/pfetch
