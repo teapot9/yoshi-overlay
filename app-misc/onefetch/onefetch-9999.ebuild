@@ -9,7 +9,7 @@ DESCRIPTION="Git repository summary on your terminal"
 HOMEPAGE="https://github.com/o2sh/onefetch"
 EGIT_REPO_URI="https://github.com/o2sh/${PN}.git"
 
-LICENSE="MIT"
+LICENSE="MIT Apache-2.0 BSD-2 CC0-1.0 ISC MPL-2.0 ZLIB BSD"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
