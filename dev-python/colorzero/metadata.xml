@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<longdescription lang="en">
+		colorzero is a color manipulation library for Python (yes, another one)
+		which aims to be reasonably simple to use and “pythonic” in nature.
+	</longdescription>
+</pkgmetadata>
