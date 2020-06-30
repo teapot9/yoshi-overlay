@@ -19,7 +19,12 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND=""
+BDEPEND="
+	test? (
+		dev-python/coverage
+		dev-python/mock
+	)
+"
 
 distutils_enable_sphinx docs
 distutils_enable_tests pytest
