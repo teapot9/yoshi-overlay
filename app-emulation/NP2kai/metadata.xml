@@ -5,9 +5,6 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
-	<longdescription>
-		Neko Project II 0.86 kai is a PC-9801 series emulator.
-	</longdescription>
 	<use>
 		<flag name="ia32">Build an i386 emulator rather than an i286 one</flag>
 		<flag name="libretro">Build as a libretro library</flag>
