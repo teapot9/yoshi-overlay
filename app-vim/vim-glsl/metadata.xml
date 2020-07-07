@@ -5,7 +5,4 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
-	<longdescription lang="en">
-		Vim syntax highlighting for OpenGL Shading Language.
-	</longdescription>
 </pkgmetadata>
