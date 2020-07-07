@@ -5,10 +5,6 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
-	<longdescription lang="en">
-		Man-pages created by hands following online API document at
-		https://wiki.libsdl.org/CategoryAPI.
-	</longdescription>
 	<use>
 		<flag name="sdl1">Enable compatibility with SDL1 man pages</flag>
 	</use>
