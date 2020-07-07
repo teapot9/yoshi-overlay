@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="test"
 
-PROPERTIES="live"
+RESTRICT="!test? ( test )"
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
