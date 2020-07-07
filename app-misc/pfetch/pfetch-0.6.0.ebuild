@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="A pretty system information tool written in POSIX sh."
 HOMEPAGE="https://github.com/dylanaraps/pfetch"
-SRC_URI="https://github.com/dylanaraps/${PN}/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/dylanaraps/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
