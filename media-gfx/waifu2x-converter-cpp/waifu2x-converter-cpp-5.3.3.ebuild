@@ -14,6 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+executable +opencv cuda unicode +models debug test cpu_flags_x86_avx"
 
+RESTRICT="!test? ( test )"
 DEPEND="
 	virtual/opencl
 	>=media-libs/opencv-3
