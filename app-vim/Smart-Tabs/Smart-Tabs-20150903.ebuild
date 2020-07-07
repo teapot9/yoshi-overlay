@@ -3,14 +3,15 @@
 
 EAPI=7
 
+MY_PN="vim-smarttabs"
+MY_COMMIT="9de63c059219d885dfbc7192b1248e1bac62bdb5"
 #VIM_PLUGIN_VIM_VERSION="7.0"
-inherit git-r3 vim-plugin
+inherit vim-plugin
 
 DESCRIPTION="vim plugin: Use tabs for indent, spaces for alignment"
-HOMEPAGE="https://github.com/dpc/vim-smarttabs"
-EGIT_REPO_URI="https://github.com/dpc/vim-smarttabs.git"
-EGIT_COMMIT="9de63c059219d885dfbc7192b1248e1bac62bdb5"
-SRC_URI=""
+HOMEPAGE="http://www.vim.org/scripts/script.php?script_id=231"
+SRC_URI="https://github.com/dpc/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${MY_PN}-${MY_COMMIT}"
 
 LICENSE="all-rights-reserved"
 KEYWORDS="~amd64"
