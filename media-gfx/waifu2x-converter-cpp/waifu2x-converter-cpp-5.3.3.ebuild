@@ -3,7 +3,9 @@
 
 EAPI=7
 
-inherit cmake-utils
+# Fix test error: models_rgb/noise0_model.json not found
+CMAKE_IN_SOURCE_BUILD=1
+inherit cmake
 
 DESCRIPTION="Improved fork of Waifu2X C++ using OpenCL and OpenCV"
 HOMEPAGE="https://github.com/DeadSix27/waifu2x-converter-cpp"
@@ -15,6 +17,7 @@ KEYWORDS="~amd64"
 IUSE="+executable +opencv cuda unicode +models debug test cpu_flags_x86_avx"
 
 RESTRICT="!test? ( test )"
+REQUIRED_USE="executable? ( opencv models )"
 DEPEND="
 	virtual/opencl
 	>=media-libs/opencv-3
@@ -25,8 +28,6 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	>=sys-devel/gcc-5
 "
-
-REQUIRED_USE="executable ( opencv models )"
 
 src_configure() {
 	local mycmakeargs=(
@@ -40,7 +41,7 @@ src_configure() {
 		-DENABLE_TESTS=$(usex test)
 	)
 
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 pkg_postinst() {
