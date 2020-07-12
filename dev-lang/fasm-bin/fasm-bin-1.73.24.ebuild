@@ -11,7 +11,7 @@ HOMEPAGE="http://flatassembler.net/"
 SRC_URI="https://flatassembler.net/${MY_P}.tgz"
 S="${WORKDIR}/${MY_PN}"
 
-LICENSE="all-rights-reserved"
+LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+examples"
