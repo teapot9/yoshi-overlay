@@ -14,7 +14,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-PROPERTIES="live"
 DEPEND=""
 RDEPEND=""
 BDEPEND="elibc_musl? ( >=virtual/rust-1.44.0 )"

@@ -14,7 +14,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-PROPERTIES="live"
 DEPEND="x11-libs/cairo[X]"
 RDEPEND="${DEPEND}
 	media-libs/libpng

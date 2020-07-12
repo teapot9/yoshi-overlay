@@ -14,7 +14,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE="+sdl1"
 
-PROPERTIES="live"
 DEPEND="!sdl1? ( !media-libs/libsdl )"
 RDEPEND="${DEPEND}"
 BDEPEND=""

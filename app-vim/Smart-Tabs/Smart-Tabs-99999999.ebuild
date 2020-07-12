@@ -14,7 +14,6 @@ SRC_URI=""
 LICENSE="all-rights-reserved"
 KEYWORDS=""
 IUSE=""
-PROPERTIES="live"
 
 VIM_PLUGIN_HELPFILES=""
 VIM_PLUGIN_HELPTEXT=""

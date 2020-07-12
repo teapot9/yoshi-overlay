@@ -14,7 +14,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-PROPERTIES="live"
 DEPEND="
 	>=dev-lang/fpc-2.6.2
 	>=dev-lang/lazarus-1.6.0

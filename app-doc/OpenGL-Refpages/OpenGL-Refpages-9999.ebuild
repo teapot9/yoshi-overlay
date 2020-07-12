@@ -15,7 +15,6 @@ KEYWORDS=""
 IUSE="+gl +es"
 
 REQUIRED_USE="|| ( gl es )"
-PROPERTIES="live"
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND="
