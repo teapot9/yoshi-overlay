@@ -1,4 +1,8 @@
 # Masked for removal (2020-07-12)
+# Unneeded package, nothing builds on fasm in this overlay
+virtual/fasm
+
+# Masked for removal (2020-07-12)
 # Updated in ::gentoo, live package not needed anymore
 dev-libs/stb
 
