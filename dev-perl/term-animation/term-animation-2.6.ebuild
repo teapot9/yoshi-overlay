@@ -4,6 +4,7 @@
 EAPI=7
 
 DIST_AUTHOR="KBAUCOM"
+DIST_NAME="Term-Animation"
 inherit perl-module
 
 DESCRIPTION="ASCII sprite animation framework"

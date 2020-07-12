@@ -16,7 +16,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	dev-perl/Term-Animation
+	dev-perl/term-animation
 "
 BDEPEND=""
 
