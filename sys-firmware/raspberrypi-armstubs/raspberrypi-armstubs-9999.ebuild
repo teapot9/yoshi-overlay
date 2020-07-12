@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/raspberrypi/tools"
 EGIT_REPO_URI="https://github.com/raspberrypi/tools.git"
 S="${WORKDIR}/${P}/armstubs"
 
-LICENSE="all-rights-reserved"
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
 IUSE="cpu_flags_arm_v8 cpu_flags_arm_v7"
