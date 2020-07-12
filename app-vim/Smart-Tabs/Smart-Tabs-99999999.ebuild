@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/dpc/vim-smarttabs"
 EGIT_REPO_URI="https://github.com/dpc/vim-smarttabs.git"
 SRC_URI=""
 
-LICENSE="all-rights-reserved"
+LICENSE="vim.org"
 KEYWORDS=""
 IUSE=""
 

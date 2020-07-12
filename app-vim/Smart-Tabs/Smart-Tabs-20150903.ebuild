@@ -13,7 +13,7 @@ HOMEPAGE="http://www.vim.org/scripts/script.php?script_id=231"
 SRC_URI="https://github.com/dpc/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${MY_PN}-${MY_COMMIT}"
 
-LICENSE="all-rights-reserved"
+LICENSE="vim.org"
 KEYWORDS="~amd64"
 IUSE=""
 
