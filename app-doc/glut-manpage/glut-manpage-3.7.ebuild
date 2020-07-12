@@ -11,7 +11,7 @@ HOMEPAGE="https://www.opengl.org/resources/libraries/glut/"
 SRC_URI="https://www.opengl.org/resources/libraries/${MY_PN}/${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
-LICENSE="GLUT"
+LICENSE="glut"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+glut +gle"
