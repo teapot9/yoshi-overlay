@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+MY_PN="NP2kai"
 
 DESCRIPTION="Neko Project II kai is a PC-9801 series emulator"
 HOMEPAGE="https://github.com/AZO234/NP2kai"
-SRC_URI="https://github.com/AZO234/${PN}/archive/rev.${PV}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/${PN}-rev.${PV}"
+SRC_URI="https://github.com/AZO234/${MY_PN}/archive/rev.${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${MY_PN}-rev.${PV}"
 
 LICENSE="MIT"
 SLOT="0"
