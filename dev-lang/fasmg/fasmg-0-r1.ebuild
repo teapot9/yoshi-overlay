@@ -10,7 +10,7 @@ HOMEPAGE="http://flatassembler.net/"
 SRC_URI="https://flatassembler.net/${PN}.zip -> ${MY_P}.zip"
 S="${WORKDIR}"
 
-LICENSE="all-rights-reserved"
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+bootstrap +examples"
