@@ -1,3 +1,7 @@
+# Masked for removal (2020-07-13)
+# Prefer using app-misc/ufetch from the GURU overlay
+app-misc/ufetch
+
 # Masked for removal (2020-07-12)
 # Unneeded package, nothing builds on fasm in this overlay
 virtual/fasm
