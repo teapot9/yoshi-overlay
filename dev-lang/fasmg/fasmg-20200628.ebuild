@@ -3,11 +3,10 @@
 
 EAPI=7
 MY_PV="iym4"
-MY_P="${PN}-${MY_PV}"
 
 DESCRIPTION="flat assembler"
 HOMEPAGE="http://flatassembler.net/"
-SRC_URI="https://flatassembler.net/${PN}.zip -> ${MY_P}.zip"
+SRC_URI="https://flatassembler.net/${PN}.zip -> ${P}.zip"
 S="${WORKDIR}"
 
 LICENSE="BSD"
