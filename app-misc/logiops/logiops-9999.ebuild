@@ -8,6 +8,7 @@ inherit git-r3 cmake systemd
 DESCRIPTION="An unofficial userspace driver for HID++ Logitech devices"
 HOMEPAGE="https://github.com/PixlOne/logiops"
 EGIT_REPO_URI="https://github.com/PixlOne/logiops.git"
+EGIT_SUBMODULES=(* -hidpp)
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -15,6 +16,7 @@ KEYWORDS=""
 IUSE="systemd"
 
 DEPEND="
+	app-misc/hidpp-pixlone
 	dev-libs/libevdev
 	virtual/libudev
 	dev-libs/libconfig[cxx]
@@ -22,13 +24,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
-src_prepare() {
-	# Fix libdir
-	sed -i \
-		"s|LIBRARY DESTINATION lib|LIBRARY DESTINATION $(get_libdir)|g" \
-		src/logid/hidpp/src/libhidpp/CMakeLists.txt
-	cmake_src_prepare
-}
+DOCS=("README.md" "TESTED.md" "logid.example.cfg")
 
 src_configure() {
 	local mycmakeargs=(
