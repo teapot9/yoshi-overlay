@@ -21,6 +21,7 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
+QA_PREBUILT="/opt/bin/.*"
 DOCS=("fasm.txt" "license.txt" "whatsnew.txt")
 DATAS=("tools")
 DATA_DIR="/opt/${MY_PN}"
