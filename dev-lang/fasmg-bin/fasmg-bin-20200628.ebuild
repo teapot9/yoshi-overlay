@@ -21,6 +21,7 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND="app-arch/unzip"
 
+QA_PREBUILT="/opt/bin/.*"
 DOCS=("license.txt" "docs")
 DATAS=()
 DATA_DIR="/opt/${MY_PN}"
