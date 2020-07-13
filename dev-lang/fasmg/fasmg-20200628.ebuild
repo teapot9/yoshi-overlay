@@ -22,6 +22,7 @@ BDEPEND="
 	app-arch/unzip
 "
 
+QA_PRESTRIPPED="/usr/bin/fasmg"
 DOCS=("license.txt" "docs")
 DATAS=()
 DATA_DIR="/usr/share/${PN}"
