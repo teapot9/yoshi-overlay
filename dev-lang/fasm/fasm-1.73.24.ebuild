@@ -18,6 +18,7 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND="|| ( dev-lang/fasm-bin dev-lang/fasm )"
 
+QA_PRESTRIPPED="/usr/bin/fasm"
 DOCS=("fasm.txt" "license.txt" "whatsnew.txt")
 DATAS=("tools")
 DATA_DIR="/usr/share/${PN}"
