@@ -5,11 +5,10 @@ EAPI=7
 
 MY_PV="iym4"
 MY_PN="fasmg"
-MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="flat assembler"
 HOMEPAGE="http://flatassembler.net/"
-SRC_URI="https://flatassembler.net/${MY_PN}.zip -> ${MY_P}.zip"
+SRC_URI="https://flatassembler.net/${MY_PN}.zip -> ${P}.zip"
 S="${WORKDIR}"
 
 LICENSE="BSD"
