@@ -2,19 +2,21 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-MY_PV="iym4"
 
 DESCRIPTION="flat assembler"
 HOMEPAGE="http://flatassembler.net/"
-SRC_URI="https://flatassembler.net/${PN}.zip -> ${P}.zip"
+MY_FILENAME="${PN}.zip"
+MY_SRC_URI="https://flatassembler.net/${PN}.zip"
 S="${WORKDIR}"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="+bootstrap +examples"
 
 REQUIRED_USE="^^ ( amd64 x86 )"
+RESTRICT="network-sandbox"
+PROPERTIES="live"
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND="
@@ -25,12 +27,20 @@ BDEPEND="
 QA_PRESTRIPPED="/usr/bin/fasmg"
 DOCS=("license.txt" "docs")
 DATAS=()
-DATA_DIR="/usr/share/${PN}"
 
 case "${ARCH}" in
 amd64) SOURCES="${S}/source/linux/x64" ;;
 x86) SOURCES="${S}/source/linux" ;;
 esac
+
+pkg_pretend(){
+	ewarn "This package will download its files without checking their integrity."
+}
+
+src_unpack() {
+	wget "${MY_SRC_URI}" -O "${WORKDIR}/${MY_FILENAME}"
+	unpack "${WORKDIR}/${MY_FILENAME}"
+}
 
 src_compile() {
 	cd "${SOURCES}"
@@ -50,7 +60,7 @@ src_install() {
 	find "${DATAS[@]}" -type f -executable -delete
 	find "${DATAS[@]}" -type f -name "*.o" -delete
 	# Install fasm data and docs
-	insinto "${DATA_DIR}"
+	insinto "/usr/share/${PN}"
 	doins -r "${DATAS[@]}"
 	einstalldocs
 }
