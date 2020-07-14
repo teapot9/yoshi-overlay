@@ -2,21 +2,22 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-
-MY_PV="iym4"
 MY_PN="fasmg"
 
 DESCRIPTION="flat assembler"
 HOMEPAGE="http://flatassembler.net/"
-SRC_URI="https://flatassembler.net/${MY_PN}.zip -> ${P}.zip"
+MY_FILENAME="${MY_PN}.zip"
+MY_SRC_URI="https://flatassembler.net/${MY_PN}.zip"
 S="${WORKDIR}"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="+examples"
 
 REQUIRED_USE="^^ ( amd64 x86 )"
+RESTRICT="network-sandbox"
+PROPERTIES="live"
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND="app-arch/unzip"
@@ -24,12 +25,20 @@ BDEPEND="app-arch/unzip"
 QA_PREBUILT="/opt/bin/.*"
 DOCS=("license.txt" "docs")
 DATAS=()
-DATA_DIR="/opt/${MY_PN}"
 
 case "${ARCH}" in
 amd64) EXEC="${S}/fasmg.x64" ;;
 x86) EXEC="${S}/fasmg" ;;
 esac
+
+pkg_pretend(){
+	ewarn "This package will download its files without checking their integrity."
+}
+
+src_unpack() {
+	wget "${MY_SRC_URI}" -O "${WORKDIR}/${MY_FILENAME}"
+	unpack "${WORKDIR}/${MY_FILENAME}"
+}
 
 src_install() {
 	into "/opt"
@@ -40,7 +49,7 @@ src_install() {
 	find "${DATAS[@]}" -type f -executable -delete
 	find "${DATAS[@]}" -type f -name "*.o" -delete
 	# Install fasm data and docs
-	insinto "${DATA_DIR}"
+	insinto "/opt/${MY_PN}"
 	doins -r "${DATAS[@]}"
 	einstalldocs
 }
