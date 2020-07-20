@@ -11,6 +11,7 @@
 		machine code.
 	</longdescription>
 	<use>
-		<flag name="bootstrap">Recompile the final fasm executable with itself</flag>
+		<flag name="headers">Install fasm include sets</flag>
+		<flag name="tools">Install additionnal developpement tools</flag>
 	</use>
 </pkgmetadata>
