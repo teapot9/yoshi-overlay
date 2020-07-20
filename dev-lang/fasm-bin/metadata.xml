@@ -10,4 +10,8 @@
 		processors, which does multiple passes to optimize the size of generated
 		machine code.
 	</longdescription>
+	<use>
+		<flag name="headers">Install fasm include sets</flag>
+		<flag name="tools">Install additionnal developpement tools</flag>
+	</use>
 </pkgmetadata>
