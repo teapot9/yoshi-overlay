@@ -12,7 +12,4 @@
 		packages and in the same way it can be adapted to assemble for different
 		architectures and purposes.
 	</longdescription>
-	<use>
-		<flag name="bootstrap">Recompile the final fasmg executable with itself</flag>
-	</use>
 </pkgmetadata>
