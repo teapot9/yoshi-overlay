@@ -182,7 +182,7 @@ SRC_URI="$(cargo_crate_uris ${CRATES})"
 RESTRICT="mirror"
 LICENSE="MIT Apache-2.0 BSD-2 CC0-1.0 ISC MPL-2.0 ZLIB BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
