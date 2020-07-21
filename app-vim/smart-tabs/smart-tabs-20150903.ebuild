@@ -14,7 +14,7 @@ SRC_URI="https://github.com/dpc/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar
 S="${WORKDIR}/${MY_PN}-${MY_COMMIT}"
 
 LICENSE="vim.org"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 VIM_PLUGIN_HELPFILES=""
