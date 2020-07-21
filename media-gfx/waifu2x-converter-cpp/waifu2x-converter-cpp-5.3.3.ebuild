@@ -13,7 +13,7 @@ SRC_URI="https://github.com/DeadSix27/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
 
 LICENSE="MIT BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="+executable +opencv cuda unicode +models debug test cpu_flags_x86_avx"
 
 RESTRICT="!test? ( test )"
@@ -27,6 +27,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 BDEPEND="
 	>=sys-devel/gcc-5
+	test? ( opencv? ( media-libs/opencv[png] ) )
 "
 
 src_configure() {
