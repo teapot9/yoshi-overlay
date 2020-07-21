@@ -16,7 +16,7 @@ S="${WORKDIR}/${MY_PN}"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="+examples +headers +tools"
 
 DEPEND=""
@@ -59,6 +59,6 @@ src_install() {
 	find "${DATAS[@]}" -type f \( -name "*.o" -o -executable \) -delete
 	# Install fasm data and docs
 	insinto "/opt/${MY_PN}"
-	doins -r "${DATAS[@]}"
+	[ "${#DATAS[@]}" -ne 0 ] && doins -r "${DATAS[@]}"
 	einstalldocs
 }
