@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python2_7 python3_{6,7,8} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 inherit distutils-r1
 
@@ -13,20 +13,14 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~arm64"
+KEYWORDS="~arm64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND="
-	${DEPEND}
+RDEPEND="${DEPEND}
 	dev-python/colorzero
 "
-BDEPEND="
-	test? (
-		dev-python/coverage
-		dev-python/mock
-	)
-"
+BDEPEND="test? ( dev-python/mock )"
 
 distutils_enable_sphinx docs
 distutils_enable_tests pytest
