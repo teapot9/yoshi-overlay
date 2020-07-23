@@ -12,14 +12,18 @@ inherit distutils-r1
 
 DESCRIPTION="A Python module to control the GPIO on a Raspberry Pi"
 HOMEPAGE="https://sourceforge.net/projects/raspberry-gpio-python/"
-SRC_URI="https://sourceforge.net/projects/raspberry-gpio-python/files/${MY_P}.tar.gz/download -> ${P}.tar.gz"
+SRC_URI="https://sourceforge.net/projects/raspberry-gpio-python/files/${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~arm64"
 IUSE=""
+# fail because don't detect rpi properly
+RESTRICT="test"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
+
+distutils_enable_tests unittest
