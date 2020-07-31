@@ -3,12 +3,10 @@
 
 EAPI=7
 
-MY_COMMIT="8bdb7d441a36a5a9f64b853317a66f9d4a82f08f"
-
 DESCRIPTION="Enjoy the mysteries of the sea from the safety of your own terminal!"
 HOMEPAGE="https://robobunny.com/projects/asciiquarium/html/"
-SRC_URI="https://github.com/cmatsuoka/${PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/${PN}-${MY_COMMIT}"
+SRC_URI="https://robobunny.com/projects/${PN}/${P//-/_}.tar.gz"
+S="${WORKDIR}/${P//-/_}"
 
 LICENSE="GPL-2+"
 SLOT="0"
