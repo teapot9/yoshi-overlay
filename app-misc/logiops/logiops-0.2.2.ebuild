@@ -12,7 +12,7 @@ SRC_URI="https://github.com/PixlOne/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="systemd"
+IUSE=""
 
 DEPEND="
 	dev-libs/libevdev
@@ -23,13 +23,6 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 DOCS=("README.md" "TESTED.md" "logid.example.cfg")
-
-src_configure() {
-	use systemd && mycmakeargs+=(
-		-DSYSTEMD_SERVICES_INSTALL_DIR="$(systemd_get_systemunitdir)"
-	)
-	cmake_src_configure
-}
 
 src_install() {
 	cmake_src_install
