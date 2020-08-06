@@ -3,11 +3,11 @@
 
 EAPI=7
 
-MY_COMMIT="683b16a3c0ac647b3ec6c861238c03067261612c"
+MY_COMMIT="bd9688d1a710157550c9fadd18c56954849efa38"
 MY_P="${PN}-${MY_COMMIT}"
 
 DESCRIPTION="flat assembler"
-HOMEPAGE="http://flatassembler.net/"
+HOMEPAGE="http://flatassembler.net/ https://github.com/tgrysztar/fasmg"
 SRC_URI="https://github.com/tgrysztar/${PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
