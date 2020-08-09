@@ -17,7 +17,7 @@ SRC_URI="
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+lto bin-server multilib"
+IUSE="bin-server +lto multilib"
 
 REQUIRED_USE="amd64? ( !bin-server? ( multilib ) )"
 DEPEND="
@@ -28,22 +28,13 @@ RDEPEND="${DEPEND}
 	dev-util/android-tools
 "
 BDEPEND="
-	!bin-server? ( virtual/jdk:1.8 )
+	!bin-server? (
+	virtual/jdk:1.8
+	multilib? ( dev-util/android-sdk-update-manager )
+	)
 "
 
-if [ "${FORCE_MANUAL_SDK}" != "yes" ]; then
-	BDEPEND+=" !bin-server? ( multilib? ( dev-util/android-sdk-update-manager ) )"
-fi
-
 DOCS=("README.md" "FAQ.md" "DEVELOP.md")
-PATCHES=("${FILESDIR}/${P}-fix-build-without-gradle.patch")
-
-pkg_pretend() {
-	[ -n "${FORCE_MANUAL_SDK}" ] \
-		&& einfo "FORCE_MANUAL_SDK set: disabling dependency on" \
-		&& einfo "dev-util/android-sdk-update-manager" \
-		&& ewarn "Make sure ANDROID_HOME is set correctly"
-}
 
 find_sdk_tools() {
 	# Search for build tools and platforms in
