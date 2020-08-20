@@ -1,3 +1,0 @@
-# Masked for removal (2020-07-16)
-# Not needed anymore (only revdep was app-misc/logiops)
-app-misc/hidpp-pixlone
