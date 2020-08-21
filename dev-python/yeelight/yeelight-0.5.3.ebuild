@@ -16,7 +16,6 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
-	$(python_gen_cond_dep 'dev-python/enum34[${PYTHON_USEDEP}]' python2_7)
 	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/ifaddr
 "
