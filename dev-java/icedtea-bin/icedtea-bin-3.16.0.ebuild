@@ -6,7 +6,7 @@ EAPI=6
 inherit java-vm-2 toolchain-funcs multilib-build
 
 ALPINE_PN="openjdk8"
-ALPINE_PV="8.242.08-r2"
+ALPINE_PV="8.252.09-r1"
 ALPINE_P="java-1.8-openjdk"
 ALPINE_PATH="usr/lib/jvm/${ALPINE_P}"
 S="${WORKDIR}"
