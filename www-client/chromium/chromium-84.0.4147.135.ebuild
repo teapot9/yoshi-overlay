@@ -222,6 +222,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-83.0.4103.61-musl-libsync-fix-cdefs.patch"
 	"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad-fix-cdefs.patch"
 	"${FILESDIR}/${PN}-83.0.4103.61-musl-fix-output-to-stream.patch"
+	"${FILESDIR}/${PN}-84.0.4147.135-arm64-fix-vmull_p64.patch"
 )
 
 pre_build_checks() {
