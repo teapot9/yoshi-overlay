@@ -22,8 +22,6 @@ DEPEND="
 RDEPEND="${DEPEND}"
 BDEPEND="test? ( dev-libs/criterion )"
 
-PATCHES=( "${FILESDIR}/${P}-fix-tests.patch" )
-
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_TESTING=$(usex test)
