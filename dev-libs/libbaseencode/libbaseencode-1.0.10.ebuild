@@ -17,7 +17,7 @@ RESTRICT="!test? ( test )"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND=""
+BDEPEND="test? ( dev-libs/criterion )"
 
 src_configure() {
 	local mycmakeargs=(
