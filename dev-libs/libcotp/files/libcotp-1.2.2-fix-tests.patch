@@ -1,0 +1,39 @@
+From 3bddbde57349c1686d88e52f9d064dbcf1e7d1ad Mon Sep 17 00:00:00 2001
+From: Louis Leseur <51127370+lleseur@users.noreply.github.com>
+Date: Wed, 23 Sep 2020 15:11:18 +0200
+Subject: [PATCH] Do not require installation to run tests (#29)
+
+Closes: #28
+---
+ tests/CMakeLists.txt | 2 ++
+ tests/test_otp.c     | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index cf88dc2..6890289 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -3,6 +3,8 @@ IF(BUILD_TESTING)
+     add_executable (test_cotp test_otp.c)
+ 
+     target_link_libraries (test_cotp -lcotp -lcriterion -lbaseencode -lgcrypt)
++    target_link_directories (test_cotp PRIVATE ${PROJECT_BINARY_DIR})
++    add_dependencies (test_cotp cotp)
+ 
+     add_test (NAME TestCOTP COMMAND test_cotp)
+ ENDIF(BUILD_TESTING)
+diff --git a/tests/test_otp.c b/tests/test_otp.c
+index 63e78e5..af35bc5 100644
+--- a/tests/test_otp.c
++++ b/tests/test_otp.c
+@@ -1,6 +1,6 @@
+ #include <criterion/criterion.h>
+ #include <string.h>
+-#include <cotp.h>
++#include "../src/cotp.h"
+ #include <baseencode.h>
+ 
+ 
+-- 
+2.26.2
+
