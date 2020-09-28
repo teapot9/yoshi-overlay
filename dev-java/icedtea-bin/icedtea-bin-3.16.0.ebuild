@@ -40,11 +40,10 @@ SRC_URI="
 LICENSE="GPL-2-with-classpath-exception"
 SLOT="8"
 KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc64 ~s390 ~x86"
-IUSE="big-endian elibc_musl cups +gtk nsplugin pulseaudio selinux webstart debug examples alsa headless-awt"
+IUSE="big-endian elibc_musl cups +gtk pulseaudio selinux debug examples alsa headless-awt"
 
 REQUIRED_USE="
 	gtk? ( !headless-awt )
-	nsplugin? ( !headless-awt )
 	ppc64? ( !big-endian )
 	elibc_musl
 "
@@ -83,8 +82,6 @@ DEPEND="
 	)
 "
 PDEPEND="
-	webstart? ( >=dev-java/icedtea-web-1.6.1:0 )
-	nsplugin? ( >=dev-java/icedtea-web-1.6.1:0[nsplugin] )
 	pulseaudio? ( dev-java/icedtea-sound )
 "
 
