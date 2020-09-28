@@ -22,5 +22,9 @@ DEPEND="
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
-distutils_enable_tests setup.py
+distutils_enable_tests pytest
 distutils_enable_sphinx docs/source dev-python/sphinx_rtd_theme
+
+python_test() {
+	pytest -vv yeelight/tests.py || die "Tests fail with ${EPYTHON}"
+}
