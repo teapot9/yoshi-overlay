@@ -1,0 +1,3 @@
+# Masked for removal (2020-09-28)
+# Available in ::gentoo
+dev-python/pycryptodomex
