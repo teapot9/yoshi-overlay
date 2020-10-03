@@ -21,14 +21,15 @@ SRC_URI="https://commondatastorage.googleapis.com/chromium-browser-official/${P}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
-IUSE="component-build cups cpu_flags_arm_neon +hangouts headless +js-type-check kerberos ozone pic +proprietary-codecs pulseaudio selinux +suid +system-ffmpeg +system-icu +system-libvpx +tcmalloc wayland widevine"
+IUSE="component-build cups cpu_flags_arm_neon +hangouts headless +js-type-check kerberos ozone ozone-wayland pic +proprietary-codecs pulseaudio selinux +suid +system-ffmpeg +system-icu +system-libvpx +tcmalloc widevine"
 RESTRICT="!system-ffmpeg? ( proprietary-codecs? ( bindist ) )"
 # tcmalloc and musl: as far as I know, musl doesn't supports malloc
 # interposition, so tcmalloc cannot compile with musl.
 # component-build and musl: could not compile with it.
 REQUIRED_USE="
 	component-build? ( !suid )
-	wayland? ( ozone )
+	headless? ( ozone )
+	ozone-wayland? ( ozone )
 	elibc_musl? ( !tcmalloc !component-build )
 "
 
@@ -85,10 +86,11 @@ COMMON_DEPEND="
 	ozone? (
 		!headless? (
 			${COMMON_X_DEPEND}
-			x11-libs/gtk+:3[wayland?,X]
-			wayland? (
+			x11-libs/gtk+:3[X]
+			ozone-wayland? (
 				dev-libs/wayland:=
 				dev-libs/libffi:=
+				x11-libs/gtk+:3[wayland,X]
 				x11-libs/libdrm:=
 				x11-libs/libxkbcommon:=
 			)
@@ -493,7 +495,7 @@ src_prepare() {
 	if use tcmalloc; then
 		keeplibs+=( third_party/tcmalloc )
 	fi
-	if use ozone && use wayland && ! use headless ; then
+	if use ozone && use ozone-wayland && ! use headless ; then
 		keeplibs+=( third_party/wayland )
 	fi
 	if [[ ${CHROMIUM_FORCE_LIBCXX} == yes ]]; then
@@ -741,10 +743,10 @@ src_configure() {
 		myconf_gn+=" ozone_platform_headless=true"
 		if ! use headless; then
 			myconf_gn+=" use_system_libdrm=true"
-			myconf_gn+=" ozone_platform_wayland=$(usex wayland true false)"
+			myconf_gn+=" ozone_platform_wayland=$(usex ozone-wayland true false)"
 			myconf_gn+=" ozone_platform_x11=true"
 			myconf_gn+=" ozone_platform_headless=true"
-			if use wayland; then
+			if use ozone-wayland; then
 				myconf_gn+=" use_system_minigbm=true use_xkbcommon=true"
 				myconf_gn+=" ozone_platform=\"wayland\""
 			else
@@ -820,7 +822,7 @@ src_install() {
 	doexe out/Release/chromedriver
 
 	ozone_auto_session () {
-		use ozone && use wayland && ! use headless && echo true || echo false
+		use ozone && use ozone-wayland && ! use headless && echo true || echo false
 	}
 	local sedargs=( -e
 			"s:/usr/lib/:/usr/$(get_libdir)/:g;
