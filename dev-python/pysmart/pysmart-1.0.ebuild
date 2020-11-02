@@ -5,7 +5,7 @@ EAPI=7
 MY_PN="pySMART"
 MY_P="${MY_PN}-${PV}"
 
-PYTHON_COMPAT=( python3_7 )
+PYTHON_COMPAT=( python3_{6,7} )
 inherit distutils-r1
 
 DESCRIPTION="Wrapper for smartctl (smartmontools)"
