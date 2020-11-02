@@ -12,7 +12,7 @@ inherit check-reqs chromium-2 desktop flag-o-matic multilib ninja-utils pax-util
 
 DESCRIPTION="Open-source version of Google Chrome web browser"
 HOMEPAGE="https://chromium.org/"
-PATCHSET="2"
+PATCHSET="7"
 PATCHSET_NAME="chromium-$(ver_cut 1)-patchset-${PATCHSET}"
 SRC_URI="https://commondatastorage.googleapis.com/chromium-browser-official/${P}.tar.xz
 	https://files.pythonhosted.org/packages/ed/7b/bbf89ca71e722b7f9464ebffe4b5ee20a9e5c9a555a56e2d3914bb9119a6/setuptools-44.1.0.zip
@@ -21,7 +21,7 @@ SRC_URI="https://commondatastorage.googleapis.com/chromium-browser-official/${P}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
-IUSE="component-build cups cpu_flags_arm_neon +hangouts headless +js-type-check kerberos ozone ozone-wayland pic +proprietary-codecs pulseaudio selinux +suid +system-ffmpeg +system-icu +system-libvpx +tcmalloc widevine"
+IUSE="component-build cups cpu_flags_arm_neon +hangouts headless +js-type-check kerberos official ozone ozone-wayland pic +proprietary-codecs pulseaudio selinux +suid +system-ffmpeg +system-icu +system-libvpx +tcmalloc widevine"
 RESTRICT="!system-ffmpeg? ( proprietary-codecs? ( bindist ) )"
 # tcmalloc and musl: as far as I know, musl doesn't supports malloc
 # interposition, so tcmalloc cannot compile with musl.
@@ -63,10 +63,10 @@ COMMON_DEPEND="
 	>=media-libs/harfbuzz-2.4.0:0=[icu(-)]
 	media-libs/libjpeg-turbo:=
 	media-libs/libpng:=
-	system-libvpx? ( >=media-libs/libvpx-1.8.2:=[postproc,svc] )
+	system-libvpx? ( >=media-libs/libvpx-1.8.2:=[postproc] )
 	pulseaudio? ( media-sound/pulseaudio:= )
 	system-ffmpeg? (
-		>=media-video/ffmpeg-4:=
+		>=media-video/ffmpeg-4.3:=
 		|| (
 			media-video/ffmpeg[-samba]
 			>=net-fs/samba-4.5.10-r1[-debug(-)]
@@ -90,8 +90,8 @@ COMMON_DEPEND="
 			ozone-wayland? (
 				dev-libs/wayland:=
 				dev-libs/libffi:=
-				x11-libs/gtk+:3[wayland,X]
 				x11-libs/libdrm:=
+				x11-libs/gtk+:3[wayland,X]
 				x11-libs/libxkbcommon:=
 			)
 		)
@@ -120,7 +120,7 @@ BDEPEND="
 	>=app-arch/gzip-1.7
 	app-arch/unzip
 	dev-lang/perl
-	>=dev-util/gn-0.1726
+	>=dev-util/gn-0.1807
 	dev-vcs/git
 	>=dev-util/gperf-3.0.3
 	>=dev-util/ninja-1.7.2
@@ -136,12 +136,12 @@ BDEPEND="
 : ${CHROMIUM_FORCE_LIBCXX=no}
 
 if [[ ${CHROMIUM_FORCE_CLANG} == yes ]]; then
-	BDEPEND+=" >=sys-devel/clang-9"
+	BDEPEND+=" >=sys-devel/clang-10"
 fi
 
 if [[ ${CHROMIUM_FORCE_LIBCXX} == yes ]]; then
-	RDEPEND+=" >=sys-libs/libcxx-9"
-	DEPEND+=" >=sys-libs/libcxx-9"
+	RDEPEND+=" >=sys-libs/libcxx-10"
+	DEPEND+=" >=sys-libs/libcxx-10"
 else
 	COMMON_DEPEND="
 		app-arch/snappy:=
@@ -187,40 +187,6 @@ them in Chromium, then add --password-store=basic to CHROMIUM_FLAGS
 in /etc/chromium/default.
 "
 
-PATCHES=(
-	"${FILESDIR}/chromium-84-mediaalloc.patch"
-
-	# musl parches from Alpine Linux
-	"${FILESDIR}/${PN}-83.0.4103.61-default-pthread-stacksize.patch"
-	"${FILESDIR}/${PN}-84.0.4147.135-musl-fixes.patch"
-	"${FILESDIR}/${PN}-84.0.4147.135-musl-fixes-breakpad.patch"
-	"${FILESDIR}/${PN}-85.0.4183.83-musl-hacks.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-musl-libc++.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-musl-sandbox.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-no-execinfo.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-no-mallinfo.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-resolver.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-swiftshader.patch"
-	"${FILESDIR}/${PN}-84.0.4147.135-create-extra-view-redefinition.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-media-base.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-musl-v8-monotonic-pthread-cont_timedwait.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-nasm.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-gcc-fno-delete-null-pointer-checks.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-gcc-arm.patch"
-	"${FILESDIR}/${PN}-84.0.4147.135-aarch64-fixes.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-elf-arm.patch"
-	"${FILESDIR}/${PN}-84.0.4147.135-remove-unsupported-compiler-warnining.patch"
-	"${FILESDIR}/${PN}-84.0.4147.135-size_t-defined.patch"
-	# Modified musl patch from Alpine Linux
-	"${FILESDIR}/${PN}-83.0.4103.61-clang-use-gentoo-target.patch"
-	# More musl patches
-	"${FILESDIR}/${PN}-83.0.4103.61-musl-libsync-fix-cdefs.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad-fix-cdefs.patch"
-	"${FILESDIR}/${PN}-83.0.4103.61-musl-fix-output-to-stream.patch"
-	"${FILESDIR}/${PN}-84.0.4147.135-arm64-fix-vmull_p64.patch"
-)
-
 pre_build_checks() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		local -x CPP="$(tc-getCXX) -E"
@@ -260,13 +226,57 @@ pkg_setup() {
 	pre_build_checks
 
 	chromium_suid_sandbox_check_kernel_config
+
+	# nvidia-drivers does not work correctly with Ozone due to unsupported EGLStreams
+	if use ozone && ! use headless && has_version "x11-drivers/nvidia-drivers"; then
+		ewarn "Proprietary nVidia driver does not work correctly with Ozone. You might be"
+		ewarn "able to work around this problem by using SwiftShader OpenGL implementation."
+		ewarn "Add --use-gl=swiftshader to CHROMIUM_FLAGS in /etc/chromium/default to force SwiftShader."
+	fi
 }
 
 src_prepare() {
 	# Calling this here supports resumption via FEATURES=keepwork
 	python_setup
 
-	eapply "${WORKDIR}/patches"
+	local PATCHES=(
+		"${WORKDIR}/patches"
+		"${FILESDIR}/chromium-87-xproto-crash.patch"
+
+		# musl parches from Alpine Linux
+		"${FILESDIR}/${PN}-83.0.4103.61-default-pthread-stacksize.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-musl-fixes.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-musl-fixes-breakpad.patch"
+		"${FILESDIR}/${PN}-85.0.4183.83-musl-hacks.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-libc++.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-musl-sandbox.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-no-execinfo.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-no-mallinfo.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-resolver.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-swiftshader.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-create-extra-view-redefinition.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-media-base.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-v8-monotonic-pthread-cont_timedwait.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-nasm.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-gcc-fno-delete-null-pointer-checks.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-gcc-arm.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-aarch64-fixes.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-elf-arm.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-size_t-defined.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-check-for-enable-accelerated-video-decode-on-Linux.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-fix-invalid-end-iterator-usage-in-CookieMonster.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-only-fall-back-to-the-i965-driver-if-we-re-on-iHD.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-remove-dead-reloc-in-nonalloc-LD-flags.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-xproto-fix-underflow-in-Fp1616ToDouble.patch"
+		# Modified musl patch from Alpine Linux
+		"${FILESDIR}/${PN}-83.0.4103.61-clang-use-gentoo-target.patch"
+		# More musl patches
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-libsync-fix-cdefs.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad-fix-cdefs.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-fix-output-to-stream.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-arm64-fix-vmull_p64.patch"
+	)
 
 	default
 
@@ -316,7 +326,6 @@ src_prepare() {
 		third_party/breakpad
 		third_party/breakpad/breakpad/src/third_party/curl
 		third_party/brotli
-		third_party/cacheinvalidation
 		third_party/catapult
 		third_party/catapult/common/py_vulcanize/third_party/rcssmin
 		third_party/catapult/common/py_vulcanize/third_party/rjsmin
@@ -345,9 +354,15 @@ src_prepare() {
 		third_party/devscripts
 		third_party/devtools-frontend
 		third_party/devtools-frontend/src/front_end/third_party/acorn
+		third_party/devtools-frontend/src/front_end/third_party/chromium
 		third_party/devtools-frontend/src/front_end/third_party/codemirror
 		third_party/devtools-frontend/src/front_end/third_party/fabricjs
+		third_party/devtools-frontend/src/front_end/third_party/i18n
+		third_party/devtools-frontend/src/front_end/third_party/intl-messageformat
 		third_party/devtools-frontend/src/front_end/third_party/lighthouse
+		third_party/devtools-frontend/src/front_end/third_party/lit-html
+		third_party/devtools-frontend/src/front_end/third_party/lodash-isequal
+		third_party/devtools-frontend/src/front_end/third_party/marked
 		third_party/devtools-frontend/src/front_end/third_party/wasmparser
 		third_party/devtools-frontend/src/third_party
 		third_party/dom_distiller_js
@@ -394,6 +409,7 @@ src_prepare() {
 		third_party/metrics_proto
 		third_party/modp_b64
 		third_party/nasm
+		third_party/nearby
 		third_party/node
 		third_party/node/node_modules/polymer-bundler/lib/third_party/UglifyJS2
 		third_party/one_euro_filter
@@ -424,6 +440,7 @@ src_prepare() {
 		third_party/rnnoise
 		third_party/s2cellid
 		third_party/schema_org
+		third_party/securemessage
 		third_party/simplejson
 		third_party/skia
 		third_party/skia/include/third_party/skcms
@@ -440,6 +457,7 @@ src_prepare() {
 		third_party/swiftshader/third_party/marl
 		third_party/swiftshader/third_party/subzero
 		third_party/swiftshader/third_party/SPIRV-Headers/include/spirv/unified1
+		third_party/ukey2
 		third_party/unrar
 		third_party/usrsctp
 		third_party/vulkan
@@ -457,6 +475,7 @@ src_prepare() {
 		third_party/woff2
 		third_party/wuffs
 		third_party/xcbproto
+		third_party/zxcvbn-cpp
 		third_party/zlib/google
 		tools/grit/third_party/six
 		url/third_party/mozilla
@@ -755,6 +774,16 @@ src_configure() {
 		else
 			myconf_gn+=" ozone_platform=\"headless\""
 		fi
+	fi
+
+	# Enable official builds
+	myconf_gn+=" is_official_build=$(usex official true false)"
+	if use official; then
+		# Allow building against system libraries in official builds
+		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
+			tools/generate_shim_headers/generate_shim_headers.py || die
+		# Disable CFI: unsupported for GCC, requires clang+lto+lld
+		myconf_gn+=" is_cfi=false"
 	fi
 
 	einfo "Configuring Chromium..."
