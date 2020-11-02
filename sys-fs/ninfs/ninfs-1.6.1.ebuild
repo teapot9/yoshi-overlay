@@ -15,6 +15,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-python/pycryptodomex"
+DEPEND="dev-python/pycryptodomex[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
 BDEPEND=""
