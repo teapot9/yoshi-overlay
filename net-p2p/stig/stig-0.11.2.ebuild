@@ -5,7 +5,7 @@ EAPI=7
 MY_PV="0.11.2a0"
 MY_P="${PN}-${MY_PV}"
 
-PYTHON_COMPAT=( python3_{6,7} )
+PYTHON_COMPAT=( python3_{6,7,8} )
 DISTUTILS_USE_SETUPTOOLS="rdepend"
 inherit distutils-r1
 
