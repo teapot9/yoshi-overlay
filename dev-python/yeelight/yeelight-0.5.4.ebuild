@@ -17,7 +17,7 @@ IUSE=""
 
 DEPEND="
 	dev-python/future[${PYTHON_USEDEP}]
-	dev-python/ifaddr
+	dev-python/ifaddr[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
