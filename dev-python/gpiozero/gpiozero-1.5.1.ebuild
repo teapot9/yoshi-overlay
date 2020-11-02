@@ -18,9 +18,9 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	dev-python/colorzero
+	dev-python/colorzero[${PYTHON_USEDEP}]
 "
-BDEPEND="test? ( dev-python/mock )"
+BDEPEND="test? ( dev-python/mock[${PYTHON_USEDEP}] )"
 
 distutils_enable_sphinx docs
 distutils_enable_tests pytest
