@@ -21,7 +21,7 @@ IUSE="bin-server +lto multilib"
 
 REQUIRED_USE="amd64? ( !bin-server? ( multilib ) )"
 DEPEND="
-	virtual/ffmpeg
+	media-video/ffmpeg
 	media-libs/libsdl2
 "
 RDEPEND="${DEPEND}
