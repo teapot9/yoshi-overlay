@@ -84,6 +84,7 @@ itertools-0.9.0
 itoa-0.4.6
 jobserver-0.1.21
 jpeg-decoder-0.1.20
+json-0.12.4
 lazy_static-1.4.0
 libc-0.2.80
 libgit2-sys-0.12.14+1.1.0
@@ -106,7 +107,7 @@ num-traits-0.2.12
 num_cpus-1.13.0
 object-0.20.0
 once_cell-1.4.1
-onefetch-2.6.0
+onefetch-2.7.1
 opaque-debug-0.2.3
 parking_lot-0.10.2
 parking_lot_core-0.7.2
@@ -142,8 +143,8 @@ ryu-1.0.5
 same-file-1.0.6
 scoped_threadpool-0.1.9
 scopeguard-1.1.0
-serde-1.0.116
-serde_derive-1.0.116
+serde-1.0.117
+serde_derive-1.0.117
 serde_json-1.0.58
 sha-1-0.8.2
 slug-0.1.4
@@ -162,7 +163,7 @@ tiff-0.6.0
 time-0.1.44
 tinyvec-0.3.4
 tokei-12.0.4
-toml-0.5.6
+toml-0.5.7
 typenum-1.12.0
 ucd-trie-0.1.3
 unic-char-property-0.9.0
