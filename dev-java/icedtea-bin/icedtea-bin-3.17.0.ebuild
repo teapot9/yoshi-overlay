@@ -6,7 +6,7 @@ EAPI=6
 inherit java-vm-2 toolchain-funcs multilib-build
 
 ALPINE_PN="openjdk8"
-ALPINE_PV="8.252.09-r1"
+ALPINE_PV="8.272.10-r2"
 ALPINE_P="java-1.8-openjdk"
 ALPINE_PATH="usr/lib/jvm/${ALPINE_P}"
 S="${WORKDIR}"
@@ -33,13 +33,12 @@ SRC_URI="
 	$(get_apk_names arm armv7)
 	$(get_apk_names arm64 aarch64)
 	$(get_apk_names ppc64 ppc64le)
-	$(get_apk_names s390 s390x)
 	$(get_apk_names x86 x86)
 "
 
 LICENSE="GPL-2-with-classpath-exception"
 SLOT="8"
-KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc64 ~s390 ~x86"
+KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc64 ~x86"
 IUSE="big-endian elibc_musl cups +gtk pulseaudio selinux debug examples alsa headless-awt"
 
 REQUIRED_USE="
