@@ -4,7 +4,8 @@
 EAPI=7
 
 MY_PN="fasmg"
-MY_COMMIT="5990f56b78b13bfd09aa9d5f3cd577e8bd6c6c1f"
+MY_PV="j48s"
+MY_COMMIT="b305ac360c9acc3f04d387aa563f98f7728f49e5"
 MY_P="${MY_PN}-${MY_COMMIT}"
 
 DESCRIPTION="flat assembler"
