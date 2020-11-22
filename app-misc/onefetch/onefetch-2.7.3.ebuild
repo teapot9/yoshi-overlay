@@ -27,7 +27,7 @@ block-buffer-0.7.3
 block-padding-0.1.5
 bstr-0.2.13
 byte-tools-0.3.1
-bytecount-0.6.0
+bytecount-0.6.1
 bytemuck-1.4.1
 byteorder-1.3.4
 cc-1.0.60
@@ -79,7 +79,7 @@ humansize-1.1.0
 humantime-1.3.0
 idna-0.2.0
 ignore-0.4.16
-image-0.23.11
+image-0.23.12
 itertools-0.9.0
 itoa-0.4.6
 jobserver-0.1.21
@@ -107,12 +107,12 @@ num-traits-0.2.12
 num_cpus-1.13.0
 object-0.20.0
 once_cell-1.4.1
-onefetch-2.7.1
+onefetch-2.7.3
 opaque-debug-0.2.3
 parking_lot-0.10.2
 parking_lot_core-0.7.2
 parse-zoneinfo-0.3.0
-paste-1.0.2
+paste-1.0.3
 percent-encoding-2.1.0
 pest-2.1.3
 pest_derive-2.1.0
