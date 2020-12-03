@@ -6,7 +6,7 @@ EAPI=6
 inherit java-vm-2 toolchain-funcs multilib-build
 
 ALPINE_PN="openjdk8"
-ALPINE_PV="8.272.10-r2"
+ALPINE_PV="8.272.10-r4"
 ALPINE_P="java-1.8-openjdk"
 ALPINE_PATH="usr/lib/jvm/${ALPINE_P}"
 S="${WORKDIR}"
@@ -14,13 +14,13 @@ S="${WORKDIR}"
 get_apk_names() {
 	ARCH="${2-${1}}"
 	echo "${1}? (
-		${BASE_URI}/${ARCH}/${ALPINE_PN}-${ALPINE_PV}.apk -> ${P}-${ARCH}.tar.gz
-		${BASE_URI}/${ARCH}/${ALPINE_PN}-jre-${ALPINE_PV}.apk -> ${P}-jre-${ARCH}.tar.gz
-		${BASE_URI}/${ARCH}/${ALPINE_PN}-jre-base-${ALPINE_PV}.apk -> ${P}-jre-base-${ARCH}.tar.gz
-		${BASE_URI}/${ARCH}/${ALPINE_PN}-jre-lib-${ALPINE_PV}.apk -> ${P}-jre-lib-${ARCH}.tar.gz
-		${BASE_URI}/${ARCH}/${ALPINE_PN}-doc-${ALPINE_PV}.apk -> ${P}-doc-${ARCH}.tar.gz
-		examples? ( ${BASE_URI}/${ARCH}/${ALPINE_PN}-demos-${ALPINE_PV}.apk -> ${P}-demos-${ARCH}.tar.gz )
-		debug? ( ${BASE_URI}/${ARCH}/${ALPINE_PN}-dbg-${ALPINE_PV}.apk -> ${P}-dbg-${ARCH}.tar.gz )
+		${BASE_URI}/${ARCH}/${ALPINE_PN}-${ALPINE_PV}.apk -> ${PF}-${ARCH}.tar.gz
+		${BASE_URI}/${ARCH}/${ALPINE_PN}-jre-${ALPINE_PV}.apk -> ${PF}-jre-${ARCH}.tar.gz
+		${BASE_URI}/${ARCH}/${ALPINE_PN}-jre-base-${ALPINE_PV}.apk -> ${PF}-jre-base-${ARCH}.tar.gz
+		${BASE_URI}/${ARCH}/${ALPINE_PN}-jre-lib-${ALPINE_PV}.apk -> ${PF}-jre-lib-${ARCH}.tar.gz
+		${BASE_URI}/${ARCH}/${ALPINE_PN}-doc-${ALPINE_PV}.apk -> ${PF}-doc-${ARCH}.tar.gz
+		examples? ( ${BASE_URI}/${ARCH}/${ALPINE_PN}-demos-${ALPINE_PV}.apk -> ${PF}-demos-${ARCH}.tar.gz )
+		debug? ( ${BASE_URI}/${ARCH}/${ALPINE_PN}-dbg-${ALPINE_PV}.apk -> ${PF}-dbg-${ARCH}.tar.gz )
 	)"
 }
 
@@ -33,12 +33,13 @@ SRC_URI="
 	$(get_apk_names arm armv7)
 	$(get_apk_names arm64 aarch64)
 	$(get_apk_names ppc64 ppc64le)
+	$(get_apk_names s390 s390x)
 	$(get_apk_names x86 x86)
 "
 
 LICENSE="GPL-2-with-classpath-exception"
 SLOT="8"
-KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc64 ~x86"
+KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc64 ~s390 ~x86"
 IUSE="big-endian elibc_musl cups +gtk pulseaudio selinux debug examples alsa headless-awt"
 
 REQUIRED_USE="
