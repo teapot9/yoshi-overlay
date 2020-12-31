@@ -15,6 +15,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-python/pycryptodomex[${PYTHON_USEDEP}]"
+DEPEND="dev-python/pycryptodome[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
 BDEPEND=""
+
+src_prepare() {
+	find "${S}" \( -name '*.py' -o -name '*.txt' \) -exec sed -i \
+		-e 's:Cryptodome:Crypto:g' \
+		-e 's:pycryptodomex:pycryptodome:g' \
+		{} \; || die "Force use of pycryptodome"
+	default
+}
