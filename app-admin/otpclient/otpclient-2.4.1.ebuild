@@ -30,9 +30,9 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_prepare() {
-	for manpage in "otpclient.1" "otpclient-cli.1"; do
-		gunzip "${manpage}.gz"
-		sed -i -e "s|${manpage}.gz|${manpage}|" CMakeLists.txt
+	for manpage in man/*.gz ; do
+		gunzip "${manpage}"
+		sed -i -e "s|${manpage}|${manpage%.gz}|" CMakeLists.txt
 	done
 	cmake_src_prepare
 }
