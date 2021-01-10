@@ -1,20 +1,23 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
+inherit estack
+
+MY_COMMIT="4c3bc1aea8290e2b68d1d39aee2f0e95722e8f1b"
+MY_PN="${PN%-bin}"
+MY_P="${MY_PN}-${MY_COMMIT}"
+
 DESCRIPTION="flat assembler"
-HOMEPAGE="http://flatassembler.net/"
-SRC_URI="
-	https://flatassembler.net/${P}.tgz
-	headers? ( https://flatassembler.net/${PN}w${PV//./}.zip )
-"
-S="${WORKDIR}/${PN}"
+HOMEPAGE="https://flatassembler.net/ https://github.com/tgrysztar/fasm"
+SRC_URI="https://github.com/tgrysztar/${PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="+examples +headers +tools"
+KEYWORDS="-* ~amd64 ~x86"
+IUSE="+tools"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -23,30 +26,25 @@ BDEPEND="
 		dev-lang/fasm-bin
 		dev-lang/fasm
 	)
-	headers? ( app-arch/unzip )
 "
 
 QA_PRESTRIPPED="/usr/bin/fasm"
-DOCS=("fasm.txt" "license.txt" "whatsnew.txt")
+DOCS=("fasm.txt" "whatsnew.txt")
 
 case "${ARCH}" in
-amd64) SOURCES="source/Linux/x64" ;;
-x86) SOURCES="source/Linux" ;;
+amd64) SOURCES="source/linux/x64" ;;
+x86) SOURCES="source/linux" ;;
 esac
 
 src_prepare() {
+	eshopts_push -s globstar
+	for file in **; do
+		dirname="$(dirname -- "${file}")"
+		basename="$(basename -- "${file}")"
+		mv -v "${dirname,,}/${basename}" "${dirname,,}/${basename,,}" || die
+	done
+	eshopts_pop
 	default
-	if use headers; then
-		mv "${WORKDIR}/INCLUDE" "${S}/"
-		# Headers files should be lowercase
-		shopt -s globstar
-		for file in ./INCLUDE/**; do
-			dirname="$(dirname -- "${file}")"
-			basename="$(basename -- "${file}")"
-			mv -v "${dirname,,}/${basename}" "${dirname,,}/${basename,,}"
-		done
-		shopt -u globstar
-	fi
 }
 
 src_compile() {
@@ -56,15 +54,8 @@ src_compile() {
 src_install() {
 	dobin "${SOURCES}/fasm" || die
 
-	DATAS=(
-		$(usex examples "examples" "")
-		$(usex tools "tools" "")
-		$(usex headers "include" "")
-	)
-	# Remove binary files (they can be built with fasm)
-	find "${DATAS[@]}" -type f \( -name "*.o" -o -executable \) -delete
 	# Install fasm data and docs
 	insinto "/usr/share/${PN}"
-	[ "${#DATAS[@]}" -ne 0 ] && doins -r "${DATAS[@]}"
+	use tools && doins -r tools
 	einstalldocs
 }
