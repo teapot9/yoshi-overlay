@@ -1,64 +1,52 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-MY_PN="fasm"
-MY_P="${MY_PN}-${PV}"
+inherit estack
+
+MY_COMMIT="4c3bc1aea8290e2b68d1d39aee2f0e95722e8f1b"
+MY_PN="${PN%-bin}"
+MY_P="${MY_PN}-${MY_COMMIT}"
 
 DESCRIPTION="flat assembler"
-HOMEPAGE="http://flatassembler.net/"
+HOMEPAGE="https://flatassembler.net/ https://github.com/tgrysztar/fasm"
 SRC_URI="
-	https://flatassembler.net/${MY_P}.tgz
-	headers? ( https://flatassembler.net/${MY_PN}w${PV//./}.zip )
+	https://github.com/tgrysztar/${PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz
+	amd64? ( https://raw.githubusercontent.com/teapot9/distfiles/master/${P}-amd64.bin.xz )
+	x86? ( https://raw.githubusercontent.com/teapot9/distfiles/master/${P}-x86.bin.xz )
 "
-S="${WORKDIR}/${MY_PN}"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="+examples +headers +tools"
+KEYWORDS="-* ~amd64 ~x86"
+IUSE="+tools"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND="headers? ( app-arch/unzip )"
+BDEPEND=""
 
 QA_PREBUILT="/opt/bin/fasm"
-DOCS=("fasm.txt" "license.txt" "whatsnew.txt")
-
-case "${ARCH}" in
-amd64) EXEC="fasm.x64" ;;
-x86) EXEC="fasm" ;;
-esac
+DOCS=("fasm.txt" "whatsnew.txt")
 
 src_prepare() {
+	eshopts_push -s globstar
+	for file in **; do
+		dirname="$(dirname -- "${file}")"
+		basename="$(basename -- "${file}")"
+		mv -v "${dirname,,}/${basename}" "${dirname,,}/${basename,,}" || die
+	done
+	eshopts_pop
 	default
-	if use headers; then
-		mv "${WORKDIR}/INCLUDE" "${S}/"
-		# Headers files should be lowercase
-		shopt -s globstar
-		for file in ./INCLUDE/**; do
-			dirname="$(dirname -- "${file}")"
-			basename="$(basename -- "${file}")"
-			mv -v "${dirname,,}/${basename}" "${dirname,,}/${basename,,}"
-		done
-		shopt -u globstar
-	fi
 }
 
 src_install() {
 	into "/opt"
-	newbin "${EXEC}" "fasm" || die
+	newbin "${WORKDIR}/${P}-${ARCH}.bin" "fasm" || die
 
-	DATAS=(
-		$(usex examples "examples" "")
-		$(usex tools "tools" "")
-		$(usex headers "include" "")
-	)
-	# Remove binary files (they can be built with fasm)
-	find "${DATAS[@]}" -type f \( -name "*.o" -o -executable \) -delete
 	# Install fasm data and docs
 	insinto "/opt/${MY_PN}"
-	[ "${#DATAS[@]}" -ne 0 ] && doins -r "${DATAS[@]}"
+	use tools && doins -r tools
 	einstalldocs
 }
