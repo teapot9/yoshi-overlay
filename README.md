@@ -1,6 +1,6 @@
 # yoshi overlay
 
-[![Build Status](https://travis-ci.org/lleseur/yoshi-overlay.svg?branch=master)](https://travis-ci.org/lleseur/yoshi-overlay)
+[![Build Status](https://travis-ci.com/teapot9/yoshi-overlay.svg?branch=master)](https://travis-ci.com/teapot9/yoshi-overlay)
 
 A Portage overlay
 
