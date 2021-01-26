@@ -1,10 +1,8 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-# Fix test error: models_rgb/noise0_model.json not found
-CMAKE_IN_SOURCE_BUILD=1
 inherit cmake
 
 DESCRIPTION="Improved fork of Waifu2X C++ using OpenCL and OpenCV"
@@ -29,6 +27,11 @@ BDEPEND="
 	>=sys-devel/gcc-5
 	test? ( opencv? ( media-libs/opencv[png] ) )
 "
+
+src_prepare() {
+	sed -i -e 's|"models_rgb"|"'"${S}/models_rgb"'"|' w32-apps/runtest.c || die
+	cmake_src_prepare
+}
 
 src_configure() {
 	local mycmakeargs=(
