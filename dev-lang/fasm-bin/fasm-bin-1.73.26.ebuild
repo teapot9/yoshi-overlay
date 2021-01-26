@@ -5,7 +5,7 @@ EAPI=7
 
 inherit estack
 
-MY_COMMIT="4c3bc1aea8290e2b68d1d39aee2f0e95722e8f1b"
+MY_COMMIT="752cc50465e38a98a2b6ed1161983988e4d5f61a"
 MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${MY_COMMIT}"
 
