@@ -1,10 +1,11 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-MY_PV="0.11.2a0"
+MY_PV="${PV}a0"
 MY_P="${PN}-${MY_PV}"
 
+# Missing python 3.9 support from dev-python/urwidtrees
 PYTHON_COMPAT=( python3_{6,7,8} )
 DISTUTILS_USE_SETUPTOOLS="rdepend"
 inherit distutils-r1
@@ -22,7 +23,7 @@ IUSE="proxy setproctitle"
 DEPEND="
 	dev-python/urwid[${PYTHON_USEDEP}]
 	dev-python/urwidtrees[${PYTHON_USEDEP}]
-	=dev-python/aiohttp-3*[${PYTHON_USEDEP}]
+	<dev-python/aiohttp-4[${PYTHON_USEDEP}]
 	dev-python/async_timeout[${PYTHON_USEDEP}]
 	dev-python/pyxdg[${PYTHON_USEDEP}]
 	dev-python/blinker[${PYTHON_USEDEP}]
