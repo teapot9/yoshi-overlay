@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -6,7 +6,7 @@ EAPI=6
 inherit java-vm-2 toolchain-funcs multilib-build
 
 ALPINE_PN="openjdk8"
-ALPINE_PV="8.272.10-r4"
+ALPINE_PV="8.275.01-r0"
 ALPINE_P="java-1.8-openjdk"
 ALPINE_PATH="usr/lib/jvm/${ALPINE_P}"
 S="${WORKDIR}"
