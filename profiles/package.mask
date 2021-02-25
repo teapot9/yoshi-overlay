@@ -1,0 +1,4 @@
+# Masked for removal (2021-02-25)
+# Available in ::musl
+dev-java/icedtea-bin
+
