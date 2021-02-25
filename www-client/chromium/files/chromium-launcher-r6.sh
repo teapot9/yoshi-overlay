@@ -33,6 +33,15 @@ if [[ ${EUID} == 0 && -O ${XDG_CONFIG_HOME:-${HOME}} ]]; then
 		${CHROMIUM_FLAGS}"
 fi
 
+# Select session type and platform
+if @@FORCE_OZONE_PLATFORM@@; then
+	CHROMIUM_FLAGS="--enable-features=UseOzonePlatform ${CHROMIUM_FLAGS}"
+elif @@OZONE_AUTO_SESSION@@ && ! ${DISABLE_OZONE_PLATFORM:-false}; then
+	if [[ ${XDG_SESSION_TYPE} == wayland || -n ${WAYLAND_DISPLAY} && ${XDG_SESSION_TYPE} != x11 ]]; then
+		CHROMIUM_FLAGS="--enable-features=UseOzonePlatform ${CHROMIUM_FLAGS}"
+	fi
+fi
+
 # Set the .desktop file name
 export CHROME_DESKTOP="chromium-browser-chromium.desktop"
 
