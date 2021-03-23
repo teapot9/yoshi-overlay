@@ -15,7 +15,7 @@ S_DOCS="${WORKDIR}/${P}"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~arm64 ~x86"
+KEYWORDS="~arm ~arm64"
 IUSE=""
 
 DEPEND=""
