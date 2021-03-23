@@ -5,8 +5,8 @@ EAPI=7
 MY_PV="${PV}a0"
 MY_P="${PN}-${MY_PV}"
 
-# Missing python 3.9 support from dev-python/urwidtrees
-PYTHON_COMPAT=( python3_{6,7,8} )
+# No tests due to dev-python/asynctest not supporting python >= 3.8
+PYTHON_COMPAT=( python3_{6,7,8,9} )
 DISTUTILS_USE_SETUPTOOLS="rdepend"
 inherit distutils-r1
 
