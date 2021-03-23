@@ -1,9 +1,9 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_{6,7,8,9} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 inherit distutils-r1
 
@@ -11,6 +11,7 @@ DESCRIPTION="Another color manipulation library for Python (originally from pica
 HOMEPAGE="https://colorzero.readthedocs.io/"
 SRC_URI="https://github.com/waveform80/${PN}/archive/release-${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${PN}-release-${PV}"
+S_DOCS="${WORKDIR}/${P}"
 
 LICENSE="BSD"
 SLOT="0"
@@ -21,5 +22,17 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
-distutils_enable_sphinx docs
+PATCHES=(
+	"${FILESDIR}/${PN}-2.0-fix-broken-pkginfo.patch"
+	"${FILESDIR}/${PN}-2.0-fix-test-coverage.patch"
+)
+
+distutils_enable_sphinx docs \
+	dev-python/pkginfo \
+	dev-python/sphinx_rtd_theme
 distutils_enable_tests pytest
+
+src_prepare() {
+	cp "${FILESDIR}/${P}-PKG-INFO" PKG-INFO || die
+	distutils-r1_src_prepare
+}

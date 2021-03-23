@@ -1,0 +1,13 @@
+diff --git a/setup.cfg.orig b/setup.cfg
+index fda77f3..0dd317d 100644
+--- a/setup.cfg.orig
++++ b/setup.cfg
+@@ -40,7 +40,7 @@ doc =
+     sphinx-rtd-theme
+ 
+ [tool:pytest]
+-addopts = -rsx --cov --tb=short
++addopts = -rsx --tb=short
+ testpaths = tests
+ 
+ [coverage:run]
