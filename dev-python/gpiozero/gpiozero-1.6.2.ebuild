@@ -13,7 +13,7 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~arm64 ~x86"
+KEYWORDS="~arm ~arm64"
 IUSE=""
 
 DEPEND="${DEPEND}
