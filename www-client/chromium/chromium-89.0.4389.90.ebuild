@@ -256,7 +256,6 @@ src_prepare() {
 		"${FILESDIR}/${PN}-83.0.4103.61-gcc-arm.patch"
 		"${FILESDIR}/${PN}-84.0.4147.135-aarch64-fixes.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-elf-arm.patch"
-		"${FILESDIR}/${PN}-89.0.4389.90-llvm10-compat.patch"
 		# Modified musl patch from Alpine Linux
 		"${FILESDIR}/${PN}-83.0.4103.61-clang-use-gentoo-target.patch"
 		# More musl patches
