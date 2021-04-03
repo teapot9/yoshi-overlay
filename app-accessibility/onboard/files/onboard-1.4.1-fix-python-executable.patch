@@ -1,0 +1,22 @@
+Fix bug when python3 is not the same version as the one the package
+has been installed with.
+
+diff --git a/scripts/sokSettings.py b/scripts/sokSettings.py
+index 9ce58df..fb3ff32 100755
+--- a/scripts/sokSettings.py
++++ b/scripts/sokSettings.py
+@@ -18,12 +18,12 @@
+ # You should have received a copy of the GNU General Public License
+ # along with this program. If not, see <http://www.gnu.org/licenses/>.
+ 
+-PYTHON_EXECUTABLE = "python3"
++import sys
+ 
+ from gi.repository import GLib
+ 
+ def run():
+-    GLib.spawn_async(argv=[PYTHON_EXECUTABLE,
++    GLib.spawn_async(argv=[sys.executable,
+                            "-cfrom Onboard.settings import Settings\ns = Settings(False)"],
+                      flags=GLib.SpawnFlags.SEARCH_PATH)
+ 

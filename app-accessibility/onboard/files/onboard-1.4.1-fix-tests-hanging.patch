@@ -1,0 +1,16 @@
+Hack to avoid tests hanging: the condition is never true.
+
+diff --git a/Onboard/test/test_gui.py b/Onboard/test/test_gui.py
+index 67d8571..bf04712 100644
+--- a/Onboard/test/test_gui.py
++++ b/Onboard/test/test_gui.py
+@@ -482,8 +482,7 @@ class _TestGUIBase(unittest.TestCase):
+     def _wait_name_owner_changed(bus, name):
+ 
+         def on_name_owner_changed(name, old, new):
+-            if not old:
+-                loop.quit()
++            loop.quit()
+ 
+         bus.add_signal_receiver(on_name_owner_changed,
+                                 "NameOwnerChanged",
