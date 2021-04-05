@@ -17,9 +17,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
-	dev-qt/qtcore
-	dev-qt/qtgui
-	dev-qt/qtwidgets
+	dev-qt/qtcore:5
+	dev-qt/qtgui:5
+	dev-qt/qtwidgets:5
 	sys-libs/zlib
 "
 RDEPEND="${DEPEND}"
