@@ -264,6 +264,17 @@ src_prepare() {
 		"${FILESDIR}/${PN}-84.0.4147.135-arm64-fix-vmull_p64.patch"
 	)
 
+	# seccomp sandbox is broken if compiled against >=sys-libs/glibc-2.33, bug #769989
+	if has_version -d ">=sys-libs/glibc-2.33"; then
+		ewarn "Adding experimental glibc-2.33 sandbox patch. Seccomp sandbox might"
+		ewarn "still not work correctly. In case of issues, try to disable seccomp"
+		ewarn "sandbox by adding --disable-seccomp-filter-sandbox to CHROMIUM_FLAGS"
+		ewarn "in /etc/chromium/default."
+		PATCHES+=(
+			"${FILESDIR}/chromium-glibc-2.33.patch"
+		)
+	fi
+
 	default
 
 	mkdir -p third_party/node/linux/node-linux-x64/bin || die
@@ -644,14 +655,14 @@ src_configure() {
 
 	# Set up Google API keys, see http://www.chromium.org/developers/how-tos/api-keys .
 	# Note: these are for Gentoo use ONLY. For your own distribution,
-	# please get your own set of keys. Disable Client ID and secrets as requested by
-	# Google. Feel free to contact chromium@gentoo.org for more info.
+	# please get your own set of keys. Feel free to contact chromium@gentoo.org
+	# for more info.
 	local google_api_key="AIzaSyDEAOvatFo0eTgsV_ZlEzx0ObmepsMzfAc"
-#	local google_default_client_id="329227923882.apps.googleusercontent.com"
-#	local google_default_client_secret="vgKG0NNv7GoDpbtoFNLxCUXu"
+	local google_default_client_id="329227923882.apps.googleusercontent.com"
+	local google_default_client_secret="vgKG0NNv7GoDpbtoFNLxCUXu"
 	myconf_gn+=" google_api_key=\"${google_api_key}\""
-#	myconf_gn+=" google_default_client_id=\"${google_default_client_id}\""
-#	myconf_gn+=" google_default_client_secret=\"${google_default_client_secret}\""
+	myconf_gn+=" google_default_client_id=\"${google_default_client_id}\""
+	myconf_gn+=" google_default_client_secret=\"${google_default_client_secret}\""
 	local myarch="$(tc-arch)"
 
 	# Avoid CFLAGS problems, bug #352457, bug #390147.
