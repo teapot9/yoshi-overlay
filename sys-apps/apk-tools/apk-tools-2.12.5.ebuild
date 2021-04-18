@@ -68,6 +68,7 @@ pkg_setup() {
 
 src_prepare() {
 	sed -i -e 's/-Werror\( \|$\)//g' Make.rules || die
+	sed -i -e 's|#!/bin/sh|#!/bin/bash|' test/*.sh || die
 	default
 }
 
