@@ -1,0 +1,40 @@
+From c5d6aabc80854ef27d9a7e4c4b2828478db5bf9d Mon Sep 17 00:00:00 2001
+From: Louis Leseur <louis.leseur@gmail.com>
+Date: Tue, 25 Aug 2020 21:58:47 +0200
+Subject: [PATCH] Update TraceLogger.findCaller() to python 3.8
+
+Python 3.8 updated the logging API for findCaller() adding the
+stacklevel=1 argument.
+
+See: https://github.com/python/cpython/commit/dde9fdbe453925279ac3d2a6a72102f6f9ef247c#diff-c11fc567cf5b6e518eb855c23b5599bc
+Closes: #30
+---
+ pySMART/utils.py | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/pySMART/utils.py b/pySMART/utils.py
+index 3653094..c3e0e30 100644
+--- a/pySMART/utils.py
++++ b/pySMART/utils.py
+@@ -40,7 +40,7 @@ def __init__(self, name):
+     def trace(self, msg, *args, **kwargs):
+         self.log(TRACE, msg, *args, **kwargs)
+ 
+-    def findCaller(self, stack_info=False):
++    def findCaller(self, stack_info=False, stacklevel=1):
+         """
+         Overload built-in findCaller method
+         to omit not only logging/__init__.py but also the current file
+@@ -50,6 +50,12 @@ def findCaller(self, stack_info=False):
+         # IronPython isn't run with -X:Frames.
+         if f is not None:
+             f = f.f_back
++        orig_f = f
++        while f and stacklevel > 1:
++            f = f.f_back
++            stacklevel -= 1
++        if not f:
++            f = orig_f
+         rv = "(unknown file)", 0, "(unknown function)", None
+         while hasattr(f, "f_code"):
+             co = f.f_code
