@@ -3,8 +3,8 @@
 
 EAPI=7
 
-MY_PV="j6ia"
-MY_COMMIT="91a1a8f57da155f7dda64c368f1e2d71eebf828d"
+MY_PV="ja8n"
+MY_COMMIT="975d4de26b3630748d3398705a92bacb4b40cd49"
 MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${MY_COMMIT}"
 
