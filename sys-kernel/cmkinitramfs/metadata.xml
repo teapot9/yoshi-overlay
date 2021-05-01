@@ -5,4 +5,10 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<doc>https://cmkinitramfs.readthedocs.io/</doc>
+		<bugs-to>https://github.com/teapot9/cmkinitramfs/issues</bugs-to>
+		<remote-id type="github">https://github.com/teapot9/cmkinitramfs</remote-id>
+		<remote-id type="pypi">https://pypi.org/project/cmkinitramfs/</remote-id>
+	</upstream>
 </pkgmetadata>
