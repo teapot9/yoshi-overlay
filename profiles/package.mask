@@ -1,4 +1,0 @@
-# Masked for removal (2021-03-28)
-# Available in ::gentoo
-app-misc/logiops
-
