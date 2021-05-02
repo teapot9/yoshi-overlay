@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="dev-python/pyelftools"
+DEPEND="dev-python/pyelftools[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}
 	app-arch/cpio
 	sys-apps/busybox
