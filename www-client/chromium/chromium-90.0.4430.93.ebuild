@@ -129,12 +129,12 @@ BDEPEND="
 : ${CHROMIUM_FORCE_LIBCXX=no}
 
 if [[ ${CHROMIUM_FORCE_CLANG} == yes ]]; then
-	BDEPEND+=" >=sys-devel/clang-10"
+	BDEPEND+=" >=sys-devel/clang-12"
 fi
 
 if [[ ${CHROMIUM_FORCE_LIBCXX} == yes ]]; then
-	RDEPEND+=" >=sys-libs/libcxx-10"
-	DEPEND+=" >=sys-libs/libcxx-10"
+	RDEPEND+=" >=sys-libs/libcxx-12"
+	DEPEND+=" >=sys-libs/libcxx-12"
 else
 	COMMON_DEPEND="
 		app-arch/snappy:=
@@ -191,15 +191,16 @@ pre_build_checks() {
 			die "Component build with tcmalloc requires FEATURES=-usersandbox."
 		fi
 		if [[ ${CHROMIUM_FORCE_CLANG} == yes ]] || tc-is-clang; then
-			if use component-build; then
-				die "Component build with clang requires fuzzer headers."
+			CPP="${CHOST}-clang++ -E"
+			if ! ver_test "$(clang-major-version)" -ge 12; then
+				die "At least clang 12 is required"
 			fi
 		fi
 	fi
 
 	# Check build requirements, bug #541816 and bug #471810 .
 	CHECKREQS_MEMORY="3G"
-	CHECKREQS_DISK_BUILD="7G"
+	CHECKREQS_DISK_BUILD="8G"
 	if ( shopt -s extglob; is-flagq '-g?(gdb)?([1-9])' ); then
 		if use custom-cflags || use component-build; then
 			CHECKREQS_DISK_BUILD="25G"
@@ -233,19 +234,18 @@ src_prepare() {
 
 	local PATCHES=(
 		"${WORKDIR}/patches"
-		"${FILESDIR}/chromium-89-webcodecs-deps.patch"
 		"${FILESDIR}/chromium-89-EnumTable-crash.patch"
 		"${FILESDIR}/chromium-shim_headers.patch"
 
 		# musl parches from Alpine Linux
 		"${FILESDIR}/${PN}-83.0.4103.61-default-pthread-stacksize.patch"
-		"${FILESDIR}/${PN}-89.0.4389.90-musl-fixes.patch"
+		"${FILESDIR}/${PN}-90.0.4430.93-musl-fixes.patch"
 		"${FILESDIR}/${PN}-84.0.4147.135-musl-fixes-breakpad.patch"
 		"${FILESDIR}/${PN}-85.0.4183.83-musl-hacks.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-musl-libc++.patch"
 		"${FILESDIR}/${PN}-86.0.4240.111-musl-sandbox.patch"
 		"${FILESDIR}/${PN}-89.0.4389.90-no-execinfo.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-no-mallinfo.patch"
+		"${FILESDIR}/${PN}-90.0.4430.93-no-mallinfo.patch"
 		"${FILESDIR}/${PN}-86.0.4240.111-resolver.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-swiftshader.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-media-base.patch"
@@ -256,6 +256,8 @@ src_prepare() {
 		"${FILESDIR}/${PN}-83.0.4103.61-gcc-arm.patch"
 		"${FILESDIR}/${PN}-84.0.4147.135-aarch64-fixes.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-elf-arm.patch"
+		"${FILESDIR}/${PN}-90.0.4430.93-disable-floc-component.patch"
+		"${FILESDIR}/${PN}-90.0.4430.93-remove-unsupported-attribute.patch"
 		# Modified musl patch from Alpine Linux
 		"${FILESDIR}/${PN}-83.0.4103.61-clang-use-gentoo-target.patch"
 		# More musl patches
@@ -359,12 +361,18 @@ src_prepare() {
 		third_party/devtools-frontend/src/front_end/third_party/wasmparser
 		third_party/devtools-frontend/src/third_party
 		third_party/dom_distiller_js
+		third_party/eigen3
 		third_party/emoji-segmenter
+		third_party/farmhash
+		third_party/fdlibm
+		third_party/fft2d
 		third_party/flatbuffers
 		third_party/freetype
 		third_party/fusejs
 		third_party/libgifcodec
 		third_party/liburlpattern
+		third_party/libzip
+		third_party/gemmlowp
 		third_party/google_input_tools
 		third_party/google_input_tools/third_party/closure_library
 		third_party/google_input_tools/third_party/closure_library/third_party/closure
@@ -381,9 +389,11 @@ src_prepare() {
 		third_party/libXNVCtrl
 		third_party/libaddressinput
 		third_party/libaom
+		third_party/libaom/source/libaom/third_party/fastfeat
 		third_party/libaom/source/libaom/third_party/vector
 		third_party/libaom/source/libaom/third_party/x86inc
 		third_party/libavif
+		third_party/libgav1
 		third_party/libjingle
 		third_party/libphonenumber
 		third_party/libsecret
@@ -410,6 +420,7 @@ src_prepare() {
 		third_party/modp_b64
 		third_party/nasm
 		third_party/nearby
+		third_party/neon_2_sse
 		third_party/node
 		third_party/node/node_modules/polymer-bundler/lib/third_party/UglifyJS2
 		third_party/one_euro_filter
@@ -458,10 +469,17 @@ src_prepare() {
 		third_party/swiftshader/third_party/marl
 		third_party/swiftshader/third_party/subzero
 		third_party/swiftshader/third_party/SPIRV-Headers/include/spirv/unified1
+		third_party/tensorflow-text
+		third_party/tflite
+		third_party/tflite/src/third_party/eigen3
+		third_party/tflite/src/third_party/fft2d
+		third_party/tflite-support
 		third_party/tint
+		third_party/ruy
 		third_party/ukey2
 		third_party/unrar
 		third_party/usrsctp
+		third_party/utf
 		third_party/vulkan
 		third_party/web-animations-js
 		third_party/webdriver
@@ -797,7 +815,8 @@ src_compile() {
 	python_setup
 
 	# https://bugs.gentoo.org/717456
-	local -x PYTHONPATH="${WORKDIR}/setuptools-44.1.0:${PYTHONPATH+:}${PYTHONPATH}"
+	# don't inherit PYTHONPATH from environment, bug #789021
+	local -x PYTHONPATH="${WORKDIR}/setuptools-44.1.0"
 
 	#"${EPYTHON}" tools/clang/scripts/update.py --force-local-build --gcc-toolchain /usr --skip-checkout --use-system-cmake --without-android || die
 
