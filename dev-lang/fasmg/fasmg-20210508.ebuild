@@ -23,8 +23,8 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	|| (
 		dev-lang/fasm
-		dev-lang/fasm-bin
 		dev-lang/fasmg-bin
+		dev-lang/fasm-bin
 		dev-lang/fasmg
 	)
 "
