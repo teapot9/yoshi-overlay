@@ -11,7 +11,7 @@ MY_P="${MY_PN}-${MY_COMMIT}"
 
 DESCRIPTION="flat assembler"
 HOMEPAGE="https://flatassembler.net/ https://github.com/tgrysztar/fasm"
-SRC_URI="https://github.com/tgrysztar/${PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz"
+SRC_URI="https://github.com/tgrysztar/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
 LICENSE="BSD-2"
