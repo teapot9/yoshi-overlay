@@ -12,9 +12,9 @@ MY_P="${MY_PN}-${MY_COMMIT}"
 DESCRIPTION="flat assembler"
 HOMEPAGE="https://flatassembler.net/ https://github.com/tgrysztar/fasm"
 SRC_URI="
-	https://github.com/tgrysztar/${PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz
-	amd64? ( https://raw.githubusercontent.com/teapot9/distfiles/master/${P}-amd64.bin.xz )
-	x86? ( https://raw.githubusercontent.com/teapot9/distfiles/master/${P}-x86.bin.xz )
+	https://github.com/tgrysztar/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz
+	amd64? ( https://teapot-distfiles.s3.us-east-2.amazonaws.com/${P}-amd64.bin.xz )
+	x86? ( https://teapot-distfiles.s3.us-east-2.amazonaws.com/${P}-x86.bin.xz )
 "
 S="${WORKDIR}/${MY_P}"
 
