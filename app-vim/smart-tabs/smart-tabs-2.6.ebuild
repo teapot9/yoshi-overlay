@@ -1,11 +1,10 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 MY_PN="vim-smarttabs"
 MY_COMMIT="3e53f4664f073e5f4e579bdc1230b0272a665c89"
-#VIM_PLUGIN_VIM_VERSION="7.0"
 inherit vim-plugin
 
 DESCRIPTION="vim plugin: Use tabs for indent, spaces for alignment"
