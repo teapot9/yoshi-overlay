@@ -80,6 +80,8 @@ src_prepare() {
 		-e 's:test_gnome_high_contrast_themes:_&:' \
 		-e 's:test_numlock_state_on_exit:_&:' \
 		-e 's:test_apt_cache_unmet_onboard:_&:' \
+		-e 's:test_keyboard_window_resizing:_&:' \
+		-e 's:test_icon_palette_resizing:_&:' \
 		Onboard/test/test_gui.py || die
 
 	distutils-r1_src_prepare
