@@ -13,19 +13,22 @@ inherit check-reqs chromium-2 desktop flag-o-matic multilib ninja-utils pax-util
 
 DESCRIPTION="Open-source version of Google Chrome web browser"
 HOMEPAGE="https://chromium.org/"
-PATCHSET="7"
+PATCHSET="6"
 PATCHSET_NAME="chromium-$(ver_cut 1)-patchset-${PATCHSET}"
+PPC64LE_PATCHSET="6"
 SRC_URI="https://commondatastorage.googleapis.com/chromium-browser-official/${P}.tar.xz
 	https://files.pythonhosted.org/packages/ed/7b/bbf89ca71e722b7f9464ebffe4b5ee20a9e5c9a555a56e2d3914bb9119a6/setuptools-44.1.0.zip
-	https://github.com/stha09/chromium-patches/releases/download/${PATCHSET_NAME}/${PATCHSET_NAME}.tar.xz"
+	https://github.com/stha09/chromium-patches/releases/download/${PATCHSET_NAME}/${PATCHSET_NAME}.tar.xz
+	arm64? ( https://github.com/google/highway/archive/refs/tags/0.12.1.tar.gz -> highway-0.12.1.tar.gz )
+	ppc64? ( https://dev.gentoo.org/~gyakovlev/distfiles/${PN}-$(ver_cut 1)-ppc64le-${PPC64LE_PATCHSET}.tar.xz )"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~x86"
+KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
 IUSE="component-build cups cpu_flags_arm_neon +hangouts headless +js-type-check kerberos official pic +proprietary-codecs pulseaudio screencast selinux +suid +system-ffmpeg +system-icu +tcmalloc vaapi wayland widevine"
-# tcmalloc and musl: as far as I know, musl doesn't supports malloc
+# tcmalloc on musl: as far as I know, musl doesn't supports malloc
 # interposition, so tcmalloc cannot compile with musl.
-# component-build and musl: could not compile with it.
+# component-build on musl: could not compile with it.
 REQUIRED_USE="
 	component-build? ( !suid )
 	screencast? ( wayland )
@@ -140,7 +143,7 @@ else
 		dev-libs/libxslt:=
 		>=dev-libs/re2-0.2019.08.01:=
 		>=media-libs/openh264-1.6.0:=
-		system-icu? ( >=dev-libs/icu-68.1:= )
+		system-icu? ( >=dev-libs/icu-69.1:= )
 	"
 	RDEPEND+="${COMMON_DEPEND}"
 	DEPEND+="${COMMON_DEPEND}"
@@ -184,10 +187,6 @@ pre_build_checks() {
 		local -x CPP="$(tc-getCXX) -E"
 		if tc-is-gcc && ! ver_test "$(gcc-version)" -ge 9.2; then
 			die "At least gcc 9.2 is required"
-		fi
-		# component build hangs with tcmalloc enabled due to sandbox issue, bug #695976.
-		if has usersandbox ${FEATURES} && use tcmalloc && use component-build; then
-			die "Component build with tcmalloc requires FEATURES=-usersandbox."
 		fi
 		if [[ ${CHROMIUM_FORCE_CLANG} == yes ]] || tc-is-clang; then
 			CPP="${CHOST}-clang++ -E"
@@ -234,35 +233,9 @@ src_prepare() {
 	local PATCHES=(
 		"${WORKDIR}/patches"
 		"${FILESDIR}/chromium-89-EnumTable-crash.patch"
+		"${FILESDIR}/chromium-91-ThemeService-crash.patch"
+		"${FILESDIR}/chromium-91-system-icu.patch"
 		"${FILESDIR}/chromium-shim_headers.patch"
-
-		# musl parches from Alpine Linux
-		"${FILESDIR}/${PN}-83.0.4103.61-default-pthread-stacksize.patch"
-		"${FILESDIR}/${PN}-90.0.4430.93-musl-fixes.patch"
-		"${FILESDIR}/${PN}-84.0.4147.135-musl-fixes-breakpad.patch"
-		"${FILESDIR}/${PN}-85.0.4183.83-musl-hacks.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-musl-libc++.patch"
-		"${FILESDIR}/${PN}-86.0.4240.111-musl-sandbox.patch"
-		"${FILESDIR}/${PN}-89.0.4389.90-no-execinfo.patch"
-		"${FILESDIR}/${PN}-90.0.4430.93-no-mallinfo.patch"
-		"${FILESDIR}/${PN}-86.0.4240.111-resolver.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-swiftshader.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-media-base.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-musl-v8-monotonic-pthread-cont_timedwait.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-nasm.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-gcc-fno-delete-null-pointer-checks.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-gcc-arm.patch"
-		"${FILESDIR}/${PN}-84.0.4147.135-aarch64-fixes.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-elf-arm.patch"
-		"${FILESDIR}/${PN}-90.0.4430.93-disable-floc-component.patch"
-		"${FILESDIR}/${PN}-90.0.4430.93-remove-unsupported-attribute.patch"
-		# Modified musl patch from Alpine Linux
-		"${FILESDIR}/${PN}-83.0.4103.61-clang-use-gentoo-target.patch"
-		# More musl patches
-		"${FILESDIR}/${PN}-83.0.4103.61-musl-libsync-fix-cdefs.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad-fix-cdefs.patch"
-		"${FILESDIR}/${PN}-84.0.4147.135-arm64-fix-vmull_p64.patch"
 	)
 
 	# seccomp sandbox is broken if compiled against >=sys-libs/glibc-2.33, bug #769989
@@ -276,10 +249,49 @@ src_prepare() {
 		)
 	fi
 
+	use ppc64 && eapply -p0 "${WORKDIR}/${PN}"-ppc64le
+
+	PATCHES+=(
+		# musl parches from Alpine Linux
+		"${FILESDIR}/${PN}-83.0.4103.61-default-pthread-stacksize.patch"
+		"${FILESDIR}/${PN}-91.0.4472.114-musl-fixes.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-musl-fixes-breakpad.patch"
+		"${FILESDIR}/${PN}-85.0.4183.83-musl-hacks.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-libc++.patch"
+		"${FILESDIR}/${PN}-86.0.4240.111-musl-sandbox.patch"
+		"${FILESDIR}/${PN}-89.0.4389.90-no-execinfo.patch"
+		"${FILESDIR}/${PN}-90.0.4430.93-no-mallinfo.patch"
+		"${FILESDIR}/${PN}-91.0.4472.114-resolver.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-swiftshader.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-media-base.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-v8-monotonic-pthread-cont_timedwait.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-nasm.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-gcc-fno-delete-null-pointer-checks.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-gcc-arm.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-aarch64-fixes.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-elf-arm.patch"
+		"${FILESDIR}/${PN}-90.0.4430.93-disable-floc-component.patch"
+		"${FILESDIR}/${PN}-91.0.4472.114-remove-unsupported-attribute.patch"
+		"${FILESDIR}/${PN}-91.0.4472.114-revert-2778794.patch"
+		# Modified musl patch from Alpine Linux
+		"${FILESDIR}/${PN}-83.0.4103.61-clang-use-gentoo-target.patch"
+		# More musl patches
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-libsync-fix-cdefs.patch"
+		"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad-fix-cdefs.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-arm64-fix-vmull_p64.patch"
+	)
+
 	default
 
 	mkdir -p third_party/node/linux/node-linux-x64/bin || die
 	ln -s "${EPREFIX}"/usr/bin/node third_party/node/linux/node-linux-x64/bin/node || die
+
+	# bundled highway library does not support arm64 with GCC
+	if use arm64; then
+		rm -r third_party/highway/src || die
+		ln -s "${WORKDIR}/highway-0.12.1" third_party/highway/src || die
+	fi
 
 	local keeplibs=(
 		base/third_party/cityhash
@@ -368,6 +380,7 @@ src_prepare() {
 		third_party/flatbuffers
 		third_party/freetype
 		third_party/fusejs
+		third_party/highway
 		third_party/libgifcodec
 		third_party/liburlpattern
 		third_party/libzip
@@ -394,6 +407,7 @@ src_prepare() {
 		third_party/libavif
 		third_party/libgav1
 		third_party/libjingle
+		third_party/libjxl
 		third_party/libphonenumber
 		third_party/libsecret
 		third_party/libsrtp
@@ -451,7 +465,6 @@ src_prepare() {
 		third_party/qcms
 		third_party/rnnoise
 		third_party/s2cellid
-		third_party/schema_org
 		third_party/securemessage
 		third_party/shell-encryption
 		third_party/simplejson
@@ -482,6 +495,7 @@ src_prepare() {
 		third_party/vulkan
 		third_party/web-animations-js
 		third_party/webdriver
+		third_party/webgpu-cts
 		third_party/webrtc
 		third_party/webrtc/common_audio/third_party/ooura
 		third_party/webrtc/common_audio/third_party/spl_sqrt_floor
@@ -547,6 +561,10 @@ src_prepare() {
 
 	# Remove most bundled libraries. Some are still needed.
 	build/linux/unbundle/remove_bundled_libraries.py "${keeplibs[@]}" --do-remove || die
+
+	if use js-type-check; then
+		ln -s "${EPREFIX}"/usr/bin/java third_party/jdk/current/bin/java || die
+	fi
 }
 
 src_configure() {
@@ -666,6 +684,9 @@ src_configure() {
 	# Disable forced lld, bug 641556
 	myconf_gn+=" use_lld=false"
 
+	# Disable pseudolocales, only used for testing
+	myconf_gn+=" enable_pseudolocales=false"
+
 	ffmpeg_branding="$(usex proprietary-codecs Chrome Chromium)"
 	myconf_gn+=" proprietary_codecs=$(usex proprietary-codecs true false)"
 	myconf_gn+=" ffmpeg_branding=\"${ffmpeg_branding}\""
@@ -762,6 +783,14 @@ src_configure() {
 	# Chromium relies on this, but was disabled in >=clang-10, crbug.com/1042470
 	append-cxxflags $(test-flags-CXX -flax-vector-conversions=all)
 
+	# highway/libjxl relies on this with arm64
+	if use arm64 && tc-is-gcc; then
+		append-cxxflags -flax-vector-conversions
+	fi
+
+	# highway/libjxl fail on ppc64 without extra patches, disable for now.
+	use ppc64 && myconf_gn+=" enable_jxl_decoder=false"
+
 	# Disable unknown warning message from clang.
 	tc-is-clang && append-flags -Wno-unknown-warning-option
 
@@ -771,9 +800,9 @@ src_configure() {
 	fi
 
 	# Enable ozone wayland and/or headless support
+	myconf_gn+=" use_ozone=true ozone_auto_platforms=false"
+	myconf_gn+=" ozone_platform_headless=true"
 	if use wayland || use headless; then
-		myconf_gn+=" use_ozone=true ozone_auto_platforms=false"
-		myconf_gn+=" ozone_platform_headless=true"
 		if use headless; then
 			myconf_gn+=" ozone_platform=\"headless\""
 			myconf_gn+=" use_x11=false"
@@ -784,12 +813,11 @@ src_configure() {
 			myconf_gn+=" use_xkbcommon=true"
 			myconf_gn+=" ozone_platform=\"wayland\""
 		fi
-	else
-		myconf_gn+=" use_ozone=false"
 	fi
 
 	# Enable official builds
 	myconf_gn+=" is_official_build=$(usex official true false)"
+	myconf_gn+=" use_thin_lto=false"
 	if use official; then
 		# Allow building against system libraries in official builds
 		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
@@ -946,10 +974,9 @@ pkg_postinst() {
 	readme.gentoo_print_elog
 
 	if use vaapi; then
-		elog "VA-API is disabled by default at runtime. Either enable it"
-		elog "by navigating to chrome://flags/#enable-accelerated-video-decode"
-		elog "inside Chromium or add --enable-accelerated-video-decode"
-		elog "to CHROMIUM_FLAGS in /etc/chromium/default."
+		elog "VA-API is disabled by default at runtime. You have to enable it"
+		elog "by adding --enable-features=VaapiVideoDecoder to CHROMIUM_FLAGS"
+		elog "in /etc/chromium/default."
 	fi
 	if use screencast; then
 		elog "Screencast is disabled by default at runtime. Either enable it"
