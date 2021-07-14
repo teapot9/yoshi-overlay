@@ -10,7 +10,7 @@ DISTUTILS_USE_SETUPTOOLS=no
 inherit distutils-r1
 
 DESCRIPTION="Wrapper for smartctl (smartmontools)"
-HOMEPAGE="https://github.com/freenas/py-SMART"
+HOMEPAGE="https://github.com/truenas/py-SMART"
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
@@ -25,9 +25,7 @@ RDEPEND="${DEPEND}
 "
 BDEPEND=""
 
-PATCHES=( "${FILESDIR}/${P}-fix-support-python3.8.patch" )
-
 python_install_all() {
-	use doc && HTML_DOCS=( docs/*.html )
+	use doc && HTML_DOCS=( docs/. )
 	distutils-r1_python_install_all
 }
