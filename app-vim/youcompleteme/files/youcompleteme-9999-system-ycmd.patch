@@ -1,0 +1,26 @@
+diff --git a/python/ycm/base.py b/python/ycm/base.py
+index e2925dad..638bbc6b 100644
+--- a/python/ycm/base.py
++++ b/python/ycm/base.py
+@@ -41,6 +41,8 @@ def GetUserOptions( default_options = {} ):
+   if os.path.exists( defaults_file ):
+     with open( defaults_file ) as defaults_file_handle:
+       user_options = json.load( defaults_file_handle )
++  import ycmd.user_options_store
++  user_options = ycmd.user_options_store.DefaultOptions()
+ 
+   # Override the server defaults with any client-generated defaults
+   user_options.update( default_options )
+diff --git a/python/ycm/youcompleteme.py b/python/ycm/youcompleteme.py
+index 82b7585d..d2e91e1e 100644
+--- a/python/ycm/youcompleteme.py
++++ b/python/ycm/youcompleteme.py
+@@ -156,7 +156,7 @@ class YouCompleteMe:
+       return
+ 
+     args = [ python_interpreter,
+-             paths.PathToServerScript(),
++             '-m', 'ycmd',
+              f'--port={ server_port }',
+              f'--options_file={ options_file.name }',
+              f'--log={ self._user_options[ "log_level" ] }',
