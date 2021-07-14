@@ -1,2 +1,6 @@
+# Masked for removal (2021-07-14)
+# Available in ::gentoo
+app-mobilephone/scrcpy
+
 # dev-java/eclipse-jdt-ls-bin depends on masked virtual/jre:11
 dev-java/eclipse-jdt-ls-bin
