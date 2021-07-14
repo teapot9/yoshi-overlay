@@ -1,0 +1,13 @@
+diff --git a/ycmd/utils.py b/ycmd/utils.py
+index 74c352b2..748d17c5 100644
+--- a/ycmd/utils.py
++++ b/ycmd/utils.py
+@@ -474,7 +474,7 @@ def GetModificationTime( path ):
+ 
+ 
+ def ExpectedCoreVersion():
+-  return int( ReadFile( os.path.join( ROOT_DIR, 'CORE_VERSION' ) ) )
++  return int( ReadFile( os.path.join( os.path.dirname( __file__ ), 'CORE_VERSION' ) ) )
+ 
+ 
+ def LoadYcmCoreDependencies():

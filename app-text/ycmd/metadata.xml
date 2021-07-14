@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<use>
+		<flag name="clang">Use libclang from <pkg>sys-devel/clang</pkg> for C-family semantic completion</flag>
+		<flag name="clangd">Use clangd from <pkg>sys-devel/clang</pkg> for C-family semantic completion</flag>
+		<flag name="cs">Use <pkg>dev-dotnet/omnisharp-roslyn-bin</pkg> for C# semantic completion</flag>
+		<flag name="go">Use <pkg>dev-go/gopls</pkg> for Go semantic completion</flag>
+		<flag name="java">Use <pkg>dev-java/eclipse-jdt-ls-bin</pkg> for Java semantic completion</flag>
+		<flag name="javascript"> Use <pkg>dev-lang/typescript</pkg> for JavaScript and TypeScript semantic completion</flag>
+		<flag name="rust">Use <pkg>dev-util/rust-analyzer</pkg> for Rust semantic completion</flag>
+	</use>
+	<upstream>
+		<bugs-to>https://github.com/ycm-core/ycmd/issues</bugs-to>
+		<remote-id type="github">ycm-core/ycmd</remote-id>
+	</upstream>
+</pkgmetadata>

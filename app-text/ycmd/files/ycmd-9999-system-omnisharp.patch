@@ -1,0 +1,22 @@
+diff --git a/ycmd/completers/cs/cs_completer.py b/ycmd/completers/cs/cs_completer.py
+index c056a9ae..434b6dcf 100644
+--- a/ycmd/completers/cs/cs_completer.py
++++ b/ycmd/completers/cs/cs_completer.py
+@@ -346,7 +346,7 @@ class CsharpCompleter( Completer ):
+       omnisharp_server = responses.DebugInfoServer(
+         name = 'OmniSharp',
+         handle = completer._omnisharp_phandle,
+-        executable = PATH_TO_ROSLYN_OMNISHARP,
++        executable = self._roslyn_path,
+         address = 'localhost',
+         port = completer._omnisharp_port,
+         logfiles = [ completer._filename_stdout, completer._filename_stderr ],
+@@ -428,7 +428,7 @@ class CsharpSolutionCompleter( object ):
+ 
+     self._ChooseOmnisharpPort()
+ 
+-    command = [ PATH_TO_OMNISHARP_ROSLYN_BINARY,
++    command = [ self._roslyn_path,
+                 '-p',
+                 str( self._omnisharp_port ),
+                 '-s',
