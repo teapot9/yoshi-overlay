@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<use>
+		<flag name="debug">Install debugging symbols</flag>
+		<flag name="http">Install HTTP server</flag>
+		<flag name="stdio">Install stdio server</flag>
+	</use>
+	<upstream>
+		<changelog>https://github.com/OmniSharp/omnisharp-roslyn/blob/master/CHANGELOG.md</changelog>
+		<doc>https://github.com/OmniSharp/omnisharp-roslyn/blob/master/doc/Using-Omnisharp.md</doc>
+		<bugs-to>https://github.com/OmniSharp/omnisharp-roslyn/issues</bugs-to>
+		<remote-id type="github">OmniSharp/omnisharp-roslyn</remote-id>
+	</upstream>
+</pkgmetadata>
