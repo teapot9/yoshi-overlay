@@ -80,7 +80,6 @@ BDEPEND="
 		${RDEPEND}
 		dev-cpp/gtest
 		net-libs/nodejs[npm]
-		dev-lang/typescript
 		dev-python/pyhamcrest[${PYTHON_USEDEP}]
 		dev-python/webtest[${PYTHON_USEDEP}]
 		dev-python/psutil[${PYTHON_USEDEP}]
