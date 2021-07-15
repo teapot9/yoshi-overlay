@@ -57,6 +57,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
 	dev-cpp/abseil-cpp
+	dev-python/pybind11[${PYTHON_USEDEP}]
 "
 RDEPEND="
 	${DEPEND}
@@ -66,7 +67,6 @@ RDEPEND="
 	dev-python/regex[${PYTHON_USEDEP}]
 	dev-python/jedi[${PYTHON_USEDEP}]
 	dev-python/watchdog[${PYTHON_USEDEP}]
-	dev-python/pybind11[${PYTHON_USEDEP}]
 	clang? ( sys-devel/clang )
 	clangd? ( sys-devel/clang )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.35.4[http] )
