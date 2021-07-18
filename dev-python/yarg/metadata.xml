@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<maintainer>
+			<name>Kura</name>
+			<email>kura@kura.io</email>
+		</maintainer>
+		<changelog>https://yarg.readthedocs.io/changelog.html</changelog>
+		<doc>https://yarg.readthedocs.io/</doc>
+		<bugs-to>https://github.com/kura/yarg/issues</bugs-to>
+		<remote-id type="github">kura/yarg</remote-id>
+		<remote-id type="pypi">yarg</remote-id>
+	</upstream>
+</pkgmetadata>
