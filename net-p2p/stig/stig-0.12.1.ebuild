@@ -6,7 +6,7 @@ MY_PV="${PV}a0"
 MY_P="${PN}-${MY_PV}"
 
 # No tests due to dev-python/asynctest not supporting python >= 3.8
-PYTHON_COMPAT=( python3_{6,7,8,9} )
+PYTHON_COMPAT=( python3_{8..9} )
 DISTUTILS_USE_SETUPTOOLS="rdepend"
 inherit distutils-r1
 

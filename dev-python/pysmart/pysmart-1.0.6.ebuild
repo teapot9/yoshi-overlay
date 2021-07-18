@@ -5,7 +5,7 @@ EAPI=7
 MY_PN="pySMART"
 MY_P="${MY_PN}-${PV}"
 
-PYTHON_COMPAT=( python3_{6..9} pypy3 )
+PYTHON_COMPAT=( python3_{8..9} pypy3 )
 DISTUTILS_USE_SETUPTOOLS=no
 inherit distutils-r1
 

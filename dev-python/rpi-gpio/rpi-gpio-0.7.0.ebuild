@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,7 +6,7 @@ EAPI=7
 MY_PN="RPi.GPIO"
 MY_P="${MY_PN}-${PV}"
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_8 )
 DISTUTILS_USE_SETUPTOOLS=no
 inherit distutils-r1
 
