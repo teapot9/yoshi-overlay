@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<changelog>https://github.com/bndr/pipreqs/blob/master/HISTORY.rst</changelog>
+		<bugs-to>https://github.com/bndr/pipreqs/issues</bugs-to>
+		<remote-id type="github">bndr/pipreqs</remote-id>
+		<remote-id type="pypi">pipreqs</remote-id>
+	</upstream>
+</pkgmetadata>
