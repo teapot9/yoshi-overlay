@@ -1,12 +1,12 @@
 # Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python3_{8..9} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 
-inherit git-r3 distutils-r1
+inherit python-r1 git-r3 distutils-r1
 
 DESCRIPTION="A customizable simple initramfs generator"
 HOMEPAGE="https://github.com/teapot9/cmkinitramfs"
