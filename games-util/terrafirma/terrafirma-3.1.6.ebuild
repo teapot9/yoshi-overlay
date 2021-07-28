@@ -7,7 +7,7 @@ MY_PN="TerraFirma"
 inherit qmake-utils
 
 DESCRIPTION="Mapping for Terraria"
-HOMEPAGE="https://github.com/mrkite/TerraFirma"
+HOMEPAGE="https://seancode.com/terrafirma/"
 SRC_URI="https://github.com/mrkite/${MY_PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
