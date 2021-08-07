@@ -6,7 +6,7 @@ EAPI=7
 DISTUTILS_USE_SETUPTOOLS=pyproject.toml
 PYTHON_COMPAT=( python3_{8..9} )
 
-inherit distutils-r1
+inherit python-utils-r1 python-r1 distutils-r1
 
 DESCRIPTION="A Python library for controlling YeeLight RGB bulbs."
 HOMEPAGE="https://gitlab.com/stavros/python-yeelight https://pypi.org/project/yeelight/"
