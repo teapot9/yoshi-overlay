@@ -6,7 +6,18 @@ EAPI=7
 PYTHON_COMPAT=( python3_{8..10} )
 PYTHON_REQ_USE="xml(+)"
 
-inherit cmake python-r1 python-utils-r1 git-r3 flag-o-matic
+inherit cmake python-r1 python-utils-r1 flag-o-matic
+
+BASE_REPO_URI="https://github.com/ycm-core/ycmd"
+if [[ ${PV} == *9999* ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="${BASE_REPO_URI}.git"
+	EGIT_SUBMODULES=()
+else
+	COMMIT_HASH="5fdb530008e52be3b057748a4b87529507b7df9a"
+	SRC_URI="${BASE_REPO_URI}/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
+	S="${WORKDIR}/${PN}-${COMMIT_HASH}"
+fi
 
 get_npm_uri() {
 	for pkg in "$@"; do
@@ -26,8 +37,6 @@ get_npm_file() {
 
 DESCRIPTION="A code-completion & code-comprehension server"
 HOMEPAGE="https://ycm-core.github.io/ycmd/"
-EGIT_REPO_URI="https://github.com/ycm-core/ycmd.git"
-EGIT_SUBMODULES=()
 
 NPM_MIRROR="https://registry.npmjs.org"
 GENERIC_SERVER_DEPS="
@@ -38,11 +47,11 @@ GENERIC_SERVER_DEPS="
 	vscode-languageserver-6.1.1
 	semver-6.3.0
 	vscode-languageclient-6.1.3
-	@types/mocha-8.0.3
-	@types/node-12.12.0
-	@types/vscode-1.57.0
+	@types/mocha-8.2.3
+	@types/node-12.20.24
+	@types/vscode-1.43.0
 "
-SRC_URI="
+SRC_URI+="
 	test? (
 		$(get_npm_uri ${GENERIC_SERVER_DEPS})
 	)
@@ -70,10 +79,10 @@ RDEPEND="
 	clang? ( sys-devel/clang )
 	clangd? ( sys-devel/clang )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.35.4[http] )
-	go? ( ~dev-go/gopls-0.6.4 )
+	go? ( ~dev-go/gopls-0.7.1 )
 	java? ( ~dev-java/eclipse-jdt-ls-bin-0.68.0 )
 	javascript? ( dev-lang/typescript )
-	rust? ( <=dev-util/rust-analyzer-20210414 )
+	rust? ( ~dev-util/rust-analyzer-20210809 )
 "
 BDEPEND="
 	${PYTHON_DEPS}
@@ -92,12 +101,12 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/${P}-fix-devdep.patch"
-	"${FILESDIR}/${P}-system-jdtls.patch"
-	"${FILESDIR}/${P}-system-omnisharp.patch"
-	"${FILESDIR}/${P}-system-clang.patch"
-	"${FILESDIR}/${P}-cmake-use-build.patch"
-	"${FILESDIR}/${P}-fix-core-version.patch"
+	"${FILESDIR}/${PN}-20210903-fix-devdep.patch"
+	"${FILESDIR}/${PN}-20210903-system-jdtls.patch"
+	"${FILESDIR}/${PN}-20210903-system-omnisharp.patch"
+	"${FILESDIR}/${PN}-20210903-system-clang.patch"
+	"${FILESDIR}/${PN}-20210903-cmake-use-build.patch"
+	"${FILESDIR}/${PN}-20210903-fix-core-version.patch"
 )
 
 CMAKE_USE_DIR="${S}/cpp"
@@ -210,8 +219,6 @@ src_compile() {
 	python_foreach_impl run_in_build_dir cmake_src_compile
 	python_foreach_impl run_in_build_dir \
 		eval mv -v 'ycm/ycm_core.*.so' . || die
-	#clang_soname="$(IFS=,; for k in $(scanelf -qF'%n#F' ycm_core.*.so); \
-	#                do echo "$k"; done | grep libclang.so | head -1)"
 }
 
 generic_server_compile() {
@@ -254,6 +261,8 @@ src_test() {
 		# System rust-analyzer
 		--deselect "ycmd/tests/rust/rust_completer_test.py::GetCompleter_WarnsAboutOldConfig_test"
 		--deselect "ycmd/tests/rust/rust_completer_test.py::GetCompleter_RANotFound_test"
+		# Fail with rust 1.53
+		--deselect "ycmd/tests/rust/get_completions_proc_macro_test.py::GetCompletions_ProcMacro_test[]"
 		# System jedi
 		--deselect "ycmd/tests/python/subcommands_test.py::Subcommands_GoTo_test[-test3-GoTo]"
 		--deselect "ycmd/tests/python/subcommands_test.py::Subcommands_GoTo_test[-test3-GoToDefinition]"
