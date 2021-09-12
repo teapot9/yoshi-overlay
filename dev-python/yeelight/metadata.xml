@@ -5,4 +5,11 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<changelog>https://gitlab.com/stavros/python-yeelight/-/blob/master/CHANGELOG.md</changelog>
+		<doc>https://yeelight.readthedocs.io/</doc>
+		<bugs-to>https://gitlab.com/stavros/python-yeelight/-/issues</bugs-to>
+		<remote-id type="gitlab">stavros/python-yeelight</remote-id>
+		<remote-id type="pypi">yeelight</remote-id>
+	</upstream>
 </pkgmetadata>
