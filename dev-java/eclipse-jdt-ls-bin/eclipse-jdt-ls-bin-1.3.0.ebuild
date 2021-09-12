@@ -3,7 +3,7 @@
 
 EAPI=7
 
-MY_TIMESTAMP="202106301459"
+MY_TIMESTAMP="202108171748"
 
 inherit java-pkg-2 java-utils-2
 
