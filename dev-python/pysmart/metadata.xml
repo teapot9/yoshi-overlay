@@ -6,6 +6,7 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<changelog>https://github.com/truenas/py-SMART/blob/master/CHANGELOG.md</changelog>
 		<bugs-to>https://github.com/truenas/py-SMART/issues</bugs-to>
 		<remote-id type="github">truenas/py-SMART</remote-id>
 		<remote-id type="pypi">pySMART</remote-id>
