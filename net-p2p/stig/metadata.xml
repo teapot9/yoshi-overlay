@@ -9,4 +9,10 @@
 		<flag name="proxy">Tunnel the connection to the Transmission daemon through a SOCKS5, SOCKS4 or HTTP proxy</flag>
 		<flag name="setproctitle">Strip arguments from process title when running in tmux session</flag>
 	</use>
+	<upstream>
+		<changelog>https://github.com/rndusr/stig/blob/master/CHANGELOG</changelog>
+		<bugs-to>https://github.com/rndusr/stig/issues</bugs-to>
+		<remote-id type="github">rndusr/stig</remote-id>
+		<remote-id type="pypi">stig</remote-id>
+	</upstream>
 </pkgmetadata>
