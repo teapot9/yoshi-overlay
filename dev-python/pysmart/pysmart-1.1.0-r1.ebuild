@@ -22,7 +22,7 @@ DEPEND="dev-python/humanfriendly"
 RDEPEND="${DEPEND}
 	sys-apps/smartmontools
 "
-BDEPEND=""
+BDEPEND="doc? ( dev-python/pdoc3 )"
 
 DOCS=( CHANGELOG.md README.md )
 
