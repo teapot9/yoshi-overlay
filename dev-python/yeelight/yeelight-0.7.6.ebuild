@@ -26,7 +26,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
-DOCS=( CHANGELOG.md README.rst )
+DOCS=( CHANGELOG.md README.md )
 
 distutils_enable_tests pytest
 distutils_enable_sphinx docs/source dev-python/sphinx_rtd_theme
