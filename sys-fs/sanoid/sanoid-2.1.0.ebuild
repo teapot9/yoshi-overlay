@@ -12,17 +12,23 @@ SRC_URI="https://github.com/jimsalterjrs/sanoid/archive/refs/tags/v${PV}.tar.gz 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="minimal"
 # Tests require root privileges
 RESTRICT="test"
 
 DEPEND="
+	dev-lang/perl
 	dev-perl/Config-IniFiles
 	dev-perl/Capture-Tiny
 	virtual/perl-Data-Dumper
 "
 RDEPEND="${DEPEND}
-	sys-apps/pv
-	sys-block/mbuffer
+	!minimal? (
+		sys-apps/pv
+		sys-block/mbuffer
+	)
+	sys-fs/zfs
+	virtual/ssh
 "
 BDEPEND=""
 
