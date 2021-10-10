@@ -32,8 +32,6 @@ RDEPEND="${DEPEND}
 "
 BDEPEND=""
 
-DOCS=( README.md sanoid.conf )
-
 src_test() {
 	cd tests
 	./run-tests.sh || die "run-tests.sh failed"
@@ -46,6 +44,7 @@ src_install() {
 	dobin syncoid
 	insinto "/etc/${PN}"
 	doins sanoid.defaults.conf
+	doins sanoid.conf
 	insinto /etc/cron.d
 	newins "${FILESDIR}/${PN}.cron" "${PN}"
 	einstalldocs
