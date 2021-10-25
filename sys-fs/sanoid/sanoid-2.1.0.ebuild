@@ -32,6 +32,8 @@ RDEPEND="${DEPEND}
 "
 BDEPEND=""
 
+PATCHES=( "${FILESDIR}/${PN}-2.1.0-comment-config.patch" )
+
 src_test() {
 	cd tests
 	./run-tests.sh || die "run-tests.sh failed"

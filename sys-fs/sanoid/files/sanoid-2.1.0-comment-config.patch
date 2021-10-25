@@ -1,0 +1,22 @@
+diff --git a/sanoid.conf b/sanoid.conf
+index 8504b93..f8278ef 100644
+--- a/sanoid.conf
++++ b/sanoid.conf
+@@ -26,12 +26,11 @@
+ #	# child datasets already initialized won't be wiped out, so if you use a new template, it will
+ #	# only override the values already set by the parent template, not replace it completely.
+ #	use_template = demo
+-
+-
+-# you can also handle datasets recursively in an atomic way without the possibility to override settings for child datasets.
+-[zpoolname/parent2]
+-	use_template = production
+-	recursive = zfs
++#
++## you can also handle datasets recursively in an atomic way without the possibility to override settings for child datasets.
++#[zpoolname/parent2]
++#	use_template = production
++#	recursive = zfs
+ 
+ 
+ 

@@ -1,2 +1,3 @@
-*/15 * * * * root flock -n /var/run/sanoid/cron-take.lock -c "TZ=UTC sanoid --take-snapshots"
-*/15 * * * * root flock -n /var/run/sanoid/cron-prune.lock -c "sanoid --prune-snapshots"
+TZ=UTC
+*/15 * * * * root flock -n /var/lock/sanoid-cron-take.lock sanoid --take-snapshots
+*/15 * * * * root flock -n /var/lock/sanoid-cron-prune.lock sanoid --prune-snapshots
