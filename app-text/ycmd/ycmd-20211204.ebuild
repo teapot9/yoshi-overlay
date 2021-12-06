@@ -14,7 +14,7 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="${BASE_REPO_URI}.git"
 	EGIT_SUBMODULES=()
 else
-	COMMIT_HASH="$(die)"
+	COMMIT_HASH="fcfe56d701ecd1093b7017838726854c1b26fdfe"
 	SRC_URI="${BASE_REPO_URI}/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
 	S="${WORKDIR}/${PN}-${COMMIT_HASH}"
 fi
