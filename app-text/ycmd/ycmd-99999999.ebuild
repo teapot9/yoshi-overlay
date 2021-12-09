@@ -209,7 +209,7 @@ src_prepare() {
 	ignore_test ycmd/tests/clangd/subcommands_test.py \
 		test_Subcommands_GoToInclude \
 		test_Subcommands_GoToSymbol
-	if ! use clang && ! use clangd; then
+	if ! use clang; then
 		ignore_test ycmd/tests/shutdown_test.py \
 			test_FromHandlerWithSubservers \
 			test_FromWatchdogWithSubservers
