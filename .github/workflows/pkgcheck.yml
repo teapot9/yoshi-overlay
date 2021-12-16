@@ -13,6 +13,4 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Run pkgcheck
-      # Workaround for https://github.com/pkgcore/pkgcheck-action/issues/4
-      uses: nabbi/pkgcheck-action@v1
-      #uses: pkgcore/pkgcheck-action@v1
+      uses: pkgcore/pkgcheck-action@v1
