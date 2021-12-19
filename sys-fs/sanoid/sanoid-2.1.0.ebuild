@@ -6,7 +6,7 @@ EAPI=8
 inherit optfeature
 
 DESCRIPTION="Policy-driven snapshot management and replication tools for ZFS"
-HOMEPAGE="http://www.openoid.net/products/"
+HOMEPAGE="https://www.openoid.net/products/"
 SRC_URI="https://github.com/jimsalterjrs/sanoid/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
