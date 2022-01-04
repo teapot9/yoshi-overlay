@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -257,6 +257,9 @@ src_prepare() {
 	ignore_test ycmd/tests/utils_test.py \
 		test_ImportAndCheckCore_Missing \
 		test_ImportAndCheckCore_Unexpected
+	ignore_test ycmd/tests/shutdown_test.py \
+		test_FromWatchdogWithSubservers \
+		test_FromHandlerWithSubservers
 
 	# Tern not available
 	ignore_all_tests ycmd/tests/tern/*_test.py
