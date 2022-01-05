@@ -1,10 +1,10 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-MY_PV="jj14"
-MY_COMMIT="cf03e0f35c036d27a859357a9fef1b17e281e0cf"
+MY_PV="jje9"
+MY_COMMIT="dbc9b2c609717cf72725d2cf5ac8820cbc3754e2"
 MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${MY_COMMIT}"
 
