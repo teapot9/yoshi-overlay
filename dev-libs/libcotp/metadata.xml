@@ -5,4 +5,9 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<changelog>https://github.com/paolostivanin/libcotp/releases</changelog>
+		<bugs-to>https://github.com/paolostivanin/libcotp/issues</bugs-to>
+		<remote-id type="github">paolostivanin/libcotp</remote-id>
+	</upstream>
 </pkgmetadata>
