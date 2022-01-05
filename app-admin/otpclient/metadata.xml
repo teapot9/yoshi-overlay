@@ -8,4 +8,10 @@
 	<use>
 		<flag name="cli">Build the command line interface</flag>
 	</use>
+	<upstream>
+		<changelog>https://github.com/paolostivanin/OTPClient/releases</changelog>
+		<doc>https://github.com/paolostivanin/OTPClient/wiki</doc>
+		<bugs-to>https://github.com/paolostivanin/OTPClient/issues</bugs-to>
+		<remote-id type="github">paolostivanin/OTPClient</remote-id>
+	</upstream>
 </pkgmetadata>
