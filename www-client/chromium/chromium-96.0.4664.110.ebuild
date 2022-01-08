@@ -1,29 +1,29 @@
-# Copyright 2009-2021 Gentoo Authors
+# Copyright 2009-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
-PYTHON_COMPAT=( python3_{8,9} )
+EAPI=8
+PYTHON_COMPAT=( python3_{8..10} )
 PYTHON_REQ_USE="xml"
 
 CHROMIUM_LANGS="am ar bg bn ca cs da de el en-GB es es-419 et fa fi fil fr gu he
 	hi hr hu id it ja kn ko lt lv ml mr ms nb nl pl pt-BR pt-PT ro ru sk sl sr
 	sv sw ta te th tr uk vi zh-CN zh-TW"
 
-inherit check-reqs chromium-2 desktop flag-o-matic multilib ninja-utils pax-utils portability python-any-r1 readme.gentoo-r1 toolchain-funcs xdg-utils
+inherit check-reqs chromium-2 desktop flag-o-matic ninja-utils pax-utils python-any-r1 readme.gentoo-r1 toolchain-funcs xdg-utils
 
 DESCRIPTION="Open-source version of Google Chrome web browser"
 HOMEPAGE="https://chromium.org/"
-PATCHSET="6"
+PATCHSET="4"
 PATCHSET_NAME="chromium-$(ver_cut 1)-patchset-${PATCHSET}"
+PPC64LE_PATCHSET="1"
 SRC_URI="https://commondatastorage.googleapis.com/chromium-browser-official/${P}.tar.xz
 	https://github.com/stha09/chromium-patches/releases/download/${PATCHSET_NAME}/${PATCHSET_NAME}.tar.xz
-	https://dev.gentoo.org/~sultan/distfiles/www-client/${PN}/${PN}-92-glibc-2.33-patch.tar.xz
-	arm64? ( https://github.com/google/highway/archive/refs/tags/0.12.1.tar.gz -> highway-0.12.1.tar.gz )"
+	ppc64? ( https://dev.gentoo.org/~gyakovlev/distfiles/${PN}-$(ver_cut 1)-ppc64le-${PPC64LE_PATCHSET}.tar.xz )"
 
 LICENSE="BSD"
-SLOT="0"
+SLOT="0/stable"
 KEYWORDS="~amd64 ~arm64 ~x86"
-IUSE="component-build cups cpu_flags_arm_neon +hangouts headless +js-type-check kerberos official pic +proprietary-codecs pulseaudio screencast selinux +suid +system-ffmpeg +system-icu +tcmalloc vaapi wayland widevine"
+IUSE="component-build cups cpu_flags_arm_neon debug +hangouts headless +js-type-check kerberos +official pic +proprietary-codecs pulseaudio screencast selinux +suid +system-ffmpeg +system-harfbuzz +system-icu +system-png +tcmalloc vaapi wayland widevine"
 # tcmalloc on musl: as far as I know, musl doesn't supports malloc
 # interposition, so tcmalloc cannot compile with musl.
 # component-build on musl: could not compile with it.
@@ -60,10 +60,10 @@ COMMON_DEPEND="
 	>=dev-libs/nss-3.26:=
 	>=media-libs/alsa-lib-1.0.19:=
 	media-libs/fontconfig:=
-	>=media-libs/freetype-2.11.0:=
-	>=media-libs/harfbuzz-2.4.0:0=[icu(-)]
+	>=media-libs/freetype-2.11.0-r1:=
+	system-harfbuzz? ( >=media-libs/harfbuzz-3:0=[icu(-)] )
 	media-libs/libjpeg-turbo:=
-	media-libs/libpng:=
+	system-png? ( media-libs/libpng:=[-apng] )
 	pulseaudio? ( media-sound/pulseaudio:= )
 	system-ffmpeg? (
 		>=media-video/ffmpeg-4.3:=
@@ -120,11 +120,14 @@ BDEPEND="
 	>=dev-util/gperf-3.0.3
 	>=dev-util/ninja-1.7.2
 	>=net-libs/nodejs-7.6.0[inspector]
-	sys-apps/hwids[usb(+)]
 	>=sys-devel/bison-2.4.3
 	sys-devel/flex
 	virtual/pkgconfig
 	js-type-check? ( virtual/jre )
+	elibc_musl? (
+		sys-libs/queue-standalone
+		$(python_gen_any_dep 'dev-python/html5lib[${PYTHON_USEDEP}]')
+	)
 "
 
 # These are intended for ebuild maintainer use to force clang if GCC is broken.
@@ -140,7 +143,6 @@ if [[ ${CHROMIUM_FORCE_LIBCXX} == yes ]]; then
 	DEPEND+=" >=sys-libs/libcxx-12"
 else
 	COMMON_DEPEND="
-		app-arch/snappy:=
 		dev-libs/libxslt:=
 		>=dev-libs/re2-0.2019.08.01:=
 		>=media-libs/openh264-1.6.0:=
@@ -202,8 +204,8 @@ pre_build_checks() {
 	fi
 
 	# Check build requirements, bug #541816 and bug #471810 .
-	CHECKREQS_MEMORY="3G"
-	CHECKREQS_DISK_BUILD="8G"
+	CHECKREQS_MEMORY="4G"
+	CHECKREQS_DISK_BUILD="9G"
 	if ( shopt -s extglob; is-flagq '-g?(gdb)?([1-9])' ); then
 		if use custom-cflags || use component-build; then
 			CHECKREQS_DISK_BUILD="25G"
@@ -237,41 +239,39 @@ src_prepare() {
 
 	local PATCHES=(
 		"${WORKDIR}/patches"
-		"${WORKDIR}/sandbox-patches/chromium-syscall_broker.patch"
-		"${WORKDIR}/sandbox-patches/chromium-fstatat-crash.patch"
-		"${FILESDIR}/chromium-93-EnumTable-crash.patch"
 		"${FILESDIR}/chromium-93-InkDropHost-crash.patch"
+		"${FILESDIR}/chromium-96-EnumTable-crash.patch"
+		"${FILESDIR}/chromium-96-freetype-unbundle.patch"
+		"${FILESDIR}/chromium-glibc-2.34.patch"
 		"${FILESDIR}/chromium-use-oauth2-client-switches-as-default.patch"
 		"${FILESDIR}/chromium-shim_headers.patch"
-		"${FILESDIR}/chromium-93-fix-build-with-system-ffmpeg.patch"
 	)
+
+	use ppc64 && PATCHES+=( "${WORKDIR}/${PN}-ppc64le" )
 
 	PATCHES+=(
 		# musl parches from Alpine Linux
-		"${FILESDIR}/${PN}-93.0.4577.82-default-pthread-stacksize.patch"
-		"${FILESDIR}/${PN}-93.0.4577.82-musl-fixes.patch"
-		"${FILESDIR}/${PN}-84.0.4147.135-musl-fixes-breakpad.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-default-pthread-stacksize.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-musl-fixes.patch"
+		"${FILESDIR}/${PN}-84.0.4147.135-no-getcontext.patch"
 		"${FILESDIR}/${PN}-93.0.4577.82-musl-hacks.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-musl-libc++.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-musl-libc++.patch"
 		"${FILESDIR}/${PN}-86.0.4240.111-musl-sandbox.patch"
 		"${FILESDIR}/${PN}-93.0.4577.82-no-execinfo.patch"
-		"${FILESDIR}/${PN}-93.0.4577.82-no-mallinfo.patch"
-		"${FILESDIR}/${PN}-93.0.4577.82-resolver.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-swiftshader.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-no-mallinfo.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-resolver.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-media-base.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-musl-crashpad.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-musl-v8-monotonic-pthread-cont_timedwait.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-nasm.patch"
-		"${FILESDIR}/${PN}-83.0.4103.61-gcc-fno-delete-null-pointer-checks.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-gcc-arm.patch"
-		"${FILESDIR}/${PN}-84.0.4147.135-aarch64-fixes.patch"
 		"${FILESDIR}/${PN}-83.0.4103.61-elf-arm.patch"
-		"${FILESDIR}/${PN}-90.0.4430.93-disable-floc-component.patch"
-		"${FILESDIR}/${PN}-91.0.4472.114-remove-unsupported-attribute.patch"
-		"${FILESDIR}/${PN}-91.0.4472.114-revert-2778794.patch"
-		"${FILESDIR}/${PN}-93.0.4577.82-quiche-arena-size.patch"
-		"${FILESDIR}/${PN}-93.0.4577.82-fix-narrowing-cast.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-quiche-arena-size.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-fix-narrowing-cast.patch"
 		"${FILESDIR}/${PN}-93.0.4577.82-scoped-file.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-VirtualCursor-standard-layout.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-musl-stat.patch"
+		"${FILESDIR}/${PN}-96.0.4664.110-fix-bits-stdint-intn-include.patch"
 		# Modified musl patch from Alpine Linux
 		"${FILESDIR}/${PN}-83.0.4103.61-clang-use-gentoo-target.patch"
 		# More musl patches
@@ -287,12 +287,6 @@ src_prepare() {
 
 	# adjust python interpreter version
 	sed -i -e "s|\(^script_executable = \).*|\1\"${EPYTHON}\"|g" .gn || die
-
-	# bundled highway library does not support arm64 with GCC
-	if use arm64; then
-		rm -r third_party/highway/src || die
-		ln -s "${WORKDIR}/highway-0.12.1" third_party/highway/src || die
-	fi
 
 	local keeplibs=(
 		base/third_party/cityhash
@@ -371,7 +365,9 @@ src_prepare() {
 		third_party/devtools-frontend/src/front_end/third_party/marked
 		third_party/devtools-frontend/src/front_end/third_party/puppeteer
 		third_party/devtools-frontend/src/front_end/third_party/wasmparser
+		third_party/devtools-frontend/src/test/unittests/front_end/third_party/i18n
 		third_party/devtools-frontend/src/third_party
+		third_party/distributed_point_functions
 		third_party/dom_distiller_js
 		third_party/eigen3
 		third_party/emoji-segmenter
@@ -390,7 +386,6 @@ src_prepare() {
 		third_party/google_input_tools/third_party/closure_library
 		third_party/google_input_tools/third_party/closure_library/third_party/closure
 		third_party/googletest
-		third_party/harfbuzz-ng/utils
 		third_party/hunspell
 		third_party/iccjpeg
 		third_party/inspector_protocol
@@ -427,6 +422,9 @@ src_prepare() {
 		third_party/lss
 		third_party/lzma_sdk
 		third_party/mako
+		third_party/maldoca
+		third_party/maldoca/src/third_party/tensorflow_protos
+		third_party/maldoca/src/third_party/zlibwrapper
 		third_party/markupsafe
 		third_party/mesa
 		third_party/metrics_proto
@@ -475,6 +473,7 @@ src_prepare() {
 		third_party/skia/third_party/skcms
 		third_party/skia/third_party/vulkan
 		third_party/smhasher
+		third_party/snappy
 		third_party/sqlite
 		third_party/swiftshader
 		third_party/swiftshader/third_party/astc-encoder
@@ -486,7 +485,6 @@ src_prepare() {
 		third_party/tflite
 		third_party/tflite/src/third_party/eigen3
 		third_party/tflite/src/third_party/fft2d
-		third_party/tflite-support
 		third_party/ruy
 		third_party/six
 		third_party/ukey2
@@ -531,6 +529,14 @@ src_prepare() {
 	if ! use system-icu; then
 		keeplibs+=( third_party/icu )
 	fi
+	if ! use system-png; then
+		keeplibs+=( third_party/libpng )
+	fi
+	if use system-harfbuzz; then
+		keeplibs+=( third_party/harfbuzz-ng/utils )
+	else
+		keeplibs+=( third_party/harfbuzz-ng )
+	fi
 	if use tcmalloc; then
 		keeplibs+=( third_party/tcmalloc )
 	fi
@@ -542,7 +548,6 @@ src_prepare() {
 		keeplibs+=( third_party/libxslt )
 		keeplibs+=( third_party/openh264 )
 		keeplibs+=( third_party/re2 )
-		keeplibs+=( third_party/snappy )
 		if use system-icu; then
 			keeplibs+=( third_party/icu )
 		fi
@@ -610,6 +615,11 @@ src_configure() {
 	# GN needs explicit config for Debug/Release as opposed to inferring it from build directory.
 	myconf_gn+=" is_debug=false"
 
+	# enable DCHECK with USE=debug only, increases chrome binary size by 30%, bug #811138.
+	# DCHECK is fatal by default, make it configurable at runtime, #bug 807881.
+	myconf_gn+=" dcheck_always_on=$(usex debug true false)"
+	myconf_gn+=" dcheck_is_configurable=$(usex debug true false)"
+
 	# Component build isn't generally intended for use by end users. It's mostly useful
 	# for development and debugging.
 	myconf_gn+=" is_component_build=$(usex component-build true false)"
@@ -626,9 +636,7 @@ src_configure() {
 	# Use system-provided libraries.
 	# TODO: freetype -- remove sources (https://bugs.chromium.org/p/pdfium/issues/detail?id=733).
 	# TODO: use_system_hunspell (upstream changes needed).
-	# TODO: use_system_libsrtp (bug #459932).
 	# TODO: use_system_protobuf (bug #525560).
-	# TODO: use_system_ssl (http://crbug.com/58087).
 	# TODO: use_system_sqlite (http://crbug.com/22208).
 
 	# libevent: https://bugs.gentoo.org/593458
@@ -640,7 +648,6 @@ src_configure() {
 		#harfbuzz-ng
 		libdrm
 		libjpeg
-		libpng
 		libwebp
 		zlib
 	)
@@ -650,18 +657,20 @@ src_configure() {
 	if use system-icu; then
 		gn_system_libraries+=( icu )
 	fi
+	if use system-png; then
+		gn_system_libraries+=( libpng )
+	fi
 	if [[ ${CHROMIUM_FORCE_LIBCXX} != yes ]]; then
 		# unbundle only without libc++, because libc++ is not fully ABI compatible with libstdc++
 		gn_system_libraries+=( libxml )
 		gn_system_libraries+=( libxslt )
 		gn_system_libraries+=( openh264 )
 		gn_system_libraries+=( re2 )
-		gn_system_libraries+=( snappy )
 	fi
 	build/linux/unbundle/replace_gn_files.py --system-libraries "${gn_system_libraries[@]}" || die
 
 	# See dependency logic in third_party/BUILD.gn
-	myconf_gn+=" use_system_harfbuzz=true"
+	myconf_gn+=" use_system_harfbuzz=$(usex system-harfbuzz true false)"
 
 	# Disable deprecated libgnome-keyring dependency, bug #713012
 	myconf_gn+=" use_gnome_keyring=false"
@@ -674,11 +683,11 @@ src_configure() {
 	myconf_gn+=" use_kerberos=$(usex kerberos true false)"
 	myconf_gn+=" use_pulseaudio=$(usex pulseaudio true false)"
 	myconf_gn+=" use_vaapi=$(usex vaapi true false)"
-	myconf_gn+=" rtc_use_pipewire=$(usex screencast true false) rtc_pipewire_version=\"0.3\""
+	myconf_gn+=" rtc_use_pipewire=$(usex screencast true false)"
 
 	# TODO: link_pulseaudio=true for GN.
 
-	myconf_gn+=" fieldtrial_testing_like_official_build=true"
+	myconf_gn+=" disable_fieldtrial_testing_config=true"
 
 	# Never use bundled gold binary. Disable gold linker flags for now.
 	# Do not use bundled clang.
@@ -791,10 +800,8 @@ src_configure() {
 	# Chromium relies on this, but was disabled in >=clang-10, crbug.com/1042470
 	append-cxxflags $(test-flags-CXX -flax-vector-conversions=all)
 
-	# highway/libjxl relies on this with arm64
-	if use arm64 && tc-is-gcc; then
-		append-cxxflags -flax-vector-conversions
-	fi
+	# highway/libjxl fail on ppc64 without extra patches, disable for now.
+	use ppc64 && myconf_gn+=" enable_jxl_decoder=false"
 
 	# Disable unknown warning message from clang.
 	tc-is-clang && append-flags -Wno-unknown-warning-option
@@ -807,6 +814,7 @@ src_configure() {
 	# Enable ozone wayland and/or headless support
 	myconf_gn+=" use_ozone=true ozone_auto_platforms=false"
 	myconf_gn+=" ozone_platform_headless=true"
+	myconf_gn+=" ozone_platform_x11=$(usex headless false true)"
 	if use wayland || use headless; then
 		if use headless; then
 			myconf_gn+=" ozone_platform=\"headless\""
@@ -818,6 +826,8 @@ src_configure() {
 			myconf_gn+=" use_xkbcommon=true"
 			myconf_gn+=" ozone_platform=\"wayland\""
 		fi
+	else
+		myconf_gn+=" ozone_platform=\"x11\""
 	fi
 
 	# Enable official builds
@@ -885,6 +895,11 @@ src_compile() {
 		s|\(^Exec=\)/usr/bin/|\1|g;' \
 		chrome/installer/linux/common/desktop.template > \
 		out/Release/chromium-browser-chromium.desktop || die
+
+	# Build vk_swiftshader_icd.json; bug #827861
+	sed -e 's|${ICD_LIBRARY_PATH}|./libvk_swiftshader.so|g' \
+		third_party/swiftshader/src/Vulkan/vk_swiftshader_icd.json.tmpl > \
+		out/Release/vk_swiftshader_icd.json || die
 }
 
 src_install() {
@@ -898,14 +913,16 @@ src_install() {
 	fi
 
 	doexe out/Release/chromedriver
-	doexe out/Release/crashpad_handler
+	doexe out/Release/chrome_crashpad_handler
 
+	ozone_auto_session () {
+		use wayland && ! use headless && echo true || echo false
+	}
 	local sedargs=( -e
 			"s:/usr/lib/:/usr/$(get_libdir)/:g;
-			s:@@OZONE_AUTO_SESSION@@:$(usex wayland true false):g;
-			s:@@FORCE_OZONE_PLATFORM@@:$(usex headless true false):g"
+			s:@@OZONE_AUTO_SESSION@@:$(ozone_auto_session):g"
 	)
-	sed "${sedargs[@]}" "${FILESDIR}/chromium-launcher-r6.sh" > chromium-launcher.sh || die
+	sed "${sedargs[@]}" "${FILESDIR}/chromium-launcher-r7.sh" > chromium-launcher.sh || die
 	doexe chromium-launcher.sh
 
 	# It is important that we name the target "chromium-browser",
@@ -939,6 +956,10 @@ src_install() {
 
 	doins -r out/Release/locales
 	doins -r out/Release/resources
+	doins -r out/Release/MEIPreload
+
+	# Install vk_swiftshader_icd.json; bug #827861
+	doins out/Release/vk_swiftshader_icd.json
 
 	if [[ -d out/Release/swiftshader ]]; then
 		insinto "${CHROMIUM_HOME}/swiftshader"

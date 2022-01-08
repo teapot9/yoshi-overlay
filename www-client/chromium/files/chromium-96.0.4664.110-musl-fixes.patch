@@ -1,23 +1,8 @@
 --- a/third_party/lss/linux_syscall_support.h
 +++ b/third_party/lss/linux_syscall_support.h
-@@ -139,12 +139,14 @@
-  */
- #pragma push_macro("stat64")
- #pragma push_macro("fstat64")
-+#pragma push_macro("fstatat64")
- #pragma push_macro("lstat64")
- #pragma push_macro("pread64")
- #pragma push_macro("pwrite64")
- #pragma push_macro("getdents64")
- #undef stat64
- #undef fstat64
-+#undef fstatat64
- #undef lstat64
- #undef pread64
- #undef pwrite64
-@@ -1258,6 +1260,12 @@
- #ifndef __NR_getrandom
- #define __NR_getrandom          318
+@@ -1127,6 +1127,12 @@
+ #ifndef __NR_fallocate
+ #define __NR_fallocate          285
  #endif
 +
 +#undef __NR_pread
@@ -28,15 +13,29 @@
  /* End of x86-64 definitions                                                 */
  #elif defined(__mips__)
  #if _MIPS_SIM == _MIPS_SIM_ABI32
-@@ -4545,6 +4553,7 @@
-  * corresponding #pragma push_macro near the top of this file. */
- #pragma pop_macro("stat64")
- #pragma pop_macro("fstat64")
-+#pragma pop_macro("fstatat64")
- #pragma pop_macro("lstat64")
- #pragma pop_macro("pread64")
- #pragma pop_macro("pwrite64")
-
+--- a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
++++ b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
+@@ -37,6 +37,10 @@
+ #include "common/memory.h"
+ #include "google_breakpad/common/minidump_format.h"
+ 
++#if !defined(__GLIBC__)
++	#define _libc_fpstate _fpstate
++#endif
++
+ namespace google_breakpad {
+ 
+ // Wraps platform-dependent implementations of accessors to ucontext_t structs.
+--- a/third_party/breakpad/breakpad/src/common/linux/elf_core_dump.h
++++ b/third_party/breakpad/breakpad/src/common/linux/elf_core_dump.h
+@@ -36,6 +36,7 @@
+ #include <elf.h>
+ #include <link.h>
+ #include <stddef.h>
++#include <limits.h>
+ 
+ #include "common/memory_range.h"
+ 
 --- a/sandbox/linux/suid/process_util.h
 +++ b/sandbox/linux/suid/process_util.h
 @@ -11,6 +11,14 @@
@@ -65,16 +64,7 @@
  #endif
  
  #if defined(__mips__)
---- a/third_party/ffmpeg/libavutil/cpu.c
-+++ b/third_party/ffmpeg/libavutil/cpu.c
-@@ -38,7 +38,6 @@
- #include <sys/param.h>
- #endif
- #include <sys/types.h>
--#include <sys/sysctl.h>
- #endif
- #if HAVE_UNISTD_H
- #include <unistd.h>
+diff --git a/chrome/browser/metrics/chrome_browser_main_extra_parts_metrics.cc b/chrome/browser/metrics/chrome_browser_main_extra_parts_metrics.cc
 --- a/chrome/browser/metrics/chrome_browser_main_extra_parts_metrics.cc
 +++ b/chrome/browser/metrics/chrome_browser_main_extra_parts_metrics.cc
 @@ -55,7 +55,9 @@
@@ -84,29 +74,29 @@
 +#if defined(__GLIBC__)
  #include <gnu/libc-version.h>
 +#endif
-
+ 
  #include "base/linux_util.h"
  #include "base/strings/string_split.h"
-@@ -318,7 +318,7 @@
+@@ -316,7 +318,7 @@
  void RecordLinuxGlibcVersion() {
  // TODO(crbug.com/1052397): Revisit the macro expression once build flag switch
  // of lacros-chrome is complete.
 -#if defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS)
-+#if (defined(OS_LINUX) && defined(__GLIBC__)) || BUILDFLAG(IS_CHROMEOS_LACROS)
++#if defined(__GLIBC__) || BUILDFLAG(IS_CHROMEOS_LACROS)
    base::Version version(gnu_get_libc_version());
-
+ 
    UMALinuxGlibcVersion glibc_version_result = UMA_LINUX_GLIBC_NOT_PARSEABLE;
-@@ -615,7 +617,9 @@
-
- void ChromeBrowserMainExtraPartsMetrics::PostBrowserStart() {
-   RecordMemoryMetricsAfterDelay();
-+#if defined(__GLIBC__)
-   RecordLinuxGlibcVersion();
-+#endif
- #if defined(USE_X11)
-   if (!features::IsUsingOzonePlatform()) {
-     // Ozone writes this histogram upon platform initialisation.
-diff --git a/third_party/ots/src/include/opentype-sanitiser.h b/third_party/ots/src/include/opentype-sanitiser.h
+--- a/services/device/serial/serial_io_handler_posix.cc
++++ b/services/device/serial/serial_io_handler_posix.cc
+@@ -6,6 +6,7 @@
+ 
+ #include <sys/ioctl.h>
+ #include <termios.h>
++#include <asm-generic/ioctls.h>
+ 
+ #include <algorithm>
+ #include <utility>
+diff --git a/third_party/ots/include/opentype-sanitiser.h b/third_party/ots/include/opentype-sanitiser.h
 --- a/third_party/ots/src/include/opentype-sanitiser.h
 +++ b/third_party/ots/src/include/opentype-sanitiser.h
 @@ -20,6 +20,7 @@ typedef unsigned __int64 uint64_t;
@@ -119,15 +109,16 @@ diff --git a/third_party/ots/src/include/opentype-sanitiser.h b/third_party/ots/
  #endif
 --- a/base/logging.cc
 +++ b/base/logging.cc
-@@ -557,7 +557,7 @@
-
+@@ -557,8 +557,7 @@
+ 
  LogMessage::~LogMessage() {
    size_t stack_start = stream_.tellp();
 -#if !defined(OFFICIAL_BUILD) && !defined(OS_NACL) && !defined(__UCLIBC__) && \
-+#if !defined(OFFICIAL_BUILD) && !defined(OS_NACL) && (defined(OS_LINUX) && defined(__GLIBC__)) && \
-     !defined(OS_AIX)
+-    !defined(OS_AIX)
++#if !defined(OFFICIAL_BUILD) && !defined(OS_NACL) && defined(__GLIBC__)
    if (severity_ == LOGGING_FATAL && !base::debug::BeingDebugged()) {
      // Include a stack trace on a fatal, unless a debugger is attached.
+     base::debug::StackTrace stack_trace;
 --- a/third_party/blink/renderer/platform/wtf/stack_util.cc
 +++ b/third_party/blink/renderer/platform/wtf/stack_util.cc
 @@ -28,7 +28,7 @@
@@ -138,7 +129,7 @@ diff --git a/third_party/ots/src/include/opentype-sanitiser.h b/third_party/ots/
 +#elif defined(OS_LINUX) || defined(OS_ANDROID) || defined(OS_FREEBSD) || \
      defined(OS_FUCHSIA)
    // pthread_getattr_np() can fail if the thread is not invoked by
-   // pthread_create() (e.g., the main thread of webkit_unit_tests).
+   // pthread_create() (e.g., the main thread of blink_unittests).
 @@ -96,7 +96,7 @@
  }
  
@@ -191,28 +182,21 @@ diff --git a/third_party/ots/src/include/opentype-sanitiser.h b/third_party/ots/
   * GNU-specific, but avoids the realpath(..., NULL)
 --- a/third_party/perfetto/include/perfetto/ext/base/thread_utils.h
 +++ b/third_party/perfetto/include/perfetto/ext/base/thread_utils.h
-@@ -61,9 +61,11 @@
- #if PERFETTO_BUILDFLAG(PERFETTO_OS_ANDROID)
+@@ -29,7 +29,7 @@
+ #include <algorithm>
+ #endif
+ 
+-#if PERFETTO_BUILDFLAG(PERFETTO_OS_ANDROID)
++#if 1
+ #include <sys/prctl.h>
+ #endif
+ 
+@@ -58,7 +58,7 @@ inline bool MaybeSetThreadName(const std::string& name) {
+ 
+ inline bool GetThreadName(std::string& out_result) {
+   char buf[16] = {};
+-#if PERFETTO_BUILDFLAG(PERFETTO_OS_ANDROID)
++#if 1
    if (prctl(PR_GET_NAME, buf) != 0)
      return false;
--#else
-+#elif defined(__GLIBC__)
-   if (pthread_getname_np(pthread_self(), buf, sizeof(buf)) != 0)
-     return false;
-+#else
-+  return false;
- #endif
-   out_result = std::string(buf);
-   return true;
---- a/base/files/file_util_posix.cc
-+++ b/base/files/file_util_posix.cc
-@@ -845,6 +845,9 @@
- // NaCl doesn't implement system calls to open files directly.
- #if !defined(OS_NACL)
- FILE* FileToFILE(File file, const char* mode) {
-+  if (!file.IsValid() || !(fcntl(file.GetPlatformFile(), F_GETFD) != -1 || errno != EBADF))
-+    return nullptr;
-+
-   FILE* stream = fdopen(file.GetPlatformFile(), mode);
-   if (stream)
-     file.TakePlatformFile();
+ #else

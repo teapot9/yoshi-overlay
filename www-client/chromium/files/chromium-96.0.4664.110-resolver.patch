@@ -1,15 +1,3 @@
---- a/net/dns/dns_reloader.cc
-+++ b/net/dns/dns_reloader.cc
-@@ -4,8 +4,7 @@
- 
- #include "net/dns/dns_reloader.h"
- 
--#if defined(OS_POSIX) && !defined(OS_APPLE) && !defined(OS_OPENBSD) && \
--    !defined(OS_ANDROID) && !defined(OS_FUCHSIA)
-+#if defined(__GLIBC__)
- 
- #include <resolv.h>
- 
 --- a/net/dns/host_resolver_manager.cc
 +++ b/net/dns/host_resolver_manager.cc
 @@ -2779,8 +2779,7 @@
@@ -22,6 +10,20 @@
    EnsureDnsReloaderInit();
  #endif
  
+--- a/net/dns/dns_reloader.cc
++++ b/net/dns/dns_reloader.cc
+@@ -4,9 +4,8 @@
+ 
+ #include "net/dns/dns_reloader.h"
+ 
+-#if defined(OS_POSIX) && !defined(OS_APPLE) && !defined(OS_OPENBSD) && \
+-    !defined(OS_ANDROID) && !defined(OS_FUCHSIA)
+-
++#if defined(__GLIBC__)
++ 
+ #include <resolv.h>
+ 
+ #include "base/lazy_instance.h"
 --- a/net/dns/host_resolver_proc.cc
 +++ b/net/dns/host_resolver_proc.cc
 @@ -159,8 +159,7 @@
@@ -36,10 +38,25 @@
    base::Optional<AddressInfo> ai;
 --- a/net/dns/dns_config_service_linux.cc
 +++ b/net/dns/dns_config_service_linux.cc
-@@ -486,20 +480,11 @@
+@@ -432,12 +432,6 @@
+     base::ScopedBlockingCall scoped_blocking_call(
+         FROM_HERE, base::BlockingType::MAY_BLOCK);
  
- std::unique_ptr<struct __res_state>
- DnsConfigServiceLinux::ResolvReader::GetResState() {
+-    std::unique_ptr<struct __res_state> res = resolv_reader_->GetResState();
+-    if (res) {
+-      dns_config_ = ConvertResStateToDnsConfig(*res.get());
+-      resolv_reader_->CloseResState(res.get());
+-    }
+-
+     UMA_HISTOGRAM_BOOLEAN("Net.DNS.DnsConfig.Resolv.Read",
+                           dns_config_.has_value());
+     if (!dns_config_.has_value())
+--- a/net/dns/public/resolv_reader.cc
++++ b/net/dns/public/resolv_reader.cc
+@@ -20,19 +20,10 @@
+ namespace net {
+ 
+ std::unique_ptr<struct __res_state> ResolvReader::GetResState() {
 -  auto res = std::make_unique<struct __res_state>();
 -  memset(res.get(), 0, sizeof(struct __res_state));
 -
@@ -52,9 +69,8 @@
 +  return nullptr;
  }
  
- void DnsConfigServiceLinux::ResolvReader::CloseResState(
-     struct __res_state* res) {
+ void ResolvReader::CloseResState(struct __res_state* res) {
 -  res_nclose(res);
  }
  
- DnsConfigServiceLinux::DnsConfigServiceLinux()
+ absl::optional<std::vector<IPEndPoint>> GetNameservers(

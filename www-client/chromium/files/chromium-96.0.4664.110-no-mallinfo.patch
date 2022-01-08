@@ -1,31 +1,14 @@
 --- a/base/trace_event/malloc_dump_provider.cc
 +++ b/base/trace_event/malloc_dump_provider.cc
-@@ -213,24 +213,7 @@
+@@ -212,7 +212,7 @@
+                      &allocated_objects_count);
  #elif defined(OS_FUCHSIA)
  // TODO(fuchsia): Port, see https://crbug.com/706592.
- #else
--#if defined(__GLIBC__) && defined(__GLIBC_PREREQ)
--#if __GLIBC_PREREQ(2, 33)
--#define MALLINFO2_FOUND_IN_LIBC
--  struct mallinfo2 info = mallinfo2();
--#endif
--#endif  // defined(__GLIBC__) && defined(__GLIBC_PREREQ)
--#if !defined(MALLINFO2_FOUND_IN_LIBC)
--  struct mallinfo info = mallinfo();
--#endif
--#undef MALLINFO2_FOUND_IN_LIBC
--  // In case of Android's jemalloc |arena| is 0 and the outer pages size is
--  // reported by |hblkhd|. In case of dlmalloc the total is given by
--  // |arena| + |hblkhd|. For more details see link: http://goo.gl/fMR8lF.
--  total_virtual_size = info.arena + info.hblkhd;
--  resident_size = info.uordblks;
--
--  // Total allocated space is given by |uordblks|.
--  allocated_objects_size = info.uordblks;
-+// NOOP
- #endif
- 
-   MemoryAllocatorDump* outer_dump = pmd->CreateAllocatorDump("malloc");
+-#else
++#elif defined(__GLIBC__)
+ #if defined(__GLIBC__) && defined(__GLIBC_PREREQ)
+ #if __GLIBC_PREREQ(2, 33)
+ #define MALLINFO2_FOUND_IN_LIBC
 --- a/base/process/process_metrics_posix.cc
 +++ b/base/process/process_metrics_posix.cc
 @@ -105,7 +105,7 @@
@@ -68,3 +51,32 @@
    rusage res;
    if (getrusage(RUSAGE_SELF, &res) == 0) {
      result.max_rss_kb = res.ru_maxrss;
+--- a/third_party/swiftshader/third_party/llvm-subzero/lib/Support/Unix/Process.inc
++++ b/third_party/swiftshader/third_party/llvm-subzero/lib/Support/Unix/Process.inc
+@@ -86,11 +86,11 @@
+ }
+
+ size_t Process::GetMallocUsage() {
+-#if defined(HAVE_MALLINFO2)
++#if defined(HAVE_MALLINFO2) && defined(__GLIBC__)
+   struct mallinfo2 mi;
+   mi = ::mallinfo2();
+   return mi.uordblks;
+-#elif defined(HAVE_MALLINFO)
++#elif defined(HAVE_MALLINFO) && defined(__GLIBC__)
+   struct mallinfo mi;
+   mi = ::mallinfo();
+   return mi.uordblks;
+
+--- a/third_party/swiftshader/third_party/llvm-10.0/configs/linux/include/llvm/Config/config.h
++++ b/third_party/swiftshader/third_party/llvm-10.0/configs/linux/include/llvm/Config/config.h
+@@ -122,7 +122,9 @@
+ /* #undef HAVE_MALLCTL */
+ 
+ /* Define to 1 if you have the `mallinfo' function. */
++#if defined(__GLIBC__)
+ #define HAVE_MALLINFO 1
++#endif
+ 
+ /* Define to 1 if you have the <malloc.h> header file. */
+ #define HAVE_MALLOC_H 1
