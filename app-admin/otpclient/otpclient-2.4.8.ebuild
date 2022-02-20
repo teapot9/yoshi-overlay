@@ -37,6 +37,7 @@ src_prepare() {
 	done
 	cmake_src_prepare
 }
+
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_GUI=$(usex X)
