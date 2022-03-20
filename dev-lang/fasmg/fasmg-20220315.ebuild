@@ -3,8 +3,8 @@
 
 EAPI=7
 
-MY_PV="jje9"
-MY_COMMIT="dbc9b2c609717cf72725d2cf5ac8820cbc3754e2"
+MY_PV="jm5y"
+MY_COMMIT="ce09aad6c59a0379ed9bd9e32c74522483d6cac7"
 MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${MY_COMMIT}"
 
@@ -50,7 +50,7 @@ src_compile() {
 		fasmg "${SOURCES}/fasmg.asm" "${SOURCES}/fasmg" || die "fasmg failed"
 	elif has_version dev-lang/fasm || has_version dev-lang/fasmg-bin; then
 		export INCLUDE="${WORKDIR}/include"
-		fasm "${SOURCES}/fasmg.asm" "${SOURCES}/fasmg" || die "fasm failed"
+		fasm -m 65536 "${SOURCES}/fasmg.asm" "${SOURCES}/fasmg" || die "fasm failed"
 	fi
 }
 
