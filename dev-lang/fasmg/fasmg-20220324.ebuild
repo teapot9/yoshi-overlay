@@ -1,10 +1,10 @@
 # Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-MY_PV="jm5y"
-MY_COMMIT="ce09aad6c59a0379ed9bd9e32c74522483d6cac7"
+MY_PV="jmhx"
+MY_COMMIT="e6f827d605b42ec8bd3be39d83aeb5ec65125f64"
 MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${MY_COMMIT}"
 
@@ -23,9 +23,9 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	|| (
 		dev-lang/fasm
-		( dev-lang/fasmg-bin !!~dev-lang/fasmg-bin-20211212 )
+		dev-lang/fasmg-bin
 		dev-lang/fasm-bin
-		( dev-lang/fasmg !!~dev-lang/fasmg-20211212 )
+		dev-lang/fasmg
 	)
 "
 
@@ -44,9 +44,7 @@ src_prepare() {
 }
 
 src_compile() {
-	if (has_version dev-lang/fasmg || has_version dev-lang/fasmg-bin) \
-		&& ! has_version ~dev-lang/fasmg-bin-20211212 \
-		&& ! has_version ~dev-lang/fasmg-20211212; then
+	if has_version dev-lang/fasmg || has_version dev-lang/fasmg-bin; then
 		fasmg "${SOURCES}/fasmg.asm" "${SOURCES}/fasmg" || die "fasmg failed"
 	elif has_version dev-lang/fasm || has_version dev-lang/fasmg-bin; then
 		export INCLUDE="${WORKDIR}/include"
