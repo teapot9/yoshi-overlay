@@ -4,7 +4,7 @@
 EAPI=8
 MY_PN="OTPClient"
 
-inherit cmake
+inherit cmake xdg-utils
 
 DESCRIPTION="Highly secure and easy to use OTP client written in C/GTK"
 HOMEPAGE="https://github.com/paolostivanin/OTPClient"
@@ -15,17 +15,20 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="X +cli"
+REQUIRED_USE="|| ( X cli )"
 
 DEPEND="
-	x11-libs/gtk+:3=
-	x11-libs/gdk-pixbuf
+	X? (
+		x11-libs/gtk+:3=
+		x11-libs/gdk-pixbuf
+		media-libs/libpng:=
+		media-gfx/zbar
+	)
 	dev-libs/glib:2=
 	dev-libs/jansson:=
 	dev-libs/libgcrypt:=
 	dev-libs/libzip:=
-	media-libs/libpng:=
 	dev-libs/libcotp:=
-	media-gfx/zbar
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
@@ -44,4 +47,12 @@ src_configure() {
 		-DBUILD_CLI=$(usex cli)
 	)
 	cmake_src_configure
+}
+
+pkg_postinst() {
+	xdg_icon_cache_update
+}
+
+pkg_postrm() {
+	xdg_icon_cache_update
 }
