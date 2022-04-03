@@ -1,7 +1,7 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python3_{8..10} )
 PYTHON_REQ_USE="xml(+)"
@@ -14,7 +14,7 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="${BASE_REPO_URI}.git"
 	EGIT_SUBMODULES=()
 else
-	COMMIT_HASH="5fdb530008e52be3b057748a4b87529507b7df9a"
+	COMMIT_HASH="05161fb39e50cfbe723f12017335e39babe6ea3e"
 	SRC_URI="${BASE_REPO_URI}/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
 	S="${WORKDIR}/${PN}-${COMMIT_HASH}"
 fi
@@ -78,9 +78,9 @@ RDEPEND="
 	dev-python/watchdog[${PYTHON_USEDEP}]
 	clang? ( sys-devel/clang )
 	clangd? ( sys-devel/clang )
-	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.35.4[http] )
+	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.37.11[http] )
 	go? ( ~dev-go/gopls-0.7.1 )
-	java? ( ~dev-java/eclipse-jdt-ls-bin-0.68.0 )
+	java? ( ~dev-java/eclipse-jdt-ls-bin-1.5.0 )
 	javascript? ( dev-lang/typescript )
 	rust? ( ~dev-util/rust-analyzer-20210809 )
 "
@@ -94,9 +94,8 @@ BDEPEND="
 		dev-python/pyhamcrest[${PYTHON_USEDEP}]
 		dev-python/webtest[${PYTHON_USEDEP}]
 		dev-python/psutil[${PYTHON_USEDEP}]
-		dev-python/pytest[${PYTHON_USEDEP}]
-		dev-python/pytest-rerunfailures[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
+		dev-python/unittest-or-fail[${PYTHON_USEDEP}]
 	)
 "
 
@@ -105,7 +104,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-20210903-system-jdtls.patch"
 	"${FILESDIR}/${PN}-20210903-system-omnisharp.patch"
 	"${FILESDIR}/${PN}-20210903-system-clang.patch"
-	"${FILESDIR}/${PN}-20210903-cmake-use-build.patch"
+	"${FILESDIR}/${PN}-20211204-cmake-use-build.patch"
 	"${FILESDIR}/${PN}-20210903-fix-core-version.patch"
 )
 
@@ -172,10 +171,113 @@ src_prepare() {
 		ycmd_defconfig_set tsserver_binary_path '"tsserver"'
 	fi
 
+	# Disable failing / USE-specific tests
+
+	ignore_test() {
+		local file="$1"
+		local test regex
+		shift
+		einfo "Skip tests from ${file}: $*"
+		for test in "$@"; do
+			regex='^\([[:space:]]*def[[:space:]]\)'"${test}"'\((.*\)$'
+			grep -q "${regex}" "${file}" \
+				|| die "Test not found: ${test}"
+			sed -i "s/${regex}/\\1_${test}\\2/" "${file}" \
+				|| die "Failed to remove test: ${test}"
+		done
+	}
+
+	ignore_all_tests() {
+		local file test
+		for file in "$@"; do
+			while read -r test; do
+				ignore_test "${file}" "${test}"
+			done < <(grep -o '^[[:space:]]*def[[:space:]]*test_.*$' "${file}" | grep -o 'test_[^(]*')
+		done
+	}
+
+	# c: system clang
+	ignore_test ycmd/tests/utils_test.py \
+		test_GetClangResourceDir_NotFound
+	# c: system clangd
+	ignore_test ycmd/tests/clangd/utilities_test.py \
+		test_ClangdCompleter_GetClangdCommand_NoCustomBinary \
+		test_ClangdCompleter_ShouldEnableClangdCompleter
+	# c: failing tests
+	ignore_test ycmd/tests/clang/diagnostics_test.py \
+		test_Diagnostics_CUDA_Kernel
+	ignore_test ycmd/tests/clangd/subcommands_test.py \
+		test_Subcommands_GoToInclude \
+		test_Subcommands_GoToSymbol
+	if ! use clang; then
+		ignore_test ycmd/tests/shutdown_test.py \
+			test_FromHandlerWithSubservers \
+			test_FromWatchdogWithSubservers
+	fi
+
+	# c#: system omnisharp
+	ignore_test ycmd/tests/cs/debug_info_test.py \
+		test_GetCompleter_RoslynNotFound
+
+	# go: system gopls
+	ignore_test ycmd/tests/go/go_completer_test.py \
+		test_GetCompleter_GoplsNotFound
+
+	# java: system jdtls
+	ignore_test ycmd/tests/java/debug_info_test.py \
+		test_DebugInfo_JvmArgs
+	ignore_test ycmd/tests/java/java_completer_test.py \
+		test_ShouldEnableJavaCompleter_NoLauncherJar \
+		test_ShouldEnableJavaCompleter_NotInstalled
+
+	# javascript: failing tests
+	ignore_test ycmd/tests/javascriptreact/get_completions_test.py \
+		test_GetCompletions_JavaScriptReact_DefaultTriggers
+	ignore_test ycmd/tests/typescript/subcommands_test.py \
+		test_Subcommands_RefactorRename_MultipleFiles
+
+	# python: system jedi
+	ignore_test ycmd/tests/python/subcommands_test.py \
+		test_Subcommands_GoTo \
+		test_Subcommands_GoToType
+
+	# python: unnecessary dependency
+	ignore_test ycmd/tests/python/get_completions_test.py \
+		test_GetCompletions_NumpyDoc
+
+	# rust: system rust-analyzer
+	ignore_test ycmd/tests/rust/rust_completer_test.py \
+		test_GetCompleter_RANotFound \
+		test_GetCompleter_WarnsAboutOldConfig
+	# rust: fail with rust 1.53
+	ignore_test ycmd/tests/rust/get_completions_proc_macro_test.py \
+		test_GetCompletions_ProcMacro
+
+	# Other failing tests
+	ignore_test ycmd/tests/utils_test.py \
+		test_ImportAndCheckCore_Missing \
+		test_ImportAndCheckCore_Unexpected
+	ignore_test ycmd/tests/shutdown_test.py \
+		test_FromWatchdogWithSubservers \
+		test_FromHandlerWithSubservers
+
+	# Tern not available
+	ignore_all_tests ycmd/tests/tern/*_test.py
+	# USE flag exclusions
+	use clang || ignore_all_tests ycmd/tests/clang/*_test.py
+	use clangd || ignore_all_tests ycmd/tests/clangd/*_test.py
+	use cs || ignore_all_tests ycmd/tests/cs/*_test.py
+	use go || ignore_all_tests ycmd/tests/go/*_test.py
+	use java || ignore_all_tests ycmd/tests/java/*_test.py
+	use javascript || ignore_all_tests ycmd/tests/javascript/*_test.py
+	use javascript || ignore_all_tests ycmd/tests/javascriptreact/*_test.py
+	use javascript || ignore_all_tests ycmd/tests/typescript/*_test.py
+	use javascript || ignore_all_tests ycmd/tests/typescriptreact/*_test.py
+	use rust || ignore_all_tests ycmd/tests/rust/*_test.py
+
 	cmake_src_prepare
 	# CORE_VERSION needed
 	copy_to_build_dir \
-		pytest.ini \
 		ycmd \
 		.clang-tidy \
 		third_party/generic_server
@@ -244,63 +346,13 @@ generic_server_compile() {
 }
 
 src_test() {
-	local pytest_exclusions=(
-		# System omnisharp
-		--deselect "ycmd/tests/cs/debug_info_test.py::GetCompleter_RoslynNotFound_test"
-		# System clang
-		--deselect "ycmd/tests/utils_test.py::GetClangResourceDir_NotFound_test"
-		# System clangd
-		--deselect "ycmd/tests/clangd/utilities_test.py::ClangdCompleter_GetClangdCommand_NoCustomBinary_test"
-		--deselect "ycmd/tests/clangd/utilities_test.py::ClangdCompleter_ShouldEnableClangdCompleter_test"
-		# System gopls
-		--deselect "ycmd/tests/go/go_completer_test.py::GetCompleter_GoplsNotFound_test"
-		# System jdtls
-		--deselect "ycmd/tests/java/java_completer_test.py::ShouldEnableJavaCompleter_NotInstalled_test"
-		--deselect "ycmd/tests/java/java_completer_test.py::ShouldEnableJavaCompleter_NoLauncherJar_test"
-		--deselect "ycmd/tests/java/debug_info_test.py::DebugInfo_JvmArgs_test[]"
-		# System rust-analyzer
-		--deselect "ycmd/tests/rust/rust_completer_test.py::GetCompleter_WarnsAboutOldConfig_test"
-		--deselect "ycmd/tests/rust/rust_completer_test.py::GetCompleter_RANotFound_test"
-		# Fail with rust 1.53
-		--deselect "ycmd/tests/rust/get_completions_proc_macro_test.py::GetCompletions_ProcMacro_test[]"
-		# System jedi
-		--deselect "ycmd/tests/python/subcommands_test.py::Subcommands_GoTo_test[-test3-GoTo]"
-		--deselect "ycmd/tests/python/subcommands_test.py::Subcommands_GoTo_test[-test3-GoToDefinition]"
-		--deselect "ycmd/tests/python/subcommands_test.py::Subcommands_GoTo_test[-test3-GoToDeclaration]"
-		--deselect "ycmd/tests/python/subcommands_test.py::Subcommands_GoToType_test[-test0]"
-		# Failing test
-		--deselect "ycmd/tests/shutdown_test.py::Shutdown_test::FromHandlerWithSubservers_test"
-		--deselect "ycmd/tests/shutdown_test.py::Shutdown_test::FromWatchdogWithSubservers_test"
-		--deselect "ycmd/tests/clang/diagnostics_test.py::Diagnostics_CUDA_Kernel_test[]"
-		--deselect "ycmd/tests/clangd/subcommands_test.py::Subcommands_ServerNotInitialized_test[FixIt-]"
-		--deselect "ycmd/tests/clangd/subcommands_test.py::Subcommands_ServerNotInitialized_test[Format-]"
-		# Unnecessary dependency
-		--deselect "ycmd/tests/python/get_completions_test.py::GetCompletions_NumpyDoc_test[]"
-		# Tern not available
-		--ignore=ycmd/tests/tern
-		# USE flag exclusions
-		$(usex clang '' '--ignore=ycmd/tests/clang') \
-		$(usex clangd '' '--ignore=ycmd/tests/clangd') \
-		$(usex cs '' '--ignore=ycmd/tests/cs') \
-		$(usex go '' '--ignore=ycmd/tests/go') \
-		$(usex java '' '--ignore=ycmd/tests/java') \
-		$(usex javascript '' '--ignore=ycmd/tests/javascript') \
-		$(usex javascript '' '--ignore=ycmd/tests/javascriptreact') \
-		$(usex javascript '' '--ignore=ycmd/tests/typescript') \
-		$(usex javascript '' '--ignore=ycmd/tests/typescriptreact') \
-		$(usex rust '' '--ignore=ycmd/tests/rust') \
-	)
-
 	src_test_python() {
 		generic_server_compile
 		LD_LIBRARY_PATH="${BUILD_DIR}" \
 			./ycm/tests/ycm_core_tests \
 			|| die "ycm_core_tests failed for ${EPYTHON}"
 		rm -v compile_commands.json
-		epytest \
-			-p no:flaky \
-			"${pytest_exclusions[@]}" \
-			ycmd
+		eunittest -b -p '*_test.py' -s ycmd.tests
 	}
 	python_foreach_impl run_in_build_dir src_test_python
 }
