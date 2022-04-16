@@ -1,24 +1,30 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 MY_PV="${PV}a0"
 MY_P="${PN}-${MY_PV}"
 
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 inherit distutils-r1 python-r1
+
+ASYNCTEST_PN="asynctest"
+ASYNCTEST_PV="0.13.0"
+ASYNCTEST_P="${ASYNCTEST_PN}-${ASYNCTEST_PV}"
+ASYNCTEST_S="${WORKDIR}/${ASYNCTEST_P}"
 
 DESCRIPTION="TUI and CLI client for the Transmission daemon"
 HOMEPAGE="https://github.com/rndusr/stig https://pypi.org/project/stig/"
-SRC_URI="https://github.com/rndusr/stig/archive/refs/tags/v${MY_PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="
+	https://github.com/rndusr/stig/archive/refs/tags/v${MY_PV}.tar.gz -> ${P}.tar.gz
+	test? ( mirror://pypi/${ASYNCTEST_PN:0:1}/${ASYNCTEST_PN}/${ASYNCTEST_P}.tar.gz )
+"
 S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="proxy setproctitle"
-# No tests due to dev-python/asynctest not supporting python >= 3.8
-RESTRICT="test"
 
 DEPEND="
 	dev-python/urwid[${PYTHON_USEDEP}]
@@ -33,3 +39,9 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
+
+distutils_enable_tests pytest
+
+python_test() {
+	PYTHONPATH="${PYTHONPATH}:${ASYNCTEST_S}" distutils-r1_python_test
+}
