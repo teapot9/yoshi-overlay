@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<changelog>https://github.com/oetiker/znapzend/blob/master/CHANGES</changelog>
+		<doc>https://github.com/oetiker/znapzend/blob/master/README.md</doc>
+		<bugs-to>https://github.com/oetiker/znapzend/issues</bugs-to>
+		<remote-id type="github">oetiker/znapzend</remote-id>
+	</upstream>
+</pkgmetadata>

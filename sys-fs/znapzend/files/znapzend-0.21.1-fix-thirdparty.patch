@@ -1,0 +1,13 @@
+diff --git a/Makefile.am b/Makefile.am
+index 1beb6cb..0d6967e 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -5,7 +5,7 @@ AUTOMAKE_OPTIONS =  foreign
+ 
+ SUFFIXES = .1 .man .pm
+ 
+-SUBDIRS = lib thirdparty
++SUBDIRS = lib
+ 
+ BIN = bin/@PACKAGE@ bin/znapzendzetup bin/znapzendztatz
+ PM :=  $(shell find lib/ -name "*.pm")
