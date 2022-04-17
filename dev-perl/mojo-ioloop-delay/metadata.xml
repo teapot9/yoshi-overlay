@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<changelog>https://metacpan.org/dist/Mojo-IOLoop-Delay/changes</changelog>
+		<doc>https://metacpan.org/pod/Mojo::IOLoop::Delay</doc>
+		<bugs-to>https://github.com/jberger/Mojo-IOLoop-Delay/issues</bugs-to>
+		<remote-id type="github">jberger/Mojo-IOLoop-Delay</remote-id>
+		<remote-id type="cpan">Mojo-IOLoop-Delay</remote-id>
+		<remote-id type="cpan-module">Mojo::IOLoop::Delay</remote-id>
+	</upstream>
+</pkgmetadata>
