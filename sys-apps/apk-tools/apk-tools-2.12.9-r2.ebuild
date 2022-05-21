@@ -5,7 +5,7 @@ EAPI=7
 
 LUA_COMPAT=( lua5-{2,3,4} luajit )
 MY_P="${PN}-v${PV}"
-ZSHCOMP_COMMIT="759f8fa7622389e5c0fe2dfbfbaeff83e90322a0"
+ZSHCOMP_COMMIT="34d90ac8388e88126893f5d27ea35d304e65e5ab"
 ZSHCOMP_FILE="${PN}-completion-${ZSHCOMP_COMMIT}.zsh"
 
 inherit flag-o-matic toolchain-funcs lua-utils lua-single
