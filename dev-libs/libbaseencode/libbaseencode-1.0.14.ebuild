@@ -19,6 +19,8 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND="test? ( dev-libs/criterion )"
 
+DOCS=( README.md SECURITY.md )
+
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_TESTING=$(usex test)
