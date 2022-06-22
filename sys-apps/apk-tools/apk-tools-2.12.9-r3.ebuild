@@ -1,11 +1,11 @@
 # Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 LUA_COMPAT=( lua5-{2,3,4} luajit )
 MY_P="${PN}-v${PV}"
-ZSHCOMP_COMMIT="34d90ac8388e88126893f5d27ea35d304e65e5ab"
+ZSHCOMP_COMMIT="e185ac2775485c65e5ea165a3653c65cdc4303b7"
 ZSHCOMP_FILE="${PN}-completion-${ZSHCOMP_COMMIT}.zsh"
 
 inherit flag-o-matic toolchain-funcs lua-utils lua-single
