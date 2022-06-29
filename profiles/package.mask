@@ -1,3 +1,7 @@
+# sys-kernel/kconfig-hardened-check masked for removal (2022-06-29)
+# Available in ::pentoo overlay
+sys-kernel/kconfig-hardened-check
+
 # media-gfx/waifu2x-converter-cpp masked for removal (2022-03-16)
 # Fails to compile: incompatibility issues with cuda
 # "Work stalled for now" since January 2021
