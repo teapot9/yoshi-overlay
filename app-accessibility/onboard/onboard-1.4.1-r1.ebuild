@@ -1,11 +1,11 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 PYTHON_REQ_USE="xml"
-DISTUTILS_USE_SETUPTOOLS=no
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 virtualx xdg-utils gnome2-utils
 
 DESCRIPTION="An onscreen keyboard useful for tablet PC users and for mobility impaired users."
@@ -81,25 +81,29 @@ src_prepare() {
 		-e 's:test_numlock_state_on_exit:_&:' \
 		-e 's:test_apt_cache_unmet_onboard:_&:' \
 		-e 's:test_keyboard_window_resizing:_&:' \
-		-e 's:test_icon_palette_resizing:_&:' \
 		Onboard/test/test_gui.py || die
+	sed -i \
+		-e 's:test_unexpected_ngram_section:_&:' \
+		Onboard/pypredict/test/test_checkmodels.py || die
 
 	distutils-r1_src_prepare
 }
 
 python_test() {
-	# Hack to avoid import from ${S}
-	mv Onboard/__init__.py Onboard/__init__.py.bak || die
-	mv Onboard/test test || die
+	testdir="${T}/test-${EPYTHON}"
+	mkdir "${testdir}" || die
+	cd "${testdir}" || die
+
+	cp "${S}/onboard" "${S}/onboard-settings" ./ || die
+	cp -r "${S}/Onboard" ./Onboard || die
+	cp -r "${BUILD_DIR}/install/$(python_get_sitedir)/Onboard/"* ./Onboard/ || die
 
 	dbus_eval="$(dbus-launch --sh-syntax)" || die
 	eval "${dbus_eval}"
-	virtx esetup.py test || die "tests failed ${EPYTHON}"
+	NOSE_VERBOSE=2 virtx "${EPYTHON}" -m nose \
+		Onboard/test Onboard/pypredict/test \
+		|| die "tests failed with ${EPYTHON}"
 	kill "${DBUS_SESSION_BUS_PID}"
-
-	# Restore directory structure
-	mv test Onboard/test || die
-	mv Onboard/__init__.py.bak Onboard/__init__.py || die
 }
 
 src_install() {
