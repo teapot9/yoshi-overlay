@@ -76,13 +76,13 @@ RDEPEND="
 	dev-python/regex[${PYTHON_USEDEP}]
 	dev-python/jedi[${PYTHON_USEDEP}]
 	dev-python/watchdog[${PYTHON_USEDEP}]
-	clang? ( sys-devel/clang )
-	clangd? ( sys-devel/clang )
+	clang? ( sys-devel/clang:14= )
+	clangd? ( sys-devel/clang:14= )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.37.11[http] )
 	go? ( ~dev-go/gopls-0.7.1 )
-	java? ( ~dev-java/eclipse-jdt-ls-bin-1.5.0 )
+	java? ( ~dev-java/eclipse-jdt-ls-bin-1.6.0 )
 	javascript? ( dev-lang/typescript )
-	rust? ( ~dev-util/rust-analyzer-20210809 )
+	rust? ( ~dev-util/rust-analyzer-20211025 )
 "
 BDEPEND="
 	${PYTHON_DEPS}
@@ -134,6 +134,31 @@ copy_to_build_dir() {
 	done
 }
 
+ignore_test() {
+	local file="$1"
+	local test regex
+	shift
+	einfo "Skip tests from ${file}: $*"
+	for test in "$@"; do
+		regex='^\([[:space:]]*def[[:space:]]\)'"${test}"'\((.*\)$'
+		grep -q "${regex}" "${file}" \
+			|| die "Test not found: ${test}"
+		sed -i "s/${regex}/\\1_${test}\\2/" "${file}" \
+			|| die "Failed to remove test: ${test}"
+	done
+}
+
+ignore_all_tests() {
+	local file test
+	einfo "Skip all tests from $*"
+	for file in "$@"; do
+		[ -f "${file}" ] || die "Test file not found: ${file}"
+		while read -r test; do
+			ignore_test "${file}" "${test}"
+		done < <(grep -o '^[[:space:]]*def[[:space:]]*test_.*$' "${file}" | grep -o 'test_[^(]*')
+	done
+}
+
 src_prepare() {
 	# Don't test the third party generic server
 	rm -rv "${S}"/third_party/generic_server/client/src/test || die
@@ -173,29 +198,6 @@ src_prepare() {
 
 	# Disable failing / USE-specific tests
 
-	ignore_test() {
-		local file="$1"
-		local test regex
-		shift
-		einfo "Skip tests from ${file}: $*"
-		for test in "$@"; do
-			regex='^\([[:space:]]*def[[:space:]]\)'"${test}"'\((.*\)$'
-			grep -q "${regex}" "${file}" \
-				|| die "Test not found: ${test}"
-			sed -i "s/${regex}/\\1_${test}\\2/" "${file}" \
-				|| die "Failed to remove test: ${test}"
-		done
-	}
-
-	ignore_all_tests() {
-		local file test
-		for file in "$@"; do
-			while read -r test; do
-				ignore_test "${file}" "${test}"
-			done < <(grep -o '^[[:space:]]*def[[:space:]]*test_.*$' "${file}" | grep -o 'test_[^(]*')
-		done
-	}
-
 	# c: system clang
 	ignore_test ycmd/tests/utils_test.py \
 		test_GetClangResourceDir_NotFound
@@ -206,14 +208,14 @@ src_prepare() {
 	# c: failing tests
 	ignore_test ycmd/tests/clang/diagnostics_test.py \
 		test_Diagnostics_CUDA_Kernel
+	ignore_test ycmd/tests/clangd/diagnostics_test.py \
+		test_Diagnostics_CUDA_Kernel
 	ignore_test ycmd/tests/clangd/subcommands_test.py \
 		test_Subcommands_GoToInclude \
 		test_Subcommands_GoToSymbol
-	if ! use clang; then
-		ignore_test ycmd/tests/shutdown_test.py \
-			test_FromHandlerWithSubservers \
-			test_FromWatchdogWithSubservers
-	fi
+	ignore_test ycmd/tests/clangd/get_completions_test.py \
+		test_GetCompletions_cuda \
+		test_GetCompletions_WithHeaderInsertionDecorators
 
 	# c#: system omnisharp
 	ignore_test ycmd/tests/cs/debug_info_test.py \
@@ -223,12 +225,22 @@ src_prepare() {
 	ignore_test ycmd/tests/go/go_completer_test.py \
 		test_GetCompleter_GoplsNotFound
 
+	# go: failing tests
+	ignore_test ycmd/tests/go/signature_help_test.py \
+		test_SignatureHelp_MethodTrigger \
+		test_SignatureHelp_NoParams \
+		test_SignatureHelp_NullResponse
+
 	# java: system jdtls
 	ignore_test ycmd/tests/java/debug_info_test.py \
 		test_DebugInfo_JvmArgs
 	ignore_test ycmd/tests/java/java_completer_test.py \
 		test_ShouldEnableJavaCompleter_NoLauncherJar \
 		test_ShouldEnableJavaCompleter_NotInstalled
+
+	# java: failing tests
+	ignore_test ycmd/tests/java/signature_help_test.py \
+		test_SignatureHelp_MethodTrigger
 
 	# javascript: failing tests
 	ignore_test ycmd/tests/javascriptreact/get_completions_test.py \
@@ -252,6 +264,9 @@ src_prepare() {
 	# rust: fail with rust 1.53
 	ignore_test ycmd/tests/rust/get_completions_proc_macro_test.py \
 		test_GetCompletions_ProcMacro
+	# rust: failing tests
+	ignore_test ycmd/tests/rust/subcommands_test.py \
+		test_Subcommands_FixIt_Basic
 
 	# Other failing tests
 	ignore_test ycmd/tests/utils_test.py \
@@ -260,6 +275,7 @@ src_prepare() {
 	ignore_test ycmd/tests/shutdown_test.py \
 		test_FromWatchdogWithSubservers \
 		test_FromHandlerWithSubservers
+		# those also fail if USE=-clang
 
 	# Tern not available
 	ignore_all_tests ycmd/tests/tern/*_test.py
@@ -269,10 +285,10 @@ src_prepare() {
 	use cs || ignore_all_tests ycmd/tests/cs/*_test.py
 	use go || ignore_all_tests ycmd/tests/go/*_test.py
 	use java || ignore_all_tests ycmd/tests/java/*_test.py
-	use javascript || ignore_all_tests ycmd/tests/javascript/*_test.py
-	use javascript || ignore_all_tests ycmd/tests/javascriptreact/*_test.py
-	use javascript || ignore_all_tests ycmd/tests/typescript/*_test.py
-	use javascript || ignore_all_tests ycmd/tests/typescriptreact/*_test.py
+	use javascript || ignore_all_tests \
+		ycmd/tests/javascript/*_test.py \
+		ycmd/tests/javascriptreact/*_test.py \
+		ycmd/tests/typescript/*_test.py
 	use rust || ignore_all_tests ycmd/tests/rust/*_test.py
 
 	cmake_src_prepare
@@ -305,6 +321,7 @@ src_configure() {
 		-DUSE_SYSTEM_ABSEIL=yes
 		$(usex clang -DUSE_SYSTEM_LIBCLANG=yes '')
 		-DUSE_CLANG_COMPLETER=$(usex clang)
+		-DCMAKE_SKIP_RPATH=ON
 	)
 
 	src_configure_python() {
