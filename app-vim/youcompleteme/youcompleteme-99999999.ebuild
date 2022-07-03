@@ -1,7 +1,7 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python3_{8..10} )
 VIM_PLUGIN_VIM_VERSION="8.1.2269"
@@ -60,22 +60,23 @@ PATCHES=(
 	"${FILESDIR}/${PN}-20211204-system-ycmd.patch"
 )
 
+ignore_test() {
+	local file="$1"
+	local test regex
+	shift
+	einfo "Skip tests from ${file}: $*"
+	for test in "$@"; do
+		regex='^\([[:space:]]*def[[:space:]]\)'"${test}"'\((.*\)$'
+		grep -q "${regex}" "${file}" \
+			|| die "Test not found: ${test}"
+		sed -i "s/${regex}/\\1_${test}\\2/" "${file}" \
+			|| die "Failed to remove test: ${test}"
+	done
+}
+
 src_prepare() {
 	default
 
-	ignore_test() {
-		local file="$1"
-		local test regex
-		shift
-		einfo "Skip tests from ${file}: $*"
-		for test in "$@"; do
-			regex='^\([[:space:]]*def[[:space:]]\)'"${test}"'\((.*\)$'
-			grep -q "${regex}" "${file}" \
-				|| die "Test not found: ${test}"
-			sed -i "s/${regex}/\\1_${test}\\2/" "${file}" \
-				|| die "Failed to remove test: ${test}"
-		done
-	}
 	# System ycmd
 	ignore_test python/ycm/tests/youcompleteme_test.py \
 		test_YouCompleteMe_NoPythonInterpreterFound \
