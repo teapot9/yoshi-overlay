@@ -17,21 +17,30 @@ KEYWORDS="~amd64"
 IUSE="X +cli"
 REQUIRED_USE="|| ( X cli )"
 
+# libuuid provided by sys-apps/util-linux in @system
 DEPEND="
 	X? (
-		x11-libs/gtk+:3=
-		x11-libs/gdk-pixbuf
-		media-libs/libpng:=
 		media-gfx/zbar
+		media-libs/libpng:=
+		x11-libs/gdk-pixbuf
 	)
+	app-crypt/libsecret
 	dev-libs/glib:2=
 	dev-libs/jansson:=
+	dev-libs/libbaseencode
+	dev-libs/libcotp
 	dev-libs/libgcrypt:=
 	dev-libs/libzip:=
-	dev-libs/libcotp:=
+	dev-libs/protobuf-c:=
+	dev-libs/protobuf:=
+	x11-libs/gtk+:3=
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
+
+PATCHES=(
+	"${FILESDIR}/${PN}-2.6.0-fix-no-x-deps.patch"
+)
 
 src_prepare() {
 	for manpage in man/*.gz ; do
