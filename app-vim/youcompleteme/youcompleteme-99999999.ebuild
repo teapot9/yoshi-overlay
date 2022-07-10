@@ -90,6 +90,6 @@ src_test() {
 
 src_install() {
 	rm -rv test python/ycm/tests third_party || die
-	python_optimize python
 	vim-plugin_src_install
+	python_domodule python/ycm
 }

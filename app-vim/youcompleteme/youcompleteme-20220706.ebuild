@@ -14,7 +14,7 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="${BASE_REPO_URI}.git"
 	EGIT_SUBMODULES=()
 else
-	COMMIT_HASH="4237c4647ec30215223d597f6172c8c46b8b239e"
+	COMMIT_HASH="d35df6136146b12f3a78f8b8fbdaf55f4e2ee462"
 	MY_PN="YouCompleteMe"
 	SRC_URI="${BASE_REPO_URI}/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
 	S="${WORKDIR}/${MY_PN}-${COMMIT_HASH}"
@@ -90,6 +90,6 @@ src_test() {
 
 src_install() {
 	rm -rv test python/ycm/tests third_party || die
-	python_optimize python
 	vim-plugin_src_install
+	python_domodule python/ycm
 }
