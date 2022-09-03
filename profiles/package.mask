@@ -2,7 +2,3 @@
 # This was maintained here to add musl patches from Alpine,
 # but it is too time consuming
 www-client/chromium
-
-# sys-kernel/kconfig-hardened-check masked for removal (2022-06-29)
-# Available in ::pentoo overlay
-sys-kernel/kconfig-hardened-check
