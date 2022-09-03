@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer type="person">
-		<email>louis.leseur@gmail.com</email>
-		<name>Louis Leseur</name>
-	</maintainer>
+	<!-- maintainer-needed -->
+	<longdescription lang="en">
+		rust-analyzer is an implementation of Language Server Protocol for the Rust programming language. It provides features like completion and goto definition for many code editors, including VS Code, Emacs and Vim.
+	</longdescription>
 	<upstream>
-		<changelog>https://rust-analyzer.github.io/thisweek</changelog>
 		<doc>https://rust-analyzer.github.io/manual.html</doc>
-		<bugs-to>https://github.com/rust-analyzer/rust-analyzer/issues</bugs-to>
 		<remote-id type="github">rust-analyzer/rust-analyzer</remote-id>
 	</upstream>
 </pkgmetadata>
