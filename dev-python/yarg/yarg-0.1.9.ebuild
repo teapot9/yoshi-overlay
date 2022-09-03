@@ -10,7 +10,7 @@ inherit python-r1 distutils-r1
 
 DESCRIPTION="A semi hard Cornish cheese, also queries PyPI"
 HOMEPAGE="https://yarg.readthedocs.io/"
-SRC_URI="https://github.com/kura/yarg/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/kura/yarg/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
