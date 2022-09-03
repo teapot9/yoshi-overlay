@@ -16,7 +16,7 @@ ASYNCTEST_S="${WORKDIR}/${ASYNCTEST_P}"
 DESCRIPTION="TUI and CLI client for the Transmission daemon"
 HOMEPAGE="https://github.com/rndusr/stig https://pypi.org/project/stig/"
 SRC_URI="
-	https://github.com/rndusr/stig/archive/refs/tags/v${MY_PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/rndusr/stig/archive/refs/tags/v${MY_PV}.tar.gz -> ${P}.gh.tar.gz
 	test? ( mirror://pypi/${ASYNCTEST_PN:0:1}/${ASYNCTEST_PN}/${ASYNCTEST_P}.tar.gz )
 "
 S="${WORKDIR}/${MY_P}"
