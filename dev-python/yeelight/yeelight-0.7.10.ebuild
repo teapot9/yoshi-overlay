@@ -4,7 +4,7 @@
 EAPI=8
 
 MY_P="python-${PN}-v${PV}"
-DISTUTILS_USE_SETUPTOOLS=pyproject.toml
+DISTUTILS_USE_PEP517=flit
 PYTHON_COMPAT=( python3_{8..10} pypy3 )
 
 inherit python-utils-r1 python-r1 distutils-r1
