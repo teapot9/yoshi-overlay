@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="Wrapper for smartctl (smartmontools)"
 HOMEPAGE="https://github.com/truenas/py-SMART"
-SRC_URI="https://github.com/truenas/py-SMART/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/truenas/py-SMART/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
 LICENSE="LGPL-2.1"
