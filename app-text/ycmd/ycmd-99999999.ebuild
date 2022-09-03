@@ -79,10 +79,10 @@ RDEPEND="
 	clang? ( sys-devel/clang:14= )
 	clangd? ( sys-devel/clang:14= )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.37.11[http] )
-	go? ( ~dev-go/gopls-0.7.1 )
-	java? ( ~dev-java/eclipse-jdt-ls-bin-1.6.0 )
-	javascript? ( dev-lang/typescript )
-	rust? ( ~dev-util/rust-analyzer-20211025 )
+	go? ( ~dev-go/gopls-0.9.4 )
+	java? ( ~dev-java/eclipse-jdt-ls-bin-1.14.0 )
+	javascript? ( >=dev-lang/typescript-4.7.0 )
+	rust? ( ~dev-util/rust-analyzer-20220822 )
 "
 BDEPEND="
 	${PYTHON_DEPS}
