@@ -8,7 +8,7 @@ inherit python-r1 meson xdg-utils
 
 DESCRIPTION="Bubblewrap based sandboxing for desktop applications"
 HOMEPAGE="https://github.com/igo95862/bubblejail"
-SRC_URI="https://github.com/igo95862/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/igo95862/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
