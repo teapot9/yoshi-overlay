@@ -1,4 +1,0 @@
-# www-client/chromium masked for removal (2022-07-05)
-# This was maintained here to add musl patches from Alpine,
-# but it is too time consuming
-www-client/chromium
