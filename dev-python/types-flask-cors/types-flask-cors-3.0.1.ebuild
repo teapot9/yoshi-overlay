@@ -6,7 +6,7 @@ EAPI=8
 MY_PN="types-Flask-Cors"
 MY_P="${MY_PN}-${PV}"
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{8..11} )
 inherit distutils-r1
 
 DESCRIPTION="Typing stubs for flask-cors"
