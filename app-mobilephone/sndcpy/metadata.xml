@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<changelog>https://github.com/rom1v/sndcpy/releases</changelog>
+		<bugs-to>https://github.com/rom1v/sndcpy/issues</bugs-to>
+		<remote-id type="github">rom1v/sndcpy</remote-id>
+	</upstream>
+</pkgmetadata>
