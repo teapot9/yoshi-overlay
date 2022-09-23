@@ -31,6 +31,11 @@ DOCS=( CHANGELOG.md README.md )
 distutils_enable_tests pytest
 distutils_enable_sphinx docs/source dev-python/sphinx_rtd_theme
 
+src_prepare() {
+	echo "__version__ = \"${PV}\"" >>yeelight/__init__.py
+	distutils-r1_src_prepare
+}
+
 python_test() {
 	epytest yeelight/tests.py
 }
