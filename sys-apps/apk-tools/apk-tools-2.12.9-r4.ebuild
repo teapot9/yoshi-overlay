@@ -51,7 +51,10 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-PATCHES=( "${FILESDIR}/${PN}-2.12.5-change-default-root.patch" )
+PATCHES=(
+	"${FILESDIR}/${PN}-2.12.5-change-default-root.patch"
+	"${FILESDIR}/${PN}-2.12.9-increase-index-meta-buffer.patch"
+)
 
 APK_DEFAULT_ROOT="${APK_DEFAULT_ROOT:-${EPREFIX}/var/chroot/alpine}"
 
@@ -100,6 +103,7 @@ src_install() {
 		SBINDIR="/usr/sbin" \
 		LIBDIR="/usr/$(get_libdir)" \
 		DOCDIR="/usr/share/doc/${PF}" \
+		PKGCONFIGDIR="/usr/$(get_libdir)/pkgconfig" \
 		install
 
 	use static-libs || rm "${ED}"/usr/"$(get_libdir)"/lib*.a || die
