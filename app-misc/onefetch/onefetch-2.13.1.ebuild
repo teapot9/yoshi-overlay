@@ -324,7 +324,7 @@ CRATES="
 	zstd-0.11.2+zstd.1.5.2
 	zstd-safe-5.0.2+zstd.1.5.2
 	zstd-sys-2.0.1+zstd.1.5.2
-	onefetch-2.13.0
+	${P}
 "
 
 inherit cargo
