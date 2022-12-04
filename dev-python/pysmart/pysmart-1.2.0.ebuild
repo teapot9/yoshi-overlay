@@ -5,7 +5,8 @@ EAPI=8
 MY_PN="py-SMART"
 MY_P="${MY_PN}-${PV}"
 
-PYTHON_COMPAT=( python3_{8..10} pypy3 )
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{8..11} pypy3 )
 inherit distutils-r1
 
 DESCRIPTION="Wrapper for smartctl (smartmontools)"
