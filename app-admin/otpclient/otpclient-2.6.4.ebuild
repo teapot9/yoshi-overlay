@@ -39,7 +39,7 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 PATCHES=(
-	"${FILESDIR}/${PN}-2.6.0-fix-no-x-deps.patch"
+	"${FILESDIR}/${PN}-2.6.4-fix-no-x-deps.patch"
 )
 
 src_prepare() {
