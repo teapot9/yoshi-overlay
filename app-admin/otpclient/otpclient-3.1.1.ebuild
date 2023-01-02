@@ -20,6 +20,7 @@ REQUIRED_USE="|| ( X cli )"
 # libuuid provided by sys-apps/util-linux in @system
 DEPEND="
 	X? (
+		media-gfx/qrencode:=
 		media-gfx/zbar
 		media-libs/libpng:=
 		x11-libs/gdk-pixbuf
