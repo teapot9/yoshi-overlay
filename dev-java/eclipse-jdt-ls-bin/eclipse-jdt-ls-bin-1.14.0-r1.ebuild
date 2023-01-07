@@ -22,20 +22,21 @@ RDEPEND="${CP_DEPEND}
 	virtual/jre:17
 "
 
-QA_PREBUILT="${JAVA_PKG_JARDEST}/*.jar"
-
-src_prepare() {
-	sed -i -e 's|plugins/||g' config_{,ss_}linux/config.ini || die
-	java-pkg-2_src_prepare
-}
+QA_PREBUILT="${JAVA_PKG_JARDEST}/*/*.jar"
 
 src_compile() { :; }
 
 src_install() {
-	java-pkg_dojar features/*.jar plugins/*.jar
+	java-pkg_init_paths_
+	base="${JAVA_PKG_JARDEST}"
+	java-pkg_jarinto "${base}/features"
+	java-pkg_dojar features/*.jar
+	java-pkg_jarinto "${base}/plugins"
+	java-pkg_dojar plugins/*.jar
+	java-pkg_jarinto "${base}"
 
 	local jar="$(basename -- plugins/org.eclipse.equinox.launcher_*.jar)"
-	[ -f "${ED}/${JAVA_PKG_JARDEST}/${jar}" ] \
+	[ -f "${ED}/${base}/plugins/${jar}" ] \
 		|| die "No jar file found for launcher (${jar})"
 	local java_args=(
 		-Declipse.application=org.eclipse.jdt.ls.core.id1
