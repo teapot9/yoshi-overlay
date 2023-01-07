@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_10 )
 PYTHON_REQ_USE="xml(+)"
 
 inherit cmake python-r1 python-utils-r1 flag-o-matic
@@ -65,7 +65,7 @@ RESTRICT="!test? ( test )"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
-	dev-cpp/abseil-cpp
+	dev-cpp/abseil-cpp:=
 	dev-python/pybind11[${PYTHON_USEDEP}]
 "
 RDEPEND="
@@ -76,8 +76,8 @@ RDEPEND="
 	dev-python/regex[${PYTHON_USEDEP}]
 	dev-python/jedi[${PYTHON_USEDEP}]
 	dev-python/watchdog[${PYTHON_USEDEP}]
-	clang? ( sys-devel/clang:14= )
-	clangd? ( sys-devel/clang:14= )
+	clang? ( sys-devel/clang:15= )
+	clangd? ( sys-devel/clang:15= )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.37.11[http] )
 	go? ( ~dev-go/gopls-0.9.4 )
 	java? ( ~dev-java/eclipse-jdt-ls-bin-1.14.0 )
@@ -106,6 +106,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-20210903-system-clang.patch"
 	"${FILESDIR}/${PN}-20211204-cmake-use-build.patch"
 	"${FILESDIR}/${PN}-20210903-fix-core-version.patch"
+	"${FILESDIR}/${PN}-20230103-fix-tests-python311.patch"
 )
 
 CMAKE_USE_DIR="${S}/cpp"
