@@ -24,6 +24,10 @@ BDEPEND="test? ( dev-libs/criterion )"
 
 DOCS=( README.md SECURITY.md )
 
+PATCHES=(
+	"${FILESDIR}/${P}-fix-tests.patch"
+)
+
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_TESTING=$(usex test)
