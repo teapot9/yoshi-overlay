@@ -82,7 +82,10 @@ RDEPEND="
 	go? ( ~dev-go/gopls-0.9.4 )
 	java? ( ~dev-java/eclipse-jdt-ls-bin-1.14.0 )
 	javascript? ( >=dev-lang/typescript-4.7.0 )
-	rust? ( ~dev-util/rust-analyzer-20220822 )
+	rust? ( || (
+		dev-lang/rust[rust-analyzer,rust-src]
+		dev-lang/rust-bin[rust-analyzer,rust-src]
+	) )
 "
 BDEPEND="
 	${PYTHON_DEPS}
