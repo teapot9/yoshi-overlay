@@ -1,0 +1,13 @@
+diff --git a/plugin/youcompleteme.vim b/plugin/youcompleteme.vim
+index 23be5981..fb2dcd5a 100644
+--- a/plugin/youcompleteme.vim
++++ b/plugin/youcompleteme.vim
+@@ -142,7 +142,7 @@ let g:ycm_extra_conf_vim_data =
+ 
+ let g:ycm_server_python_interpreter =
+       \ get( g:, 'ycm_server_python_interpreter',
+-      \ get( g:, 'ycm_path_to_python_interpreter', '' ) )
++      \ get( g:, 'ycm_path_to_python_interpreter', '@@PYTHON@@' ) )
+ 
+ let g:ycm_show_diagnostics_ui =
+       \ get( g:, 'ycm_show_diagnostics_ui', 1 )

@@ -77,6 +77,11 @@ ignore_test() {
 src_prepare() {
 	default
 
+	sed -e "s:@@PYTHON@@:${EPYTHON}:g" \
+		<"${FILESDIR}/${PN}-20230103-python-interpreter.patch" \
+		>"${T}/python-interpreter.patch" || die
+	eapply "${T}/python-interpreter.patch"
+
 	# System ycmd
 	ignore_test python/ycm/tests/youcompleteme_test.py \
 		test_YouCompleteMe_NoPythonInterpreterFound \
