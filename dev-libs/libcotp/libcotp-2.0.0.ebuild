@@ -10,14 +10,13 @@ HOMEPAGE="https://github.com/paolostivanin/libcotp"
 SRC_URI="https://github.com/paolostivanin/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
-SLOT="0"
+SLOT="0/2"
 KEYWORDS="~amd64"
 IUSE="test"
 RESTRICT="!test? ( test )"
 
 DEPEND="
 	dev-libs/libgcrypt:=
-	dev-libs/libbaseencode:=
 "
 RDEPEND="${DEPEND}"
 BDEPEND="test? ( dev-libs/criterion )"
@@ -33,5 +32,8 @@ src_configure() {
 
 src_test() {
 	cmake_src_test
-	"${BUILD_DIR}"/tests/test_cotp || die "test_cotp failed"
+	for exe in "${BUILD_DIR}"/tests/test_*; do
+		einfo "Running tests: ${exe}"
+		"${exe}" --verbose || die "$(basename -- "${exe}") failed"
+	done
 }
