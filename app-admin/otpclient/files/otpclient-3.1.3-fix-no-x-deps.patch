@@ -1,11 +1,11 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index ffcea07..2f84901 100644
+index 303806e..20bad6c 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -47,16 +47,18 @@ find_package(Protobuf 3.6.0 REQUIRED)
- find_package(Gcrypt 1.6.0 REQUIRED)
- pkg_check_modules(COTP REQUIRED cotp>=1.2.1)
- pkg_check_modules(BASEENCODE REQUIRED baseencode>=1.0.12)
+@@ -50,16 +50,18 @@ if(${COTP_VERSION} LESS 2.0.0)
+   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DCOTP_OLD_LIB")
+   pkg_check_modules(BASEENCODE REQUIRED baseencode>=1.0.12)
+ endif()
 -pkg_check_modules(PNG REQUIRED libpng>=1.2.0)
  pkg_check_modules(JANSSON REQUIRED jansson>=2.10.0)
 -pkg_check_modules(ZBAR REQUIRED zbar>=0.20)

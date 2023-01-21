@@ -28,8 +28,7 @@ DEPEND="
 	app-crypt/libsecret
 	dev-libs/glib:2=
 	dev-libs/jansson:=
-	dev-libs/libbaseencode
-	dev-libs/libcotp
+	dev-libs/libcotp:=
 	dev-libs/libgcrypt:=
 	dev-libs/libzip:=
 	dev-libs/protobuf-c:=
@@ -40,7 +39,7 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 PATCHES=(
-	"${FILESDIR}/${PN}-2.6.4-fix-no-x-deps.patch"
+	"${FILESDIR}/${PN}-3.1.3-fix-no-x-deps.patch"
 )
 
 src_prepare() {
