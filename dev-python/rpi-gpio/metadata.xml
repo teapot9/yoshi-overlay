@@ -5,4 +5,11 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<changelog>https://sourceforge.net/p/raspberry-gpio-python/code/ci/default/tree/CHANGELOG.txt</changelog>
+		<doc>https://sourceforge.net/p/raspberry-gpio-python/wiki/Home/</doc>
+		<bugs-to>https://sourceforge.net/p/raspberry-gpio-python/tickets/</bugs-to>
+		<remote-id type="sourceforge">raspberry-gpio-python</remote-id>
+		<remote-id type="pypi">RPi.GPIO</remote-id>
+	</upstream>
 </pkgmetadata>
