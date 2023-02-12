@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{9..10} )
 VIM_PLUGIN_VIM_VERSION="8.1.2269"
 
 inherit python-single-r1 python-utils-r1 vim-plugin

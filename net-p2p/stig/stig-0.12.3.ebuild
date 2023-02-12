@@ -5,7 +5,7 @@ EAPI=8
 MY_PV="${PV}a0"
 MY_P="${PN}-${MY_PV}"
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{9..10} )
 inherit distutils-r1 python-r1
 
 ASYNCTEST_PN="asynctest"
