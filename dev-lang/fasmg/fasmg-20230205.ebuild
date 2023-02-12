@@ -44,7 +44,7 @@ src_prepare() {
 }
 
 src_compile() {
-	if has_version dev-lang/fasmg || has_version dev-lang/fasmg-bin; then
+	if has_version >=dev-lang/fasmg-20230126 || has_version >=dev-lang/fasmg-bin-20230126; then
 		fasmg "${SOURCES}/fasmg.asm" "${SOURCES}/fasmg" || die "fasmg failed"
 	elif has_version dev-lang/fasm || has_version dev-lang/fasmg-bin; then
 		export INCLUDE="${WORKDIR}/include"
