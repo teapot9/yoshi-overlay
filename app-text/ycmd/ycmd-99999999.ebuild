@@ -276,6 +276,11 @@ src_prepare() {
 	# rust: failing tests
 	ignore_test ycmd/tests/rust/subcommands_test.py \
 		test_Subcommands_FixIt_Basic
+	# rust: fail with rust 1.66
+	ignore_test ycmd/tests/rust/diagnostics_test.py \
+		test_Diagnostics_DetailedDiags \
+		test_Diagnostics_FileReadyToParse \
+		test_Diagnostics_Poll
 
 	# Other failing tests
 	ignore_test ycmd/tests/utils_test.py \
