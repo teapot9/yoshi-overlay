@@ -29,7 +29,7 @@ BDEPEND=""
 
 DOCS=( README.rst config/cmkinitramfs.ini.example )
 
-distutils_enable_sphinx doc/source dev-python/sphinx_rtd_theme
+distutils_enable_sphinx doc/source dev-python/sphinx-rtd-theme
 
 python_install_all() {
 	distutils-r1_python_install_all

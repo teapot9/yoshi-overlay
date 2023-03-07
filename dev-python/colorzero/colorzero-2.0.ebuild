@@ -29,7 +29,7 @@ PATCHES=(
 
 distutils_enable_sphinx docs \
 	dev-python/pkginfo \
-	dev-python/sphinx_rtd_theme
+	dev-python/sphinx-rtd-theme
 distutils_enable_tests pytest
 
 src_prepare() {

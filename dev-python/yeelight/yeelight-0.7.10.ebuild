@@ -31,7 +31,7 @@ DOCS=( CHANGELOG.md README.md )
 PATCHES=( "${FILESDIR}/${P}-fix-pep517.patch" )
 
 distutils_enable_tests pytest
-distutils_enable_sphinx docs/source dev-python/sphinx_rtd_theme
+distutils_enable_sphinx docs/source dev-python/sphinx-rtd-theme
 
 python_test() {
 	epytest yeelight/tests.py
