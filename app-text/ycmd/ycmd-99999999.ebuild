@@ -3,10 +3,10 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10,11} )
 PYTHON_REQ_USE="xml(+)"
 
-inherit cmake python-r1 python-utils-r1 flag-o-matic
+inherit cmake python-r1 flag-o-matic
 
 BASE_REPO_URI="https://github.com/ycm-core/ycmd"
 if [[ ${PV} == *9999* ]]; then
@@ -79,7 +79,7 @@ RDEPEND="
 	clang? ( sys-devel/clang:15= )
 	clangd? ( sys-devel/clang:15= )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.37.11[http] )
-	go? ( ~dev-go/gopls-0.9.4 )
+	go? ( =dev-go/gopls-0.9* )
 	java? ( ~dev-java/eclipse-jdt-ls-bin-1.14.0 )
 	javascript? ( >=dev-lang/typescript-4.7.0 )
 	rust? ( || (
@@ -237,6 +237,11 @@ src_prepare() {
 	ignore_test ycmd/tests/go/subcommands_test.py \
 		test_Subcommands_FixIt_NullResponse \
 		test_Subcommands_FixIt_Simple
+	# go: failing with go 1.20
+	ignore_test ycmd/tests/go/diagnostics_test.py \
+		test_Diagnostics_DetailedDiags \
+		test_Diagnostics_FileReadyToParse \
+		test_Diagnostics_Poll
 
 	# java: system jdtls
 	ignore_test ycmd/tests/java/debug_info_test.py \

@@ -6,7 +6,7 @@ EAPI=8
 PYTHON_COMPAT=( python3_10 )
 PYTHON_REQ_USE="xml(+)"
 
-inherit cmake python-r1 python-utils-r1 flag-o-matic
+inherit cmake python-r1 flag-o-matic
 
 BASE_REPO_URI="https://github.com/ycm-core/ycmd"
 if [[ ${PV} == *9999* ]]; then
