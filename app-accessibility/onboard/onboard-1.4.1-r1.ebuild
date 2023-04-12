@@ -3,10 +3,10 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..10} )
-PYTHON_REQ_USE="xml"
+PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_REQ_USE="xml(+)"
 DISTUTILS_USE_PEP517=setuptools
-inherit distutils-r1 virtualx xdg-utils gnome2-utils
+inherit distutils-r1 virtualx gnome2-utils
 
 DESCRIPTION="An onscreen keyboard useful for tablet PC users and for mobility impaired users."
 HOMEPAGE="https://launchpad.net/onboard"
