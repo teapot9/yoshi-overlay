@@ -23,9 +23,14 @@ DEPEND="dev-python/humanfriendly[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}
 	sys-apps/smartmontools
 "
-BDEPEND="doc? ( dev-python/pdoc3 )"
+BDEPEND="
+	doc? ( dev-python/pdoc3 )
+	dev-python/setuptools-scm[${PYTHON_USEDEP}]
+"
 
 DOCS=( CHANGELOG.md README.md )
+
+export SETUPTOOLS_SCM_PRETEND_VERSION="${PV}"
 
 distutils_enable_tests pytest
 
