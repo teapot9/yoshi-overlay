@@ -3,10 +3,10 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_{9..11} )
 VIM_PLUGIN_VIM_VERSION="8.1.2269"
 
-inherit python-single-r1 python-utils-r1 vim-plugin
+inherit python-single-r1 vim-plugin
 
 BASE_REPO_URI="https://github.com/ycm-core/YouCompleteMe"
 if [[ ${PV} == *9999* ]]; then
