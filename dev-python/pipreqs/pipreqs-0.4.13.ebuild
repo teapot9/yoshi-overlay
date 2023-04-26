@@ -3,13 +3,13 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..10} pypy3 )
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{9..11} pypy3 )
 
-inherit python-r1 distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Generate pip requirements.txt file based on imports of any project"
 HOMEPAGE="https://github.com/bndr/pipreqs"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
