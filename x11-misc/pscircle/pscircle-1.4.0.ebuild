@@ -25,3 +25,7 @@ RDEPEND="${DEPEND}
 BDEPEND=""
 
 DOCS=("README.md" "CHANGELOG.md")
+
+PATCHES=(
+	"${FILESDIR}/${PN}-1.4.0-enable-tests.patch"
+)

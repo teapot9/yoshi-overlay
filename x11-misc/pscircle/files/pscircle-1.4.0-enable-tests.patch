@@ -1,0 +1,12 @@
+diff --git a/meson.build b/meson.build
+index 2b09335..be3d710 100644
+--- a/meson.build
++++ b/meson.build
+@@ -118,6 +118,4 @@ executable(
+ 	install: true
+ )
+ 
+-if get_option('buildtype').startswith('debug')
+-	subdir('tests')
+-endif
++subdir('tests')
