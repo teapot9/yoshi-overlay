@@ -220,6 +220,11 @@ src_prepare() {
 	ignore_test ycmd/tests/clangd/get_completions_test.py \
 		test_GetCompletions_cuda \
 		test_GetCompletions_WithHeaderInsertionDecorators
+	if ! has_version '>=sys-devel/clang-16'; then
+		ewarn "ycmd expects >=sys-devel/clang-16 to be installed"
+		ignore_test ycmd/tests/clangd/subcommands_test.py \
+			test_Subcommands_FixIt_Ranged
+	fi
 
 	# c#: system omnisharp
 	ignore_test ycmd/tests/cs/debug_info_test.py \
