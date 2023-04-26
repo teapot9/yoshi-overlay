@@ -3,10 +3,11 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..10} pypy3 )
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{9..11} pypy3 )
 PYTHON_REQ_USE="xml(+)"
 
-inherit python-r1 distutils-r1
+inherit distutils-r1
 
 DESCRIPTION="A semi hard Cornish cheese, also queries PyPI"
 HOMEPAGE="https://yarg.readthedocs.io/"
@@ -20,13 +21,9 @@ DEPEND="
 	dev-python/requests[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}"
-BDEPEND="
-	test? (
-		dev-python/mock[${PYTHON_USEDEP}]
-	)
-"
+BDEPEND=""
 
 PATCHES=("${FILESDIR}/${P}-fix-find-packages.patch")
 
 distutils_enable_sphinx docs/source
-distutils_enable_tests nose
+distutils_enable_tests unittest
