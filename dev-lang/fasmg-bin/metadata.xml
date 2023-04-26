@@ -12,4 +12,7 @@
 		packages and in the same way it can be adapted to assemble for different
 		architectures and purposes.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">tgrysztar/fasmg</remote-id>
+	</upstream>
 </pkgmetadata>
