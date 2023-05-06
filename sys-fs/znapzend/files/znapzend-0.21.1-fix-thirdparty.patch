@@ -6,7 +6,7 @@ index 1beb6cb..0d6967e 100644
  
  SUFFIXES = .1 .man .pm
  
--SUBDIRS = lib thirdparty
+-SUBDIRS = lib thirdparty debian
 +SUBDIRS = lib
  
  BIN = bin/@PACKAGE@ bin/znapzendzetup bin/znapzendztatz

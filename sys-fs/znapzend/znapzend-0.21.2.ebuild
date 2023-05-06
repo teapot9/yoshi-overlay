@@ -14,12 +14,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 DEPEND="
-	dev-perl/IO-Pipely
-	dev-perl/mojo-ioloop-forkcall
 	dev-perl/Mojolicious
-	dev-perl/Sub-Uplevel
-	dev-perl/Test-Exception
-	dev-perl/Test-SharedFork
+	dev-perl/mojo-log-clearable
 	virtual/perl-Scalar-List-Utils
 "
 RDEPEND="${DEPEND}
@@ -27,7 +23,12 @@ RDEPEND="${DEPEND}
 "
 BDEPEND="
 	dev-perl/Module-Build
-	test? ( ${RDEPEND} )
+	test? (
+		${RDEPEND}
+		dev-perl/Test-Exception
+		dev-perl/Test-SharedFork
+		virtual/perl-Test
+	)
 "
 
 PATCHES=(
