@@ -53,6 +53,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${PN}-2.12.5-change-default-root.patch"
+	"${FILESDIR}/${P}-fix-dot.patch"
 )
 
 APK_DEFAULT_ROOT="${APK_DEFAULT_ROOT:-${EPREFIX}/var/chroot/alpine}"
