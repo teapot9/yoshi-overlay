@@ -5,19 +5,14 @@ EAPI=8
 MY_PV="${PV}a0"
 MY_P="${PN}-${MY_PV}"
 
-PYTHON_COMPAT=( python3_{9..10} )
-inherit distutils-r1 python-r1
-
-ASYNCTEST_PN="asynctest"
-ASYNCTEST_PV="0.13.0"
-ASYNCTEST_P="${ASYNCTEST_PN}-${ASYNCTEST_PV}"
-ASYNCTEST_S="${WORKDIR}/${ASYNCTEST_P}"
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{9..11} )
+inherit distutils-r1
 
 DESCRIPTION="TUI and CLI client for the Transmission daemon"
 HOMEPAGE="https://github.com/rndusr/stig https://pypi.org/project/stig/"
 SRC_URI="
 	https://github.com/rndusr/stig/archive/refs/tags/v${MY_PV}.tar.gz -> ${P}.gh.tar.gz
-	test? ( mirror://pypi/${ASYNCTEST_PN:0:1}/${ASYNCTEST_PN}/${ASYNCTEST_P}.tar.gz )
 "
 S="${WORKDIR}/${MY_P}"
 
@@ -25,6 +20,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="proxy setproctitle"
+RESTRICT="test" # https://github.com/rndusr/stig/issues/206
 
 DEPEND="
 	dev-python/urwid[${PYTHON_USEDEP}]
@@ -43,5 +39,5 @@ BDEPEND=""
 distutils_enable_tests pytest
 
 python_test() {
-	PYTHONPATH="${PYTHONPATH}:${ASYNCTEST_S}" distutils-r1_python_test
+	distutils-r1_python_test
 }
