@@ -8,7 +8,7 @@ MY_P="${PN}-v${PV}"
 ZSHCOMP_COMMIT="e185ac2775485c65e5ea165a3653c65cdc4303b7"
 ZSHCOMP_FILE="${PN}-completion-${ZSHCOMP_COMMIT}.zsh"
 
-inherit flag-o-matic toolchain-funcs lua-utils lua-single
+inherit flag-o-matic toolchain-funcs lua-single
 
 DESCRIPTION="Alpine Package Keeper - package manager for alpine"
 HOMEPAGE="https://gitlab.alpinelinux.org/alpine/apk-tools"
@@ -20,7 +20,7 @@ S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 IUSE="lua static static-libs test zsh-completion"
 RESTRICT="!test? ( test )"
@@ -53,6 +53,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${PN}-2.12.5-change-default-root.patch"
+	"${FILESDIR}/${P}-fix-recursive-solve.patch"
 )
 
 APK_DEFAULT_ROOT="${APK_DEFAULT_ROOT:-${EPREFIX}/var/chroot/alpine}"
@@ -70,7 +71,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	sed -i -e 's/-Werror\( \|$\)//g' Make.rules || die
 	sed -i -e 's|#!/bin/sh|#!/bin/bash|' test/*.sh || die
 	default
 }
