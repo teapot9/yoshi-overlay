@@ -104,7 +104,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${PN}-20210903-fix-devdep.patch"
-	"${FILESDIR}/${PN}-99999999-system-jdtls.patch"
+	"${FILESDIR}/${PN}-20230511-system-jdtls.patch"
 	"${FILESDIR}/${PN}-20210903-system-omnisharp.patch"
 	"${FILESDIR}/${PN}-20210903-system-clang.patch"
 	"${FILESDIR}/${PN}-20211204-cmake-use-build.patch"

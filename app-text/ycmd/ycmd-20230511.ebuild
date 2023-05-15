@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_{10,11} )
 PYTHON_REQ_USE="xml(+)"
 
 inherit cmake python-r1 flag-o-matic
@@ -14,7 +14,7 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="${BASE_REPO_URI}.git"
 	EGIT_SUBMODULES=()
 else
-	COMMIT_HASH="d3ae5557b65a56d7e8fa2cfcf8736d161af00db3"
+	COMMIT_HASH="621efe89a7e560df53d10428cbc821c03140be35"
 	SRC_URI="${BASE_REPO_URI}/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
 	S="${WORKDIR}/${PN}-${COMMIT_HASH}"
 fi
@@ -65,7 +65,7 @@ RESTRICT="!test? ( test )"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
-	dev-cpp/abseil-cpp
+	dev-cpp/abseil-cpp:=
 	dev-python/pybind11[${PYTHON_USEDEP}]
 "
 RDEPEND="
@@ -76,13 +76,16 @@ RDEPEND="
 	dev-python/regex[${PYTHON_USEDEP}]
 	dev-python/jedi[${PYTHON_USEDEP}]
 	dev-python/watchdog[${PYTHON_USEDEP}]
-	clang? ( sys-devel/clang:14= )
-	clangd? ( sys-devel/clang:14= )
+	clang? ( sys-devel/clang:15= )
+	clangd? ( sys-devel/clang:15=[extra] )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.37.11[http] )
-	go? ( ~dev-go/gopls-0.9.4 )
-	java? ( ~dev-java/eclipse-jdt-ls-bin-1.14.0 )
+	go? ( =dev-go/gopls-0.9* )
+	java? ( =dev-java/eclipse-jdt-ls-bin-1.23* )
 	javascript? ( >=dev-lang/typescript-4.7.0 )
-	rust? ( ~dev-util/rust-analyzer-20220822 )
+	rust? ( || (
+		dev-lang/rust[rust-analyzer,rust-src]
+		dev-lang/rust-bin[rust-analyzer,rust-src]
+	) )
 "
 BDEPEND="
 	${PYTHON_DEPS}
@@ -101,11 +104,12 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${PN}-20210903-fix-devdep.patch"
-	"${FILESDIR}/${PN}-20210903-system-jdtls.patch"
+	"${FILESDIR}/${PN}-20230511-system-jdtls.patch"
 	"${FILESDIR}/${PN}-20210903-system-omnisharp.patch"
 	"${FILESDIR}/${PN}-20210903-system-clang.patch"
 	"${FILESDIR}/${PN}-20211204-cmake-use-build.patch"
 	"${FILESDIR}/${PN}-20210903-fix-core-version.patch"
+	"${FILESDIR}/${PN}-20230103-fix-tests-python311.patch"
 )
 
 CMAKE_USE_DIR="${S}/cpp"
@@ -216,6 +220,11 @@ src_prepare() {
 	ignore_test ycmd/tests/clangd/get_completions_test.py \
 		test_GetCompletions_cuda \
 		test_GetCompletions_WithHeaderInsertionDecorators
+	if ! has_version '>=sys-devel/clang-16'; then
+		ewarn "ycmd expects >=sys-devel/clang-16 to be installed"
+		ignore_test ycmd/tests/clangd/subcommands_test.py \
+			test_Subcommands_FixIt_Ranged
+	fi
 
 	# c#: system omnisharp
 	ignore_test ycmd/tests/cs/debug_info_test.py \
@@ -233,6 +242,11 @@ src_prepare() {
 	ignore_test ycmd/tests/go/subcommands_test.py \
 		test_Subcommands_FixIt_NullResponse \
 		test_Subcommands_FixIt_Simple
+	# go: failing with go 1.20
+	ignore_test ycmd/tests/go/diagnostics_test.py \
+		test_Diagnostics_DetailedDiags \
+		test_Diagnostics_FileReadyToParse \
+		test_Diagnostics_Poll
 
 	# java: system jdtls
 	ignore_test ycmd/tests/java/debug_info_test.py \
@@ -272,6 +286,11 @@ src_prepare() {
 	# rust: failing tests
 	ignore_test ycmd/tests/rust/subcommands_test.py \
 		test_Subcommands_FixIt_Basic
+	# rust: fail with rust 1.66
+	ignore_test ycmd/tests/rust/diagnostics_test.py \
+		test_Diagnostics_DetailedDiags \
+		test_Diagnostics_FileReadyToParse \
+		test_Diagnostics_Poll
 
 	# Other failing tests
 	ignore_test ycmd/tests/utils_test.py \
