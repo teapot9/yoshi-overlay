@@ -6,7 +6,7 @@ EAPI=8
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{9..11} pypy3 )
 
-inherit python-r1 python-utils-r1 distutils-r1
+inherit distutils-r1
 
 DESCRIPTION="Python m3u8 Parser for HTTP Live Streaming (HLS) Transmissions"
 HOMEPAGE="https://github.com/globocom/m3u8"
