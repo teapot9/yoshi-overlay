@@ -19,7 +19,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-DEPEND="dev-python/humanfriendly[${PYTHON_USEDEP}]"
+DEPEND="
+	dev-python/humanfriendly[${PYTHON_USEDEP}]
+	dev-python/chardet[${PYTHON_USEDEP}]
+"
 RDEPEND="${DEPEND}
 	sys-apps/smartmontools
 "
