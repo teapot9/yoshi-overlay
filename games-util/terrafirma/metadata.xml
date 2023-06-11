@@ -5,4 +5,8 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<bugs-to>https://github.com/mrkite/TerraFirma/issues</bugs-to>
+		<remote-id type="github">mrkite/TerraFirma</remote-id>
+	</upstream>
 </pkgmetadata>

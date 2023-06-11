@@ -1,0 +1,28 @@
+From 6d2c535440f5a8104d0cb4ae2a7ead8c472fde77 Mon Sep 17 00:00:00 2001
+From: Louis Leseur <louis.leseur@gmail.com>
+Date: Sun, 11 Jun 2023 17:57:52 +0200
+Subject: [PATCH] Fix install paths
+
+Applications and pixmaps files should be installed in the /usr/share
+directory (or /usr/local/share).
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bc66403..774312a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -23,7 +23,7 @@ endif()
+ add_subdirectory(src)
+ 
+ if(UNIX AND NOT APPLE)
+-install(FILES terrafirma.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/applications/)
+-install(FILES res/terrafirma.png DESTINATION ${CMAKE_INSTALL_PREFIX}/pixmaps/)
++install(FILES terrafirma.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/)
++install(FILES res/terrafirma.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps/)
+ install(TARGETS terrafirma RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+ endif()
+-- 
+2.39.2
+

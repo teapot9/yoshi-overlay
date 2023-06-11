@@ -4,32 +4,23 @@
 EAPI=8
 MY_PN="TerraFirma"
 
-inherit qmake-utils
+inherit cmake
 
 DESCRIPTION="Mapping for Terraria"
 HOMEPAGE="https://seancode.com/terrafirma/"
-SRC_URI="https://github.com/mrkite/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/mrkite/${MY_PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
-	dev-qt/qtcore:5
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	dev-qt/qtbase:6=[gui,opengl,widgets]
 	sys-libs/zlib
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
-src_configure() {
-	eqmake5 || die "eqmake5 failed"
-}
-
-src_install() {
-	emake INSTALL_ROOT="${ED}" install || die "emake install failed"
-	einstalldocs
-}
+PATCHES=( "${FILESDIR}/${P}-fix-install-paths.patch" )
