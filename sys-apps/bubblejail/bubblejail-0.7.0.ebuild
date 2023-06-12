@@ -13,13 +13,12 @@ SRC_URI="https://github.com/igo95862/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="X +bash-completion fish-completion"
+IUSE="X +bash-completion fish-completion +man"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
 	sys-libs/libseccomp
 	dev-python/pyxdg[${PYTHON_USEDEP}]
-	dev-python/toml[${PYTHON_USEDEP}]
 	dev-python/tomli[${PYTHON_USEDEP}]
 	dev-python/tomli-w[${PYTHON_USEDEP}]
 	X? ( dev-python/PyQt5[${PYTHON_USEDEP},widgets] )
@@ -30,14 +29,22 @@ RDEPEND="${DEPEND} ${PYTHON_DEPS}
 	dev-util/desktop-file-utils
 "
 BDEPEND="
-	sys-devel/m4
+	man? ( app-text/scdoc )
 "
 
 DOCS=( README.md docs/breaking_changes.md )
 
+src_prepare() {
+	if ! use man; then
+		sed -i -e "s:subdir('docs')::" meson.build
+	fi
+	default
+}
+
 src_configure() {
 	local emesonargs=(
 		-Duse_python_site_packages_dir=true
+		-Dbytecode-optimization=0
 	)
 	python_foreach_impl meson_src_configure
 }
@@ -52,11 +59,12 @@ src_test() {
 
 src_install() {
 	src_install_python() {
-		python_fix_shebang "${BUILD_DIR}"/m4/*
+		python_fix_shebang "${BUILD_DIR}"/tools/*
 		meson_src_install
 		python_optimize
 	}
 	python_foreach_impl src_install_python
+
 	if ! use fish-completion; then
 		rm -rv "${ED}"/usr/share/fish/vendor_completions.d || die
 	fi
@@ -70,6 +78,7 @@ src_install() {
 			|| die
 		rm -v "${ED}"/usr/bin/bubblejail-config || die
 	fi
+
 	einstalldocs
 }
 
