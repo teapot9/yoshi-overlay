@@ -6,12 +6,13 @@ EAPI=8
 MY_PN="types-Flask-Cors"
 MY_P="${MY_PN}-${PV}"
 
+PYPI_PN="${MY_PN}"
+PYPI_NO_NORMALIZE=yes
 PYTHON_COMPAT=( python3_{9..11} )
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Typing stubs for flask-cors"
 HOMEPAGE="https://pypi.org/project/types-Flask-Cors/"
-SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
 LICENSE="Apache-2.0"
