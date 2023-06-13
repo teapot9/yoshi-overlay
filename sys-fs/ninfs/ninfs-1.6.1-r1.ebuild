@@ -5,11 +5,10 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{9..11} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="FUSE filesystem Python scripts for Nintendo console files"
 HOMEPAGE="https://github.com/ihaveamac/ninfs"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT openssl"
 SLOT="0"
