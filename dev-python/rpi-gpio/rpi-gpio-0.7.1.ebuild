@@ -6,14 +6,15 @@ EAPI=8
 MY_PN="RPi.GPIO"
 MY_P="${MY_PN}-${PV}"
 
+PYPI_PN="${MY_PN}"
+PYPI_NO_NORMALIZE=yes
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{9..10} )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="A Python module to control the GPIO on a Raspberry Pi"
 HOMEPAGE="https://sourceforge.net/projects/raspberry-gpio-python/"
-SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
 LICENSE="MIT"
