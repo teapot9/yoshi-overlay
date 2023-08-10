@@ -20,7 +20,7 @@ S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 IUSE="lua static static-libs test zsh-completion"
 RESTRICT="!test? ( test )"
