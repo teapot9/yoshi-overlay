@@ -21,7 +21,9 @@ DEPEND="
 	dev-python/requests[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}"
-BDEPEND=""
+BDEPEND="
+	test? ( dev-python/mock[${PYTHON_USEDEP}] )
+"
 
 PATCHES=("${FILESDIR}/${P}-fix-find-packages.patch")
 
