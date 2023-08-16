@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-MY_PN="OTPClient"
 
+MY_PN="OTPClient"
 inherit cmake xdg-utils
 
 DESCRIPTION="Highly secure and easy to use OTP client written in C/GTK"
