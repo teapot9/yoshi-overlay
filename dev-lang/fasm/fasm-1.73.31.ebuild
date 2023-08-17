@@ -1,11 +1,11 @@
 # Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit estack
 
-MY_COMMIT="510988e6b4fd9532df6b64e35a0033d46725fc46"
+MY_COMMIT="82d3cde958d45290d22b75ac7d1cb8ffa90ecc0d"
 MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${MY_COMMIT}"
 
