@@ -21,9 +21,11 @@ DEPEND="
 	dev-perl/Config-IniFiles
 	dev-perl/Capture-Tiny
 	virtual/perl-Data-Dumper
+	virtual/perl-Getopt-Long
 "
 RDEPEND="${DEPEND}
 	!minimal? (
+		app-arch/lzop
 		sys-apps/pv
 		sys-block/mbuffer
 	)
@@ -31,8 +33,6 @@ RDEPEND="${DEPEND}
 	virtual/ssh
 "
 BDEPEND=""
-
-PATCHES=( "${FILESDIR}/${PN}-2.1.0-comment-config.patch" )
 
 src_test() {
 	cd tests
