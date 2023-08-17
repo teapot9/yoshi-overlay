@@ -1,10 +1,9 @@
 # Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-MY_TIMESTAMP="202306011728"
-
+MY_TIMESTAMP="202307271613"
 inherit java-pkg-2
 
 DESCRIPTION="Java language server"

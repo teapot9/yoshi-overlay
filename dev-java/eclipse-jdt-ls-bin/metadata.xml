@@ -10,9 +10,9 @@
 			<email>jdt-ls-dev@eclipse.org</email>
 			<name>Developers List</name>
 		</maintainer>
-		<changelog>https://github.com/eclipse/eclipse.jdt.ls/blob/master/CHANGELOG.md</changelog>
-		<doc>https://github.com/eclipse/eclipse.jdt.ls/wiki</doc>
-		<bugs-to>https://github.com/eclipse/eclipse.jdt.ls/issues</bugs-to>
-		<remote-id type="github">eclipse/eclipse.jdt.ls</remote-id>
+		<changelog>https://github.com/eclipse-jdtls/eclipse.jdt.ls/blob/master/CHANGELOG.md</changelog>
+		<doc>https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki</doc>
+		<bugs-to>https://github.com/eclipse-jdtls/eclipse.jdt.ls/issues</bugs-to>
+		<remote-id type="github">eclipse-jdtls/eclipse.jdt.ls</remote-id>
 	</upstream>
 </pkgmetadata>
