@@ -7,7 +7,7 @@ MY_P="python-${PN}-v${PV}"
 DISTUTILS_USE_PEP517=flit
 PYTHON_COMPAT=( python3_{9..11} pypy3 )
 
-inherit python-utils-r1 python-r1 distutils-r1
+inherit distutils-r1
 
 DESCRIPTION="A Python library for controlling YeeLight RGB bulbs."
 HOMEPAGE="https://gitlab.com/stavros/python-yeelight https://pypi.org/project/yeelight/"
@@ -27,8 +27,6 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 DOCS=( CHANGELOG.md README.md )
-
-PATCHES=( "${FILESDIR}/${P}-fix-pep517.patch" )
 
 distutils_enable_tests pytest
 distutils_enable_sphinx docs/source dev-python/sphinx-rtd-theme
