@@ -80,8 +80,8 @@ RDEPEND="
 	clangd? ( sys-devel/clang:15=[extra] )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.37.11[http] )
 	go? ( =dev-go/gopls-0.9* )
-	java? ( =dev-java/eclipse-jdt-ls-bin-1.23* )
-	javascript? ( >=dev-lang/typescript-4.7.0 )
+	java? ( =dev-java/eclipse-jdt-ls-bin-1.26* )
+	javascript? ( >=dev-lang/typescript-5.1.6 )
 	rust? ( || (
 		dev-lang/rust[rust-analyzer,rust-src]
 		dev-lang/rust-bin[rust-analyzer,rust-src]
