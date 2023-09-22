@@ -247,6 +247,9 @@ src_prepare() {
 		test_Diagnostics_DetailedDiags \
 		test_Diagnostics_FileReadyToParse \
 		test_Diagnostics_Poll
+	# go: maybe failing because gopls<0.13
+	ignore_test ycmd/tests/go/semantic_highlighting_test.py \
+		test_none
 
 	# java: system jdtls
 	ignore_test ycmd/tests/java/debug_info_test.py \
