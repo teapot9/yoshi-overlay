@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{9..11} pypy3 )
+PYTHON_COMPAT=( python3_11 )
 
 inherit distutils-r1
 
@@ -13,12 +13,10 @@ HOMEPAGE="https://github.com/globocom/m3u8"
 SRC_URI="https://github.com/globocom/m3u8/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="MIT"
-SLOT="0/1"
+SLOT="0/4"
 KEYWORDS="~amd64"
 
-DEPEND="
-	dev-python/iso8601[${PYTHON_USEDEP}]
-"
+DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND="
 	test? (
