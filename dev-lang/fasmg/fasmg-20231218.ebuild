@@ -3,8 +3,8 @@
 
 EAPI=8
 
-MY_PV="k4v8"
-MY_COMMIT="18bfe3285ef01303d3334ac6132c2b919208355a"
+MY_PV="k9zn"
+MY_COMMIT="42c46f6bbf71eb239bfeffc9734531525a6ab1b8"
 MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${MY_COMMIT}"
 
@@ -23,9 +23,9 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	|| (
 		dev-lang/fasm
-		>=dev-lang/fasmg-bin-20230126
+		dev-lang/fasmg-bin
 		dev-lang/fasm-bin
-		>=dev-lang/fasmg-20230126
+		dev-lang/fasmg
 	)
 "
 
