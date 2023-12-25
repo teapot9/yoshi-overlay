@@ -10,6 +10,9 @@
 		processors, which does multiple passes to optimize the size of generated
 		machine code.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">tgrysztar/fasm</remote-id>
+	</upstream>
 	<use>
 		<flag name="tools">Install additionnal developpement tools</flag>
 	</use>
