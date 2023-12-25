@@ -1,0 +1,3 @@
+# Masked for removal (2023-12-25)
+# Deprecated upstream since dev-libs/libcotp-2.0.0
+dev-libs/libbaseencode
