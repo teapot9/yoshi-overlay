@@ -9,7 +9,7 @@ index 74c352b2..8a997f0c 100644
 -LIBCLANG_DIR = os.path.join( DIR_OF_THIRD_PARTY, 'clang', 'lib' )
 +try:
 +  LIBCLANG_DIR = os.path.dirname(subprocess.run(
-+    ('clang-15', '--print-file-name=libclang.so'),
++    ('clang-17', '--print-file-name=libclang.so'),
 +    stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True
 +  ).stdout.decode('UTF-8').strip())
 +except (subprocess.CalledProcessError, FileNotFoundError):
@@ -37,7 +37,7 @@ index 74c352b2..8a997f0c 100644
 -  raise RuntimeError( 'Cannot find Clang resource directory.' )
 +  try:
 +    return subprocess.run(
-+      ('clang-15', '--print-resource-dir'),
++      ('clang-17', '--print-resource-dir'),
 +      stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True
 +    ).stdout.decode('UTF-8').strip()
 +  except (subprocess.CalledProcessError, FileNotFoundError):
