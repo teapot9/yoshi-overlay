@@ -3,7 +3,7 @@
 
 EAPI=8
 
-MY_TIMESTAMP="202312071447"
+MY_TIMESTAMP="202401111522"
 inherit java-pkg-2
 
 DESCRIPTION="Java language server"
