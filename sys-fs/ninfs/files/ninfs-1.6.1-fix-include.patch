@@ -1,0 +1,12 @@
+diff --git a/ninfs/hac/_crypto.cpp b/ninfs/hac/_crypto.cpp
+index e8a96cb..07179a3 100644
+--- a/ninfs/hac/_crypto.cpp
++++ b/ninfs/hac/_crypto.cpp
+@@ -8,6 +8,7 @@
+ 
+ #include <Python.h>
+ 
++#include <string>
+ #include <cstdio>
+ #include <cstdlib>
+ #include <cstring>

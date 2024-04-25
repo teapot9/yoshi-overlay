@@ -5,4 +5,9 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<bugs-to>https://github.com/ihaveamac/ninfs/issues</bugs-to>
+		<remote-id type="github">ihaveamac/ninfs</remote-id>
+		<remote-id type="pypi">ninfs</remote-id>
+	</upstream>
 </pkgmetadata>
