@@ -12,7 +12,7 @@ DESCRIPTION="FUSE filesystem Python scripts for Nintendo console files"
 HOMEPAGE="https://github.com/ihaveamac/ninfs"
 
 LICENSE="MIT openssl"
-SLOT="0"
+SLOT="0/1"
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="
@@ -26,9 +26,10 @@ PATCHES=(
 )
 
 src_prepare() {
-	find "${S}" \( -name '*.py' -o -name '*.txt' \) -exec sed -i \
-		-e 's:Cryptodome:Crypto:g' \
-		-e 's:pycryptodomex:pycryptodome:g' \
-		{} \; || die "Force use of pycryptodome"
+	find "${S}" \( -name '*.py' -o -name '*.txt' \) -print0 \
+		| xargs -0 sed -i \
+			-e 's:Cryptodome:Crypto:g' \
+			-e 's:pycryptodomex:pycryptodome:g' \
+		|| die "Force use of pycryptodome"
 	default
 }
