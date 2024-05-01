@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<bugs-to>https://github.com/nathanhi/pyfatfs/issues</bugs-to>
+		<changelog>https://github.com/nathanhi/pyfatfs/blob/master/CHANGELOG.rst</changelog>
+		<doc>https://pyfatfs.readthedocs.io/</doc>
+		<remote-id type="github">nathanhi/pyfatfs</remote-id>
+		<remote-id type="pypi">pyfatfs</remote-id>
+	</upstream>
+</pkgmetadata>
