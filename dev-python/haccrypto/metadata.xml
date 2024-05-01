@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<bugs-to>https://github.com/luigoalma/haccrypto/issues</bugs-to>
+		<remote-id type="github">luigoalma/haccrypto</remote-id>
+		<remote-id type="pypi">haccrypto</remote-id>
+	</upstream>
+</pkgmetadata>
