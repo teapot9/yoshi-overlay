@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<bugs-to>https://github.com/ihaveamac/pyctr/issues</bugs-to>
+		<doc>https://pyctr.readthedocs.io</doc>
+		<remote-id type="github">ihaveamac/pyctr</remote-id>
+		<remote-id type="pypi">pyctr</remote-id>
+	</upstream>
+	<use>
+		<flag name="image">Use <pkg>dev-python/pillow</pkg> to load images</flag>
+	</use>
+</pkgmetadata>
