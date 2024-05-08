@@ -1,4 +1,8 @@
 # Masked for removal (2024-05-08)
+# Available in ::guru (dev-python/podman-compose)
+app-containers/podman-compose
+
+# Masked for removal (2024-05-08)
 # Unmaintained: last release/commit was in 2017
 # Wayland is not supported
 app-accessibility/onboard
