@@ -19,27 +19,29 @@ REQUIRED_USE="|| ( X cli )"
 
 # libuuid provided by sys-apps/util-linux in @system
 DEPEND="
-	X? (
-		media-gfx/qrencode:=
-		media-gfx/zbar
-		media-libs/libpng:=
-		x11-libs/gdk-pixbuf
-	)
 	app-crypt/libsecret
 	dev-libs/glib:2=
 	dev-libs/jansson:=
 	dev-libs/libcotp:=
 	dev-libs/libgcrypt:=
 	dev-libs/libzip:=
-	dev-libs/protobuf-c:=
-	dev-libs/protobuf:=
-	x11-libs/gtk+:3=
+	X? (
+		dev-libs/protobuf-c:=
+		dev-libs/protobuf:=
+		media-gfx/qrencode:=
+		media-gfx/zbar
+		media-libs/libpng:=
+		x11-libs/gdk-pixbuf
+		x11-libs/gtk+:3=
+	)
 "
 RDEPEND="${DEPEND}"
-BDEPEND=""
+IDEPEND="
+	X? ( dev-util/gtk-update-icon-cache )
+"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-3.1.4-fix-no-x-deps.patch"
+	"${FILESDIR}/${PN}-3.6.0-fix-no-x-deps.patch"
 )
 
 src_prepare() {
@@ -59,9 +61,17 @@ src_configure() {
 }
 
 pkg_postinst() {
-	xdg_icon_cache_update
+	elog "${MY_PN} requires memlock limit to be at least 64MB. You can check"
+	elog "its value by running \`ulimit -Hl\`. If the value is below 65536,"
+	elog "change the system limits by editing /etc/security/limits.conf."
+
+	if use X; then
+		xdg_icon_cache_update
+	fi
 }
 
 pkg_postrm() {
-	xdg_icon_cache_update
+	if use X; then
+		xdg_icon_cache_update
+	fi
 }
