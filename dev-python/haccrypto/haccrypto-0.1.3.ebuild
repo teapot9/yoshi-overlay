@@ -12,6 +12,6 @@ inherit distutils-r1 pypi
 DESCRIPTION="Nintendo Switch XTSN crypto for Python"
 HOMEPAGE="https://github.com/luigoalma/haccrypto"
 
-LICENSE="MIT"
+LICENSE="MIT openssl"
 SLOT="0"
 KEYWORDS="~amd64"
