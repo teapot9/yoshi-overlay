@@ -1,3 +1,8 @@
+# Masked for removal (2024-05-08)
+# Unmaintained: last release/commit was in 2017
+# Wayland is not supported
+app-accessibility/onboard
+
 # Masked for removal (2023-12-25)
 # Deprecated upstream since dev-libs/libcotp-2.0.0
 dev-libs/libbaseencode
