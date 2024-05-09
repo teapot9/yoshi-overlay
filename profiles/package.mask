@@ -1,4 +1,8 @@
 # Masked for removal (2024-05-09)
+# Available in ::guru (games-emulation/np2kai)
+app-emulation/np2kai
+
+# Masked for removal (2024-05-09)
 # Broken man-pages
 app-doc/opengl-refpages
 
