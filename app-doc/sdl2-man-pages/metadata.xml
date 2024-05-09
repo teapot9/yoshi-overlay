@@ -5,7 +5,9 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
-	<use>
-		<flag name="sdl1">Enable compatibility with SDL1 man pages</flag>
-	</use>
+	<upstream>
+		<doc>https://wiki.libsdl.org/SDL2/CategoryAPI</doc>
+		<bugs-to>https://github.com/haxpor/sdl2-manpage/issues</bugs-to>
+		<remote-id type="github">haxpor/sdl2-manpage</remote-id>
+	</upstream>
 </pkgmetadata>
