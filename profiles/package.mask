@@ -1,4 +1,8 @@
 # Masked for removal (2024-05-09)
+# Available in ::guru (dev-perl/Term-Animation)
+dev-perl/term-animation
+
+# Masked for removal (2024-05-09)
 # Available in ::guru (games-misc/asciiquarium)
 app-misc/asciiquarium
 
