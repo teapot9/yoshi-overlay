@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<doc>https://www.libsdl.org/release/SDL-1.2.15/docs/</doc>
+		<bugs-to>https://github.com/libsdl-org/SDL-1.2/issues</bugs-to>
+		<remote-id type="github">libsdl-org/SDL-1.2</remote-id>
+	</upstream>
+</pkgmetadata>
