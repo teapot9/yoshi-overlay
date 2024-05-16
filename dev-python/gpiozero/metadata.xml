@@ -5,4 +5,11 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<doc>https://gpiozero.readthedocs.io/</doc>
+		<bugs-to>https://github.com/gpiozero/gpiozero/issues</bugs-to>
+		<changelog>https://gpiozero.readthedocs.io/en/latest/changelog.html</changelog>
+		<remote-id type="github">gpiozero/gpiozero</remote-id>
+		<remote-id type="pypi">gpiozero</remote-id>
+	</upstream>
 </pkgmetadata>

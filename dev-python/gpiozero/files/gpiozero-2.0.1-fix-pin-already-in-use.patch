@@ -1,0 +1,13 @@
+diff --git a/tests/test_boards.py b/tests/test_boards.py
+index f937baa..9b93c0e 100644
+--- a/tests/test_boards.py
++++ b/tests/test_boards.py
+@@ -905,7 +905,7 @@ def test_robot_bad_init(mock_factory, pwm):
+     with pytest.raises(GPIOPinMissing):
+         Robot(Motor(2, 3), None)
+     with pytest.raises(GPIOPinMissing):
+-        Robot(None, Motor(2, 3))
++        Robot(None, Motor(4, 5))
+ 
+ def test_robot_deprecation(mock_factory, pwm):
+     pins = [mock_factory.pin(n) for n in (2, 3, 4, 5)]
