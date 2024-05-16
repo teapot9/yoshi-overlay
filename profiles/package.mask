@@ -1,3 +1,6 @@
+# Masked for removal (2024-05-16)
+dev-python/flask-restful
+
 # Masked for removal (2024-05-09)
 # Available in ::guru (dev-perl/Term-Animation)
 dev-perl/term-animation
