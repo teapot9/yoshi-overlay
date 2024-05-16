@@ -9,4 +9,10 @@
 		colorzero is a color manipulation library for Python (yes, another one)
 		which aims to be reasonably simple to use and “pythonic” in nature.
 	</longdescription>
+	<upstream>
+		<doc>https://colorzero.readthedocs.io</doc>
+		<bugs-to>https://github.com/waveform80/colorzero/issues</bugs-to>
+		<remote-id type="github">waveform80/colorzero</remote-id>
+		<remote-id type="pypi">colorzero</remote-id>
+	</upstream>
 </pkgmetadata>
