@@ -9,6 +9,5 @@
 		<bugs-to>https://github.com/globocom/m3u8/issues</bugs-to>
 		<remote-id type="github">globocom/m3u8</remote-id>
 		<remote-id type="pypi">m3u8</remote-id>
-
 	</upstream>
 </pkgmetadata>
