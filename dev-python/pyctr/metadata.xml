@@ -6,6 +6,7 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<changelog>https://github.com/ihaveamac/pyctr/blob/master/CHANGELOG.md</changelog>
 		<bugs-to>https://github.com/ihaveamac/pyctr/issues</bugs-to>
 		<doc>https://pyctr.readthedocs.io</doc>
 		<remote-id type="github">ihaveamac/pyctr</remote-id>

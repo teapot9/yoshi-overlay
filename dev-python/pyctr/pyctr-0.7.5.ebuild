@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_11 )
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit distutils-r1 pypi
 
@@ -34,5 +34,6 @@ src_prepare() {
 	find "${S}" -name '*.py' -print0 \
 		| xargs -0 -- sed -i -e 's:Cryptodome:Crypto:g' -- \
 		|| die
-	default
+
+	distutils-r1_src_prepare
 }
