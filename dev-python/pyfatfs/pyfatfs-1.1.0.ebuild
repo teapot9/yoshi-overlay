@@ -4,8 +4,8 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-# pypy3: TypeError: expected bytes, got bytearray object
-PYTHON_COMPAT=( python3_11 )
+# pypy3: TypeError: struct.pack() doesn't supports bytearrays
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit distutils-r1 pypi
 
