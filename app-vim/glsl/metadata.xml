@@ -5,4 +5,12 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<maintainer>
+			<name>Sergii Tykhomyrov</name>
+			<email>sergii@tykhomyrov.net</email>
+		</maintainer>
+		<bugs-to>https://github.com/tikhomirov/vim-glsl/issues</bugs-to>
+		<remote-id type="github">tikhomirov/vim-glsl</remote-id>
+	</upstream>
 </pkgmetadata>
