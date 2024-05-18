@@ -23,9 +23,7 @@ SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="+tools"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-BDEPEND=""
+RDEPEND="!dev-lang/fasm"
 
 QA_PREBUILT="/opt/bin/fasm"
 DOCS=("fasm.txt" "whatsnew.txt")
