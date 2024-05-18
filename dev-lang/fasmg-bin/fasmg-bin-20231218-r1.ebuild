@@ -18,9 +18,7 @@ SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="+examples"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-BDEPEND=""
+RDEPEND="!dev-lang/fasmg"
 
 QA_PREBUILT="/opt/bin/fasmg"
 DOCS=("core/docs/fasmg.txt" "core/docs/manual.txt" "core/readme.txt")
