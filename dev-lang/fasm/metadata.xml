@@ -11,9 +11,16 @@
 		machine code.
 	</longdescription>
 	<upstream>
+		<maintainer>
+			<name>Tomasz Grysztar</name>
+			<email>tgrysztar@flatassembler.net</email>
+		</maintainer>
+		<doc>https://flatassembler.net/docs.php</doc>
+		<changelog>https://github.com/tgrysztar/fasm/blob/master/WHATSNEW.TXT</changelog>
 		<remote-id type="github">tgrysztar/fasm</remote-id>
 	</upstream>
 	<use>
 		<flag name="tools">Install additionnal developpement tools</flag>
+		<flag name="system-bootstrap">Build using system <pkg>dev-lang/fasm</pkg></flag>
 	</use>
 </pkgmetadata>
