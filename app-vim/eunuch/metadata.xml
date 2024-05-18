@@ -5,4 +5,13 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<maintainer>
+			<name>Tim Pope</name>
+			<email>tpope@tpope.net</email>
+		</maintainer>
+		<bugs-to>https://github.com/tpope/vim-eunuch/issues</bugs-to>
+		<remote-id type="github">tpope/vim-eunuch</remote-id>
+		<remote-id type="vim">4300</remote-id>
+	</upstream>
 </pkgmetadata>
