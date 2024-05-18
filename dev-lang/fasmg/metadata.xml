@@ -13,6 +13,14 @@
 		architectures and purposes.
 	</longdescription>
 	<upstream>
+		<maintainer>
+			<name>Tomasz Grysztar</name>
+			<email>tgrysztar@flatassembler.net</email>
+		</maintainer>
+		<doc>https://flatassembler.net/docs.php</doc>
 		<remote-id type="github">tgrysztar/fasmg</remote-id>
 	</upstream>
+	<use>
+		<flag name="system-bootstrap">Build using system <pkg>dev-lang/fasm</pkg> or <pkg>dev-lang/fasmg</pkg></flag>
+	</use>
 </pkgmetadata>
