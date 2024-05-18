@@ -5,4 +5,22 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<longdescription>
+		This is a redo of dpc/vim-smarttabs, which in turn is a github
+		copy of Smart Tabs : Use tabs for indent, spaces for alignment,
+		originally created by Michael Geddes. The aim of this redo
+		is to improve the interface and code quality.
+
+		See: https://github.com/dpc/vim-smarttabs
+
+		See: https://www.vim.org/scripts/script.php?script_id=231
+	</longdescription>
+	<upstream>
+		<maintainer>
+			<name>Aron de Jong</name>
+			<email>adj00@protonmail.com</email>
+		</maintainer>
+		<bugs-to>https://github.com/Thyrum/vim-stabs/issues</bugs-to>
+		<remote-id type="github">Thyrum/vim-stabs</remote-id>
+	</upstream>
 </pkgmetadata>

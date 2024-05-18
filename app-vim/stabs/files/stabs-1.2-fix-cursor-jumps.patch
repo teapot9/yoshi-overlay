@@ -1,0 +1,28 @@
+From 4654d4e000680e1f608b40f155af08873446ed63 Mon Sep 17 00:00:00 2001
+From: Thyrum <adj00@protonmail.com>
+Date: Thu, 1 Apr 2021 13:45:34 +0200
+Subject: [PATCH] Fix cursor jumps after text alignment
+
+For some reason the javascript formatter will jump the cursor around
+when formatting. This has been fixed by resetting the cursor to it's
+original position after calling the formatter.
+---
+ plugin/stabs.vim | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/plugin/stabs.vim b/plugin/stabs.vim
+index 54f2e61..0391aea 100644
+--- a/plugin/stabs.vim
++++ b/plugin/stabs.vim
+@@ -175,7 +175,11 @@ fun! StabsFixAlign(line)
+ 
+ 		if &indentexpr != ''
+ 			let v:lnum=a:line
++			mark `
+ 			sandbox exe 'let inda='.&indentexpr
++			" The javascript formatter would change the rule number. This jumps back
++			" to the previous line, preventing sudden cursor jumps
++			normal ``
+ 			if inda == -1
+ 				let inda=indent(a:line-1)
+ 			endif
