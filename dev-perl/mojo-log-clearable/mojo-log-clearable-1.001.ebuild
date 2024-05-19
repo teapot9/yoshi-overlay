@@ -18,12 +18,6 @@ RDEPEND="
 	dev-perl/Mojolicious
 	dev-perl/Role-Tiny
 "
-DEPEND="${RDEPEND}"
 BDEPEND="
 	dev-perl/Module-Build-Tiny
-	test? (
-		virtual/perl-File-Spec
-		virtual/perl-File-Temp
-		virtual/perl-Test
-	)
 "
