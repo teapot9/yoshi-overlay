@@ -6,6 +6,8 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<changelog>https://gitlab.com/mildlyparallel/pscircle/-/blob/master/CHANGELOG.md?ref_type=heads</changelog>
+		<bugs-to>https://gitlab.com/mildlyparallel/pscircle/-/issues</bugs-to>
 		<remote-id type="gitlab">mildlyparallel/pscircle</remote-id>
 	</upstream>
 </pkgmetadata>

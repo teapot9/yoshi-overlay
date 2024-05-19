@@ -1,7 +1,7 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 MY_P="${PN}-v${PV}"
 
@@ -15,17 +15,23 @@ S="${WORKDIR}/${MY_P}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="X"
 
-DEPEND="x11-libs/cairo[X]"
-RDEPEND="${DEPEND}
-	media-libs/libpng
-	x11-libs/libX11
+DEPEND="
+	x11-libs/cairo[X]
 "
-BDEPEND=""
-
-DOCS=("README.md" "CHANGELOG.md")
+RDEPEND="${DEPEND}
+	media-libs/libpng:=
+	X? ( x11-libs/libX11 )
+"
 
 PATCHES=(
 	"${FILESDIR}/${PN}-1.4.0-enable-tests.patch"
 )
+
+src_configure() {
+	local emesonargs=(
+		$(meson_use X enable-x11)
+	)
+	meson_src_configure
+}
