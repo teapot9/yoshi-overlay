@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2022-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -13,12 +13,9 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND="
+RDEPEND="
 	dev-perl/Mojolicious
 	dev-perl/mojo-log-clearable
-	virtual/perl-Scalar-List-Utils
-"
-RDEPEND="${DEPEND}
 	sys-fs/zfs
 "
 BDEPEND="
@@ -27,13 +24,12 @@ BDEPEND="
 		${RDEPEND}
 		dev-perl/Test-Exception
 		dev-perl/Test-SharedFork
-		virtual/perl-Test
 	)
 "
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.21.1-fix-thirdparty.patch"
-	"${FILESDIR}/${PN}-0.21.1-fix-libdir.patch"
+	"${FILESDIR}/${PN}-0.22.0-fix-libdir.patch"
 )
 
 src_prepare() {
@@ -42,8 +38,8 @@ src_prepare() {
 }
 
 src_configure() {
-	econf
 	perl-module_src_configure
+	econf
 }
 
 src_test() {
@@ -52,6 +48,6 @@ src_test() {
 
 src_install() {
 	perl_set_version
-	local myinst=( DESTDIR="${ED}" VENDOR_LIB="${VENDOR_LIB}" )
+	local myinst=( VENDOR_LIB="${VENDOR_LIB}" )
 	perl-module_src_install
 }

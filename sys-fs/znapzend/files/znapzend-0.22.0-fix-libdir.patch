@@ -1,13 +1,14 @@
 diff --git a/lib/Makefile.am b/lib/Makefile.am
-index a5d6cd4..346f273 100644
+index b752680..0744005 100644
 --- a/lib/Makefile.am
 +++ b/lib/Makefile.am
 @@ -3,7 +3,7 @@
  
- PM :=  $(shell find . -name "*.pm")
+ PM = @PERL_MODULES@
  
 -datadir = $(libdir)
+-nobase_data_DATA = $(PM)
 +datadir = $(VENDOR_LIB)
- nobase_data_DATA = $(PM)
++nobase_data_DATA = $(PM:$(top_srcdir)/lib/%=%)
  
  #END
