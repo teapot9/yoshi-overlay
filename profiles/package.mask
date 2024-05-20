@@ -1,3 +1,7 @@
+# Masked for removal (2024-05-21)
+# Not actively maintained, no release since 2019
+net-p2p/transgui
+
 # Masked for removal (2024-05-19)
 # No reverse dependency (was sys-fs/znapzend)
 dev-perl/mojo-ioloop-forkcall
