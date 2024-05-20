@@ -1,10 +1,11 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
+
 MY_PN="TerraFirma"
 
-inherit cmake
+inherit cmake xdg
 
 DESCRIPTION="Mapping for Terraria"
 HOMEPAGE="https://seancode.com/terrafirma/"
@@ -14,13 +15,9 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND="
 	dev-qt/qtbase:6=[gui,opengl,widgets]
-	sys-libs/zlib
+	sys-libs/zlib:=
 "
 RDEPEND="${DEPEND}"
-BDEPEND=""
-
-PATCHES=( "${FILESDIR}/${P}-fix-install-paths.patch" )
