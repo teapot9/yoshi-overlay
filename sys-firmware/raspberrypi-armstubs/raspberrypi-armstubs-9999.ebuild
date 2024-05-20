@@ -1,7 +1,7 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit git-r3 mount-boot toolchain-funcs
 
@@ -12,13 +12,9 @@ S="${WORKDIR}/${P}/armstubs"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
 IUSE="cpu_flags_arm_v8 cpu_flags_arm_v7"
 
 REQUIRED_USE="|| ( arm arm64 )"
-DEPEND=""
-RDEPEND="${DEPEND}"
-BDEPEND=""
 
 get_stub_list() {
 	if [ -n "${OVERRIDE_ARMSTUB_FILES}" ]; then

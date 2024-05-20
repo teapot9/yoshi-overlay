@@ -10,4 +10,8 @@
 		Its job is to set up low-level hardware like the interrupt controller
 		before passing control to the kernel.
 	</longdescription>
+	<upstream>
+		<bugs-to>https://github.com/raspberrypi/tools/issues</bugs-to>
+		<remote-id type="github">raspberrypi/tools</remote-id>
+	</upstream>
 </pkgmetadata>
