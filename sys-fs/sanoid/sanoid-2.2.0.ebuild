@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,28 +16,19 @@ IUSE="minimal"
 # Tests require root privileges
 RESTRICT="test"
 
-DEPEND="
+RDEPEND="
 	dev-lang/perl
-	dev-perl/Config-IniFiles
 	dev-perl/Capture-Tiny
-	virtual/perl-Data-Dumper
-	virtual/perl-Getopt-Long
-"
-RDEPEND="${DEPEND}
+	dev-perl/Config-IniFiles
+	sys-fs/zfs
+	virtual/ssh
 	!minimal? (
-		app-arch/lzop
 		sys-apps/pv
 		sys-block/mbuffer
 	)
-	sys-fs/zfs
-	virtual/ssh
 "
-BDEPEND=""
 
-src_test() {
-	cd tests
-	./run-tests.sh || die "run-tests.sh failed"
-}
+src_compile() { :; }
 
 src_install() {
 	dobin findoid
