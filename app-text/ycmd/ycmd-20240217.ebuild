@@ -8,16 +8,9 @@ PYTHON_REQ_USE="xml(+)"
 
 inherit cmake python-r1 flag-o-matic
 
-BASE_REPO_URI="https://github.com/ycm-core/ycmd"
-if [[ ${PV} == *9999* ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="${BASE_REPO_URI}.git"
-	EGIT_SUBMODULES=()
-else
-	COMMIT_HASH="b63d2e86c62d39c20284badfd4bfed6e8797d134"
-	SRC_URI="${BASE_REPO_URI}/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
-	S="${WORKDIR}/${PN}-${COMMIT_HASH}"
-fi
+COMMIT_HASH="b63d2e86c62d39c20284badfd4bfed6e8797d134"
+SRC_URI="https://github.com/ycm-core/ycmd/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${PN}-${COMMIT_HASH}"
 
 get_npm_uri() {
 	for pkg in "$@"; do
