@@ -1,11 +1,12 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..13} )
+DISTUTILS_USE_PEP517=setuptools
 
-inherit python-r1 git-r3 distutils-r1
+inherit git-r3 distutils-r1
 
 DESCRIPTION="A customizable simple initramfs generator"
 HOMEPAGE="https://github.com/teapot9/cmkinitramfs"
@@ -13,19 +14,16 @@ EGIT_REPO_URI="https://github.com/teapot9/${PN}.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
 
-DEPEND="dev-python/pyelftools[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}
 	app-arch/cpio
+	dev-python/pyelftools[${PYTHON_USEDEP}]
 	sys-apps/busybox
 	sys-apps/findutils
 	sys-apps/kbd
 	sys-apps/kmod
 	sys-apps/linux-misc-apps
 "
-BDEPEND=""
 
 DOCS=( README.rst config/cmkinitramfs.ini.example )
 

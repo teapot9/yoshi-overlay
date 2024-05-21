@@ -1,9 +1,10 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..13} )
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1 pypi
 
@@ -13,18 +14,16 @@ HOMEPAGE="https://github.com/teapot9/cmkinitramfs"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-DEPEND="dev-python/pyelftools[${PYTHON_USEDEP}]"
-RDEPEND="${DEPEND}
+RDEPEND="
 	app-arch/cpio
+	dev-python/pyelftools[${PYTHON_USEDEP}]
 	sys-apps/busybox
 	sys-apps/findutils
 	sys-apps/kbd
 	sys-apps/kmod
 	sys-apps/linux-misc-apps
 "
-BDEPEND=""
 
 DOCS=( README.rst config/cmkinitramfs.ini.example )
 
