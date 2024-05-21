@@ -8,17 +8,10 @@ VIM_PLUGIN_VIM_VERSION="8.1.2269"
 
 inherit python-single-r1 vim-plugin
 
-BASE_REPO_URI="https://github.com/ycm-core/YouCompleteMe"
-if [[ ${PV} == *9999* ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="${BASE_REPO_URI}.git"
-	EGIT_SUBMODULES=()
-else
-	COMMIT_HASH="4f1dcf4f971517b5a41d420b3671259f917e3827"
-	MY_PN="YouCompleteMe"
-	SRC_URI="${BASE_REPO_URI}/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
-	S="${WORKDIR}/${MY_PN}-${COMMIT_HASH}"
-fi
+COMMIT_HASH="4f1dcf4f971517b5a41d420b3671259f917e3827"
+MY_PN="YouCompleteMe"
+SRC_URI="https://github.com/ycm-core/YouCompleteMe/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${MY_PN}-${COMMIT_HASH}"
 
 DESCRIPTION="vim plugin: a code-completion engine for Vim"
 HOMEPAGE="https://ycm-core.github.io/YouCompleteMe/"
