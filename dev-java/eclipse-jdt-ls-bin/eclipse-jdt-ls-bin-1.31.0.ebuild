@@ -1,4 +1,4 @@
-# Copyright 2021-2022 Gentoo Authors
+# Copyright 2021-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -15,11 +15,7 @@ LICENSE="Apache-1.1 Apache-2.0 BSD dom4j EPL-1.0 EPL-2.0 MIT MPL-1.1"
 SLOT="0"
 KEYWORDS="~amd64"
 
-CP_DEPEND=""
-DEPEND="${CP_DEPEND}"
-RDEPEND="${CP_DEPEND}
-	virtual/jre:17
-"
+RDEPEND="virtual/jre:17"
 
 QA_PREBUILT="${JAVA_PKG_JARDEST}/*/*.jar"
 
