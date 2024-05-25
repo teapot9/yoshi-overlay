@@ -1,7 +1,7 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit wrapper
 
@@ -19,12 +19,10 @@ KEYWORDS="~amd64"
 IUSE="debug http +stdio"
 REQUIRED_USE="|| ( http stdio )"
 
-DEPEND=""
-RDEPEND="${DEPEND}
+RDEPEND="
 	dev-lang/mono
 	http? ( dev-libs/libuv )
 "
-BDEPEND=""
 
 src_unpack() {
 	unpack_subdir() {
