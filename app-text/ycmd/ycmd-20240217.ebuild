@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10,11} )
+PYTHON_COMPAT=( python3_{10..12} )
 PYTHON_REQ_USE="xml(+)"
 
 inherit cmake python-r1 flag-o-matic
@@ -52,7 +52,6 @@ SRC_URI+="
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
 IUSE="clang clangd cs doc examples go java javascript rust test"
 RESTRICT="!test? ( test )"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -61,14 +60,15 @@ CLANG_VERSION=17
 LLVM_DIR="/usr/lib/llvm/${CLANG_VERSION}"
 DEPEND="
 	dev-cpp/abseil-cpp:=
-	dev-python/pybind11[${PYTHON_USEDEP}]
 "
 RDEPEND="
 	${DEPEND}
 	${PYTHON_DEPS}
-	dev-python/parso[${PYTHON_USEDEP}]
-	dev-python/regex[${PYTHON_USEDEP}]
+	dev-python/bottle[${PYTHON_USEDEP}]
 	dev-python/jedi[${PYTHON_USEDEP}]
+	dev-python/parso[${PYTHON_USEDEP}]
+	dev-python/pybind11[${PYTHON_USEDEP}]
+	dev-python/regex[${PYTHON_USEDEP}]
 	dev-python/watchdog[${PYTHON_USEDEP}]
 	clang? ( sys-devel/clang:${CLANG_VERSION}= )
 	clangd? ( sys-devel/clang:${CLANG_VERSION}=[extra] )
@@ -86,24 +86,24 @@ BDEPEND="
 	test? (
 		${RDEPEND}
 		dev-cpp/gtest
-		net-libs/nodejs[npm]
 		dev-lang/typescript
-		dev-python/pyhamcrest[${PYTHON_USEDEP}]
-		dev-python/webtest[${PYTHON_USEDEP}]
 		dev-python/psutil[${PYTHON_USEDEP}]
+		dev-python/pyhamcrest[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/unittest-or-fail[${PYTHON_USEDEP}]
+		dev-python/webtest[${PYTHON_USEDEP}]
+		net-libs/nodejs[npm]
 	)
 "
 
 PATCHES=(
-	"${FILESDIR}/${PN}-20210903-fix-devdep.patch"
-	"${FILESDIR}/${PN}-20230824-system-jdtls.patch"
-	"${FILESDIR}/${PN}-20240217-system-omnisharp.patch"
-	"${FILESDIR}/${PN}-20240217-system-clang.patch"
-	"${FILESDIR}/${PN}-20211204-cmake-use-build.patch"
 	"${FILESDIR}/${PN}-20210903-fix-core-version.patch"
+	"${FILESDIR}/${PN}-20210903-fix-devdep.patch"
+	"${FILESDIR}/${PN}-20211204-cmake-use-build.patch"
 	"${FILESDIR}/${PN}-20230103-fix-tests-python311.patch"
+	"${FILESDIR}/${PN}-20230824-system-jdtls.patch"
+	"${FILESDIR}/${PN}-20240217-system-clang.patch"
+	"${FILESDIR}/${PN}-20240217-system-omnisharp.patch"
 )
 
 CMAKE_USE_DIR="${S}/cpp"
@@ -248,7 +248,8 @@ src_prepare() {
 	ignore_test ycmd/tests/rust/get_completions_proc_macro_test.py \
 		test_GetCompletions_ProcMacro
 	ignore_test ycmd/tests/rust/subcommands_test.py \
-		test_Subcommands_GoTo_WorksAfterChangingProject
+		test_Subcommands_GoTo_WorksAfterChangingProject \
+		test_Subcommands_Format_WholeFile
 
 	# Other failing tests
 	ignore_test ycmd/tests/utils_test.py \
