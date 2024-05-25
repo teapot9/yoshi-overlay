@@ -1,9 +1,9 @@
-# Copyright 2021-2022 Gentoo Authors
+# Copyright 2021-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 VIM_PLUGIN_VIM_VERSION="8.1.2269"
 
 inherit python-single-r1 vim-plugin
@@ -17,7 +17,6 @@ DESCRIPTION="vim plugin: a code-completion engine for Vim"
 HOMEPAGE="https://ycm-core.github.io/YouCompleteMe/"
 
 LICENSE="GPL-3"
-KEYWORDS=""
 IUSE="test"
 RESTRICT="!test? ( test )"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -25,7 +24,6 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 VIM_PLUGIN_HELPFILES="${PN}"
 VIM_PLUGIN_MESSAGES="filetype"
 
-DEPEND=""
 RDEPEND="
 	${DEPEND}
 	${PYTHON_DEPS}
@@ -45,6 +43,7 @@ BDEPEND="
 		${RDEPEND}
 		$(python_gen_cond_dep '
 			dev-python/pyhamcrest[${PYTHON_USEDEP}]
+			dev-python/unittest-or-fail[${PYTHON_USEDEP}]
 		')
 	)
 "
