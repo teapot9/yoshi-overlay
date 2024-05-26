@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>louis.leseur@gmail.com</email>
+		<name>Louis Leseur</name>
+	</maintainer>
+	<upstream>
+		<maintainer>
+			<name>Jakub Jirutka</name>
+			<email>jakub@jirutka.cz</email>
+		</maintainer>
+		<bugs-to>https://github.com/jirutka/doas-sudo-shim/issues</bugs-to>
+		<remote-id type="github">jirutka/doas-sudo-shim</remote-id>
+	</upstream>
+</pkgmetadata>
