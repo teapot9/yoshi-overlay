@@ -5,12 +5,9 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{10..12} )
 PYTHON_REQ_USE="xml(+)"
+COMMIT_HASH="b63d2e86c62d39c20284badfd4bfed6e8797d134"
 
 inherit cmake python-r1 flag-o-matic
-
-COMMIT_HASH="b63d2e86c62d39c20284badfd4bfed6e8797d134"
-SRC_URI="https://github.com/ycm-core/ycmd/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/${PN}-${COMMIT_HASH}"
 
 get_npm_uri() {
 	for pkg in "$@"; do
@@ -31,6 +28,7 @@ get_npm_file() {
 DESCRIPTION="A code-completion & code-comprehension server"
 HOMEPAGE="https://ycm-core.github.io/ycmd/"
 
+SRC_URI="https://github.com/ycm-core/ycmd/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
 NPM_MIRROR="https://registry.npmjs.org"
 GENERIC_SERVER_DEPS="
 	vscode-languageserver-textdocument-1.0.1
@@ -49,6 +47,7 @@ SRC_URI+="
 		$(get_npm_uri ${GENERIC_SERVER_DEPS})
 	)
 "
+S="${WORKDIR}/${PN}-${COMMIT_HASH}"
 
 LICENSE="GPL-3"
 SLOT="0"
