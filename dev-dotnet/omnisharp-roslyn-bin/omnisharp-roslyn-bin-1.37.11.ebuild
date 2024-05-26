@@ -3,13 +3,19 @@
 
 EAPI=8
 
+MY_PN="omnisharp-roslyn"
+
 inherit wrapper
 
 DESCRIPTION="OmniSharp server (HTTP, STDIO) based on Roslyn workspaces"
 HOMEPAGE="https://github.com/OmniSharp/omnisharp-roslyn"
 SRC_URI="
-	stdio? ( https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${PV}/omnisharp-mono.tar.gz -> ${P}-stdio.tar.gz )
-	http? ( https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${PV}/omnisharp.http-mono.tar.gz -> ${P}-http.tar.gz )
+	stdio? (
+		https://github.com/OmniSharp/${MY_PN}/releases/download/v${PV}/omnisharp-mono.tar.gz -> ${P}-stdio.tar.gz
+	)
+	http? (
+		https://github.com/OmniSharp/${MY_PN}/releases/download/v${PV}/omnisharp.http-mono.tar.gz -> ${P}-http.tar.gz
+	)
 "
 S="${WORKDIR}"
 
