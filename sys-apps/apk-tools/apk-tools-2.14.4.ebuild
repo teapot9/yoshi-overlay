@@ -1,9 +1,9 @@
-# Copyright 2021-2022 Gentoo Authors
+# Copyright 2021-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-LUA_COMPAT=( lua5-{2,3,4} luajit )
+LUA_COMPAT=( lua5-{3,4} luajit )
 MY_P="${PN}-v${PV}"
 ZSHCOMP_COMMIT="e185ac2775485c65e5ea165a3653c65cdc4303b7"
 ZSHCOMP_FILE="${PN}-completion-${ZSHCOMP_COMMIT}.zsh"
@@ -14,7 +14,9 @@ DESCRIPTION="Alpine Package Keeper - package manager for alpine"
 HOMEPAGE="https://gitlab.alpinelinux.org/alpine/apk-tools"
 SRC_URI="
 	https://gitlab.alpinelinux.org/alpine/${PN}/-/archive/v${PV}/${MY_P}.tar.bz2
-	https://gitlab.alpinelinux.org/alpine/aports/-/raw/${ZSHCOMP_COMMIT}/main/${PN}/_apk -> ${ZSHCOMP_FILE}
+	zsh-completion? (
+		https://gitlab.alpinelinux.org/alpine/aports/-/raw/${ZSHCOMP_COMMIT}/main/${PN}/_apk -> ${ZSHCOMP_FILE}
+	)
 "
 S="${WORKDIR}/${MY_P}"
 
@@ -24,17 +26,12 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE="lua static static-libs test zsh-completion"
 RESTRICT="!test? ( test )"
-# static build segfaults with >=openssl-1.1 and glibc
-REQUIRED_USE="
-	elibc_glibc? ( !static )
-	lua? ( ${LUA_REQUIRED_USE} )
-"
+REQUIRED_USE="lua? ( ${LUA_REQUIRED_USE} )"
 
 DEPEND="
 	lua? ( ${LUA_DEPS} )
 	static? (
 		dev-libs/openssl:=[static-libs(+)]
-		elibc_glibc? ( sys-libs/glibc[static-libs(+)] )
 		sys-libs/zlib:=[static-libs(+)]
 	)
 	!static? (
@@ -53,15 +50,14 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${PN}-2.12.5-change-default-root.patch"
-	"${FILESDIR}/${P}-fix-recursive-solve.patch"
 )
 
-APK_DEFAULT_ROOT="${APK_DEFAULT_ROOT:-${EPREFIX}/var/chroot/alpine}"
+: ${APK_DEFAULT_ROOT:=${EPREFIX}/var/chroot/alpine}
 
 pkg_pretend() {
 	# Tests fail if the directory doesn't exists
 	if use test && [ ! -d "${APK_DEFAULT_ROOT}"/var/cache/apk ]; then
-		elog "Creating directory ${APK_DEFAULT_ROOT}/var/cache/apk."
+		ewarn "Creating directory ${APK_DEFAULT_ROOT}/var/cache/apk."
 		mkdir -p "${APK_DEFAULT_ROOT}"/var/cache/apk || die
 	fi
 }
@@ -116,9 +112,10 @@ src_install() {
 
 pkg_postinst() {
 	if ! use lua; then
-		elog "USE=-lua has disabled built-in help. Note that manpages are still installed."
+		elog "USE=-lua has disabled built-in help. Note that manpages"
+		elog "are still installed."
 	fi
-	einfo "Default root directory has been set to ${APK_DEFAULT_ROOT}."
-	einfo "To define a custom root directory, use the apk -p|--root option"
-	einfo "or define APK_DEFAULT_ROOT in the ebuild environment."
+	elog "Default root directory has been set to ${APK_DEFAULT_ROOT}."
+	elog "To define a custom root directory, use the apk -p|--root option"
+	elog "or define APK_DEFAULT_ROOT in the ebuild environment."
 }

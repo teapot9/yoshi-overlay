@@ -5,4 +5,9 @@
 		<email>louis.leseur@gmail.com</email>
 		<name>Louis Leseur</name>
 	</maintainer>
+	<upstream>
+		<bugs-to>https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues</bugs-to>
+		<doc>https://gitlab.alpinelinux.org/alpine/apk-tools/-/tree/master/doc</doc>
+		<remote-id type="github">alpinelinux/apk-tools</remote-id>
+	</upstream>
 </pkgmetadata>
