@@ -5,16 +5,15 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{10..12} )
 VIM_PLUGIN_VIM_VERSION="8.2.3995"
+MY_PN="YouCompleteMe"
+COMMIT_HASH="4556062839aa2e86f2f4f1c0b4532697d607af23"
 
 inherit python-single-r1 vim-plugin
 
-COMMIT_HASH="4556062839aa2e86f2f4f1c0b4532697d607af23"
-MY_PN="YouCompleteMe"
-SRC_URI="https://github.com/ycm-core/YouCompleteMe/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/${MY_PN}-${COMMIT_HASH}"
-
 DESCRIPTION="vim plugin: a code-completion engine for Vim"
 HOMEPAGE="https://ycm-core.github.io/YouCompleteMe/"
+SRC_URI="https://github.com/ycm-core/${MY_PN}/archive/${COMMIT_HASH}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${MY_PN}-${COMMIT_HASH}"
 
 LICENSE="GPL-3"
 IUSE="test"
