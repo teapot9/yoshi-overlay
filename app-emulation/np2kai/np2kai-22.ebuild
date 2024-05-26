@@ -35,7 +35,7 @@ DEPEND="
 	)
 "
 RDEPEND="${DEPEND}"
-BDEPEND="X? ( sys-devel/automake )"
+BDEPEND="X? ( dev-build/automake )"
 
 PATCHES=(
 	"${FILESDIR}/${PN}-21-fix-sdl2-makefile.patch"
