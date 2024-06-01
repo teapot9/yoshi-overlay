@@ -1,0 +1,4 @@
+# vim: ft=conf
+
+# Allow using pypy3 as python target
+-python_targets_pypy3

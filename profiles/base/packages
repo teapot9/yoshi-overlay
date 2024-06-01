@@ -1,0 +1,3 @@
+# vim: ft=conf
+-*sys-apps/net-tools
+*sys-apps/busybox

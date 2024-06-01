@@ -1,0 +1,9 @@
+# vim: ft=gentoo-package-use
+
+# Allow ZFS driver builtin the kernel
+sys-fs/zfs -kernel-builtin
+
+# Use system LLVM for rust
+# Use system rust to build rust
+# Allow rust nightly features
+dev-lang/rust -system-llvm -system-bootstrap -nightly
