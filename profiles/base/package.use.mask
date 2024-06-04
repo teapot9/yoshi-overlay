@@ -7,3 +7,6 @@ sys-fs/zfs -kernel-builtin
 # Use system rust to build rust
 # Allow rust nightly features
 dev-lang/rust -system-llvm -system-bootstrap -nightly
+
+# Enable GMP for gmpopenh264 and widevinecdm
+www-client/firefox -gmp-autoupdate
