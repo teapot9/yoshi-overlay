@@ -1,0 +1,47 @@
+diff --git a/ycmd/utils.py b/ycmd/utils.py
+index 74c352b2..8a997f0c 100644
+--- a/ycmd/utils.py
++++ b/ycmd/utils.py
+@@ -29,7 +29,13 @@ import threading
+ LOGGER = logging.getLogger( 'ycmd' )
+ ROOT_DIR = os.path.normpath( os.path.join( os.path.dirname( __file__ ), '..' ) )
+ DIR_OF_THIRD_PARTY = os.path.join( ROOT_DIR, 'third_party' )
+-LIBCLANG_DIR = os.path.join( DIR_OF_THIRD_PARTY, 'clang', 'lib' )
++try:
++  LIBCLANG_DIR = os.path.dirname(subprocess.run(
++    ('clang-18', '--print-file-name=libclang.so'),
++    stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True
++  ).stdout.decode('UTF-8').strip())
++except (subprocess.CalledProcessError, FileNotFoundError):
++  LIBCLANG_DIR = None
+ if hasattr( os, 'add_dll_directory' ):
+   os.add_dll_directory( LIBCLANG_DIR )
+ 
+@@ -478,6 +484,8 @@ def ExpectedCoreVersion():
+ 
+ 
+ def LoadYcmCoreDependencies():
++  if LIBCLANG_DIR is None:
++    return
+   for name in ListDirectory( LIBCLANG_DIR ):
+     if name.startswith( 'libclang' ):
+       libclang_path = os.path.join( LIBCLANG_DIR, name )
+@@ -525,11 +533,13 @@ def ImportAndCheckCore():
+ 
+ 
+ def GetClangResourceDir():
+-  resource_dir = os.path.join( LIBCLANG_DIR, 'clang' )
+-  for version in ListDirectory( resource_dir ):
+-    return os.path.join( resource_dir, version )
+-
+-  raise RuntimeError( 'Cannot find Clang resource directory.' )
++  try:
++    return subprocess.run(
++      ('clang-18', '--print-resource-dir'),
++      stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True
++    ).stdout.decode('UTF-8').strip()
++  except (subprocess.CalledProcessError, FileNotFoundError):
++    return None
+ 
+ 
+ CLANG_RESOURCE_DIR = GetClangResourceDir()
