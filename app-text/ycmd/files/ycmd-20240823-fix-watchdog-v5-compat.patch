@@ -1,0 +1,13 @@
+diff --git a/ycmd/completers/language_server/language_server_completer.py b/ycmd/completers/language_server/language_server_completer.py
+index 489e15d0..3851b9cc 100644
+--- a/ycmd/completers/language_server/language_server_completer.py
++++ b/ycmd/completers/language_server/language_server_completer.py
+@@ -3672,7 +3672,7 @@ class EditCollector:
+ 
+ class WatchdogHandler( PatternMatchingEventHandler ):
+   def __init__( self, server, patterns ):
+-    super().__init__( patterns )
++    super().__init__( patterns=patterns )
+     self._server = server
+ 
+ 

@@ -102,6 +102,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-20230824-system-jdtls.patch"
 	"${FILESDIR}/${PN}-20240824-system-clang.patch"
 	"${FILESDIR}/${PN}-20240217-system-omnisharp.patch"
+	"${FILESDIR}/${PN}-20240823-fix-watchdog-v5-compat.patch"
 )
 
 CMAKE_USE_DIR="${S}/cpp"
