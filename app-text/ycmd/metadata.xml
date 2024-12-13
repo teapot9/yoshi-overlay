@@ -6,8 +6,8 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<use>
-		<flag name="clang">Use libclang from <pkg>sys-devel/clang</pkg> for C-family semantic completion</flag>
-		<flag name="clangd">Use clangd from <pkg>sys-devel/clang</pkg> for C-family semantic completion</flag>
+		<flag name="clang">Use libclang from <pkg>llvm-core/clang</pkg> for C-family semantic completion</flag>
+		<flag name="clangd">Use clangd from <pkg>llvm-core/clang</pkg> for C-family semantic completion</flag>
 		<flag name="cs">Use <pkg>dev-dotnet/omnisharp-roslyn-bin</pkg> for C# semantic completion</flag>
 		<flag name="go">Use <pkg>dev-go/gopls</pkg> for Go semantic completion</flag>
 		<flag name="java">Use <pkg>dev-java/eclipse-jdt-ls-bin</pkg> for Java semantic completion</flag>

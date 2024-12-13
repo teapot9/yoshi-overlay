@@ -69,8 +69,8 @@ RDEPEND="
 	dev-python/pybind11[${PYTHON_USEDEP}]
 	dev-python/regex[${PYTHON_USEDEP}]
 	dev-python/watchdog[${PYTHON_USEDEP}]
-	clang? ( sys-devel/clang:${CLANG_VERSION}= )
-	clangd? ( sys-devel/clang:${CLANG_VERSION}=[extra] )
+	clang? ( llvm-core/clang:${CLANG_VERSION}= )
+	clangd? ( llvm-core/clang:${CLANG_VERSION}=[extra] )
 	cs? ( ~dev-dotnet/omnisharp-roslyn-bin-1.37.11[http] )
 	go? ( =dev-go/gopls-0.14* )
 	java? ( =dev-java/eclipse-jdt-ls-bin-1.31* )
