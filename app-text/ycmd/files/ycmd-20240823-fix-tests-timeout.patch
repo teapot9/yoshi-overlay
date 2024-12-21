@@ -1,0 +1,15 @@
+Fixes timeout waiting for rust server to be available.
+
+diff --git a/ycmd/tests/test_utils.py b/ycmd/tests/test_utils.py
+index 0ea8d0f4..4dfd293b 100644
+--- a/ycmd/tests/test_utils.py
++++ b/ycmd/tests/test_utils.py
+@@ -313,7 +313,7 @@ def StopCompleterServer( app, filetype, filepath = '/foo' ):
+                  expect_errors = True )
+ 
+ 
+-def WaitUntilCompleterServerReady( app, filetype, timeout = 30 ):
++def WaitUntilCompleterServerReady( app, filetype, timeout = 60 ):
+   expiration = time.time() + timeout
+   while True:
+     if time.time() > expiration:
