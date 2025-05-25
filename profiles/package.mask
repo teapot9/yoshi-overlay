@@ -47,7 +47,3 @@ app-emulation/np2kai
 # Masked for removal (2024-05-09)
 # Broken man-pages
 app-doc/opengl-refpages
-
-# Masked for removal (2024-05-08)
-# Available in ::guru (dev-python/podman-compose)
-app-containers/podman-compose
