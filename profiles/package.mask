@@ -39,7 +39,3 @@ dev-perl/term-animation
 # Masked for removal (2024-05-09)
 # Available in ::guru (games-misc/asciiquarium)
 app-misc/asciiquarium
-
-# Masked for removal (2024-05-09)
-# Available in ::guru (games-emulation/np2kai)
-app-emulation/np2kai
