@@ -21,6 +21,3 @@ dev-lang/fasm-bin
 # Masked for removal (2024-05-18)
 # Not actively maintained, upstream suggests using app-vim/stabs
 app-vim/smart-tabs
-
-# Masked for removal (2024-05-18)
-dev-python/types-flask-cors
