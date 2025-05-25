@@ -28,6 +28,3 @@ dev-python/types-flask-cors
 # Masked for removal (2024-05-18)
 # Provided by dev-lang/rust[rust-analyzer] and dev-lang/rust-bin[rust-analyzer]
 dev-util/rust-analyzer
-
-# Masked for removal (2024-05-16)
-dev-python/flask-restful
