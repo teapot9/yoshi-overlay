@@ -1,3 +1,0 @@
-# Masked for removal (2024-05-21)
-# Not actively maintained, no release since 2019
-net-p2p/transgui
