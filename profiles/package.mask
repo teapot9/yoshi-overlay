@@ -9,7 +9,3 @@ dev-perl/mojo-ioloop-forkcall
 # Masked for removal (2024-05-19)
 # No reverse dependency (was sys-fs/znapzend)
 dev-perl/mojo-ioloop-delay
-
-# Masked for removal (2024-05-18)
-# Please use dev-lang/fasmg
-dev-lang/fasmg-bin
