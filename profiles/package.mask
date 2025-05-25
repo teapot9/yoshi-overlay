@@ -13,7 +13,3 @@ dev-perl/mojo-ioloop-delay
 # Masked for removal (2024-05-18)
 # Please use dev-lang/fasmg
 dev-lang/fasmg-bin
-
-# Masked for removal (2024-05-18)
-# Please use dev-lang/fasm
-dev-lang/fasm-bin
