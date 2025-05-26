@@ -1,0 +1,3 @@
+# Masked for removal (2025-05-26)
+# Available in ::guru
+sys-fs/sanoid
