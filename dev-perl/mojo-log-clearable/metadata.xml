@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Dan Book</name>
+			<email>dbook@cpan.org</email>
+		</maintainer>
 		<changelog>https://metacpan.org/dist/Mojo-Log-Clearable/changes</changelog>
 		<bugs-to>https://github.com/Grinnz/Mojo-Log-Clearable/issues</bugs-to>
 		<remote-id type="github">Grinnz/Mojo-Log-Clearable</remote-id>
