@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>User List</name>
+			<email>ycm-users@googlegroups.com</email>
+		</maintainer>
 		<doc>https://github.com/ycm-core/YouCompleteMe/wiki</doc>
 		<bugs-to>https://github.com/ycm-core/YouCompleteMe/issues</bugs-to>
 		<remote-id type="github">ycm-core/YouCompleteMe</remote-id>
