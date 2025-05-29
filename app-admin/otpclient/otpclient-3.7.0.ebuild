@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -12,7 +12,7 @@ SRC_URI="https://github.com/paolostivanin/${MY_PN}/archive/v${PV}.tar.gz -> ${P}
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 LICENSE="GPL-3"
-SLOT="0"
+SLOT="0/$(ver_cut 1)"
 KEYWORDS="~amd64"
 IUSE="X +cli"
 REQUIRED_USE="|| ( X cli )"
