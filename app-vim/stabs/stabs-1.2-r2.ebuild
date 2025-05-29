@@ -15,6 +15,7 @@ KEYWORDS="~amd64 ~x86"
 
 PATCHES=(
 	"${FILESDIR}/${P}-fix-cursor-jumps.patch"
+	"${FILESDIR}/${P}-fix-quoted-cpo.patch"
 )
 
 VIM_PLUGIN_HELPFILES="stabs.txt"

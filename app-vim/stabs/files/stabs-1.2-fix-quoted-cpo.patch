@@ -1,0 +1,32 @@
+From 66a4520c6221ca59904b93406f24304ecf894fb7 Mon Sep 17 00:00:00 2001
+From: Scott Mcdermott <scott@smemsh.net>
+Date: Sat, 25 May 2024 00:34:25 -0700
+Subject: [PATCH] Fix quoted 'cpo' must have meant to test &cpo value instead
+
+seems like an obvious typo
+---
+ plugin/stabs.vim | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/plugin/stabs.vim b/plugin/stabs.vim
+index 0391aea..3cb5c26 100644
+--- a/plugin/stabs.vim
++++ b/plugin/stabs.vim
+@@ -79,7 +79,7 @@ endfun
+ 
+ if g:stabs_insert_leave
+ 	fun! s:CheckLeaveLine(line)
+-		if ('cpo' !~ 'I') && exists('b:stabs_last_align') && (a:line == b:stabs_last_align)
++		if (&cpo !~ 'I') && exists('b:stabs_last_align') && (a:line == b:stabs_last_align)
+ 			exe 's/'.s:GetIndentRegex().' *$//e'
+ 		endif
+ 	endfun
+@@ -216,7 +216,7 @@ endfun
+ " This is trickier than it should be, but this seems to work.
+ fun! StabsCR()
+ 	if getline('.') =~ s:GetIndentRegex().' *$'
+-		if ('cpo' !~ 'I') && exists('b:stabs_last_align') && (line('.') == b:stabs_last_align)
++		if (&cpo !~ 'I') && exists('b:stabs_last_align') && (line('.') == b:stabs_last_align)
+ 			return "^\<c-d>\<CR>"
+ 		endif
+ 		return "\<CR>"
