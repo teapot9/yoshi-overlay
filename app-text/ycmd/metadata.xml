@@ -15,6 +15,10 @@
 		<flag name="rust">Use <pkg>dev-util/rust-analyzer</pkg> for Rust semantic completion</flag>
 	</use>
 	<upstream>
+		<maintainer>
+			<name>User List</name>
+			<email>ycmd-users@googlegroups.com</email>
+		</maintainer>
 		<bugs-to>https://github.com/ycm-core/ycmd/issues</bugs-to>
 		<remote-id type="github">ycm-core/ycmd</remote-id>
 	</upstream>
