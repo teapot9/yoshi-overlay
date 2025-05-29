@@ -11,6 +11,8 @@
 		<remote-id type="github">paolostivanin/libcotp</remote-id>
 	</upstream>
 	<use>
-		<flag name="openssl">Use <pkg>dev-libs/openssl</pkg> as crypto backend (instead of <pkg>dev-libs/libgcrypt</pkg>)</flag>
+		<flag name="openssl">Use <pkg>dev-libs/openssl</pkg> as crypto backend</flag>
+		<flag name="gcrypt">Use <pkg>dev-libs/libgcrypt</pkg> as crypto backend</flag>
+		<flag name="mbedtls">Use <pkg>net-libs/mbedtls</pkg> as crypto backend</flag>
 	</use>
 </pkgmetadata>
