@@ -10,6 +10,14 @@
 		which aims to be reasonably simple to use and “pythonic” in nature.
 	</longdescription>
 	<upstream>
+		<maintainer>
+			<name>Dave Jones</name>
+			<email>dave@waveform.org.uk</email>
+		</maintainer>
+		<maintainer>
+			<name>Ben Nuttall</name>
+			<email>ben@bennuttall.com</email>
+		</maintainer>
 		<doc>https://colorzero.readthedocs.io</doc>
 		<bugs-to>https://github.com/waveform80/colorzero/issues</bugs-to>
 		<remote-id type="github">waveform80/colorzero</remote-id>
