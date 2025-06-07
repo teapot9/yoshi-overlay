@@ -6,6 +6,14 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Dave Jones</name>
+			<email>dave@waveform.org.uk</email>
+		</maintainer>
+		<maintainer>
+			<name>Ben Nuttall</name>
+			<email>ben@bennuttall.com</email>
+		</maintainer>
 		<doc>https://gpiozero.readthedocs.io/</doc>
 		<bugs-to>https://github.com/gpiozero/gpiozero/issues</bugs-to>
 		<changelog>https://gpiozero.readthedocs.io/en/latest/changelog.html</changelog>
