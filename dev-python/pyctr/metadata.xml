@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Ian Burgwin</name>
+			<email>ian@ianburgwin.net</email>
+		</maintainer>
 		<changelog>https://github.com/ihaveamac/pyctr/blob/master/CHANGELOG.md</changelog>
 		<bugs-to>https://github.com/ihaveamac/pyctr/issues</bugs-to>
 		<doc>https://pyctr.readthedocs.io</doc>
