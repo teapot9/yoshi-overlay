@@ -1,9 +1,9 @@
-# Copyright 2020-2024 Gentoo Authors
+# Copyright 2020-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{11..13} )
 PYTHON_REQ_USE="tk?"
 DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 pypi desktop xdg-utils
@@ -12,7 +12,7 @@ DESCRIPTION="FUSE filesystem Python scripts for Nintendo console files"
 HOMEPAGE="https://github.com/ihaveamac/ninfs"
 
 LICENSE="MIT ISC"
-SLOT="0/2"
+SLOT="0/$(ver_cut 1)"
 KEYWORDS="~amd64"
 IUSE="tk"
 

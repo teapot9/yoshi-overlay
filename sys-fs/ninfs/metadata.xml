@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Ian Burgwin</name>
+			<email>ian@ianburgwin.net</email>
+		</maintainer>
 		<bugs-to>https://github.com/ihaveamac/ninfs/issues</bugs-to>
 		<changelog>https://github.com/ihaveamac/ninfs/releases</changelog>
 		<remote-id type="github">ihaveamac/ninfs</remote-id>
