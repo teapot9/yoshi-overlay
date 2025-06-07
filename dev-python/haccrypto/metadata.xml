@@ -6,6 +6,14 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Ian Burgwin</name>
+			<email>ian@ianburgwin.net</email>
+		</maintainer>
+		<maintainer>
+			<name>Luís Marques</name>
+			<email>luigoalma@hotmail.com</email>
+		</maintainer>
 		<bugs-to>https://github.com/luigoalma/haccrypto/issues</bugs-to>
 		<remote-id type="github">luigoalma/haccrypto</remote-id>
 		<remote-id type="pypi">haccrypto</remote-id>
