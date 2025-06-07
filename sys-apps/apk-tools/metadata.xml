@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Mailing list</name>
+			<email>~alpine/apk-tools@lists.alpinelinux.org</email>
+		</maintainer>
 		<bugs-to>https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues</bugs-to>
 		<doc>https://gitlab.alpinelinux.org/alpine/apk-tools/-/tree/master/doc</doc>
 		<remote-id type="github">alpinelinux/apk-tools</remote-id>

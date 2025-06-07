@@ -1,4 +1,4 @@
-# Copyright 2021-2024 Gentoo Authors
+# Copyright 2021-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ MY_P="${PN}-v${PV}"
 ZSHCOMP_COMMIT="e185ac2775485c65e5ea165a3653c65cdc4303b7"
 ZSHCOMP_FILE="${PN}-completion-${ZSHCOMP_COMMIT}.zsh"
 
-inherit flag-o-matic toolchain-funcs lua-single
+inherit flag-o-matic toolchain-funcs lua-single shell-completion
 
 DESCRIPTION="Alpine Package Keeper - package manager for alpine"
 HOMEPAGE="https://gitlab.alpinelinux.org/alpine/apk-tools"
@@ -49,7 +49,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/${PN}-2.12.5-change-default-root.patch"
+	"${FILESDIR}/${PN}-2.14.10-change-default-root.patch"
 )
 
 : ${APK_DEFAULT_ROOT:=${EPREFIX}/var/chroot/alpine}
@@ -103,10 +103,7 @@ src_install() {
 
 	use static-libs || rm "${ED}"/usr/"$(get_libdir)"/lib*.a || die
 	use static && newsbin src/apk.static apk
-	if use zsh-completion; then
-		insinto /usr/share/zsh/site-functions
-		newins "${DISTDIR}/${ZSHCOMP_FILE}" _apk
-	fi
+	use zsh-completion && newzshcomp "${DISTDIR}/${ZSHCOMP_FILE}" _apk
 	einstalldocs
 }
 

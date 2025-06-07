@@ -1,11 +1,11 @@
 diff --git a/src/database.c b/src/database.c
-index e930f10..35a51ca 100644
+index dc5e4fd..9baeac6 100644
 --- a/src/database.c
 +++ b/src/database.c
-@@ -1551,7 +1551,7 @@ int apk_db_open(struct apk_database *db, struct apk_db_options *dbopts)
- 	apk_db_setup_repositories(db, dbopts->cache_dir);
+@@ -1520,7 +1520,7 @@ int apk_db_open(struct apk_database *db, struct apk_db_options *dbopts)
+ 	if (dbopts->cache_max_age < 0) db->cache_max_age = 0;
+ 	else db->cache_max_age = dbopts->cache_max_age ?: 4*60*60; /* 4 hours default */
  
- 	db->cache_max_age = dbopts->cache_max_age ?: 4*60*60; /* 4 hours default */
 -	db->root = strdup(dbopts->root ?: "/");
 +	db->root = strdup(dbopts->root ?: APK_DEFAULT_ROOT);
  	if (!strcmp(db->root, "/")) db->no_chroot = 1; /* skip chroot if root is default */
