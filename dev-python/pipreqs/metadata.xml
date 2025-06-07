@@ -9,6 +9,10 @@
 		<flag name="jupyter">Add support for Jupyter notebooks</flag>
 	</use>
 	<upstream>
+		<maintainer>
+			<name>Jonas Eschle</name>
+			<email>jonas.eschle@gmail.com</email>
+		</maintainer>
 		<changelog>https://github.com/bndr/pipreqs/blob/master/HISTORY.rst</changelog>
 		<bugs-to>https://github.com/bndr/pipreqs/issues</bugs-to>
 		<remote-id type="github">bndr/pipreqs</remote-id>
