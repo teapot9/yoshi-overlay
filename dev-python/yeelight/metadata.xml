@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Stavros Korokithakis</name>
+			<email>hi@stavros.io</email>
+		</maintainer>
 		<changelog>https://gitlab.com/stavros/python-yeelight/-/blob/master/CHANGELOG.md</changelog>
 		<doc>https://yeelight.readthedocs.io/</doc>
 		<bugs-to>https://gitlab.com/stavros/python-yeelight/-/issues</bugs-to>
