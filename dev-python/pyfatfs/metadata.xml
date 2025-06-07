@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Nathan-J. Hirschauer</name>
+			<email>nathanhi@deepserve.info</email>
+		</maintainer>
 		<bugs-to>https://github.com/nathanhi/pyfatfs/issues</bugs-to>
 		<changelog>https://github.com/nathanhi/pyfatfs/blob/master/CHANGELOG.rst</changelog>
 		<doc>https://pyfatfs.readthedocs.io/</doc>
