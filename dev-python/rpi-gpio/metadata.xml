@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Ben Croston</name>
+			<email>ben@croston.org</email>
+		</maintainer>
 		<changelog>https://sourceforge.net/p/raspberry-gpio-python/code/ci/default/tree/CHANGELOG.txt</changelog>
 		<doc>https://sourceforge.net/p/raspberry-gpio-python/wiki/Home/</doc>
 		<bugs-to>https://sourceforge.net/p/raspberry-gpio-python/tickets/</bugs-to>
