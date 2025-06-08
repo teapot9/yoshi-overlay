@@ -6,6 +6,14 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Dominik Hassler</name>
+			<email>hadfl@cpan.org</email>
+		</maintainer>
+		<maintainer>
+			<name>Tobias Oetiker</name>
+			<email>tobi@oetiker.ch</email>
+		</maintainer>
 		<changelog>https://github.com/oetiker/znapzend/blob/master/CHANGES</changelog>
 		<doc>https://github.com/oetiker/znapzend/blob/master/README.md</doc>
 		<bugs-to>https://github.com/oetiker/znapzend/issues</bugs-to>

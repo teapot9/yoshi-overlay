@@ -1,4 +1,4 @@
-# Copyright 2022-2024 Gentoo Authors
+# Copyright 2022-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -28,7 +28,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/${PN}-0.21.1-fix-thirdparty.patch"
+	"${FILESDIR}/${PN}-0.23.2-fix-thirdparty.patch"
 	"${FILESDIR}/${PN}-0.22.0-fix-libdir.patch"
 )
 

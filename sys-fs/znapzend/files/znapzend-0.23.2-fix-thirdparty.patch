@@ -1,0 +1,33 @@
+diff --git a/Makefile.am b/Makefile.am
+index cb8bfaf..4bd0ca0 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -5,7 +5,7 @@ AUTOMAKE_OPTIONS =  foreign
+ 
+ SUFFIXES = .1 .man .pm
+ 
+-SUBDIRS = lib thirdparty debian
++SUBDIRS = lib
+ 
+ BIN = bin/@PACKAGE@ bin/znapzendzetup bin/znapzendztatz
+ PM  = @PERL_MODULES_EXTRA_DIST@
+@@ -66,7 +66,6 @@ cpanfile: cpanfile.common
+ 	cp "$?" "$@"
+ 
+ test-deps:
+-	+cd thirdparty && $(MAKE) $(AM_MAKEFLAGS) test-deps
+ 
+ if !DEB_BUILD
+ check: test-deps
+diff --git a/configure.ac b/configure.ac
+index 6f11d5c..4f4ec6a 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -183,7 +183,6 @@ AC_MSG_RESULT([${PERL_CONFIG_VERSION}])
+ AC_SUBST(PERL_CONFIG_VERSION)
+ 
+ AC_MSG_CHECKING([for PERL_THIRDPARTY_DIST cache])
+-PERL_THIRDPARTY_DIST="`cd thirdparty && test -d cache && find cache -type f | tr '\n' ' '`"
+ AS_IF([test x"${PERL_THIRDPARTY_DIST}" = x], [AC_MSG_RESULT([empty])], [AC_MSG_RESULT([populated])])
+ AC_SUBST(PERL_THIRDPARTY_DIST)
+ 
