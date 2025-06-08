@@ -6,6 +6,10 @@
 		<name>Louis Leseur</name>
 	</maintainer>
 	<upstream>
+		<maintainer>
+			<name>Ruslan Kuchumov</name>
+			<email>r9hhtb@gmail.com</email>
+		</maintainer>
 		<changelog>https://gitlab.com/mildlyparallel/pscircle/-/blob/master/CHANGELOG.md?ref_type=heads</changelog>
 		<bugs-to>https://gitlab.com/mildlyparallel/pscircle/-/issues</bugs-to>
 		<remote-id type="gitlab">mildlyparallel/pscircle</remote-id>
