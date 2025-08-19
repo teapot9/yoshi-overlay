@@ -101,10 +101,10 @@ PATCHES=(
 	"${FILESDIR}/${PN}-20210903-fix-devdep.patch"
 	"${FILESDIR}/${PN}-20211204-cmake-use-build.patch"
 	"${FILESDIR}/${PN}-20230824-system-jdtls.patch"
-	"${FILESDIR}/${PN}-20240824-system-clang.patch"
 	"${FILESDIR}/${PN}-20240217-system-omnisharp.patch"
 	"${FILESDIR}/${PN}-20240823-fix-watchdog-v5-compat.patch"
 	"${FILESDIR}/${PN}-20240823-fix-tests-timeout.patch"
+	"${T}/system-clang.patch"
 )
 
 CMAKE_USE_DIR="${S}/cpp"
@@ -167,6 +167,11 @@ src_prepare() {
 
 	# Copy core version info into ycmd
 	cp -v CORE_VERSION ycmd/ || die
+
+	# Write clang version
+	sed -e "s/@@CLANG_VERSION@@/${CLANG_VERSION}/g" \
+		"${FILESDIR}/${PN}-20241214-system-clang.patch" \
+		>"${T}/system-clang.patch" || die
 
 	# Set default configuration
 	if use clangd; then
