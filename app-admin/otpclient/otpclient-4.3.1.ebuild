@@ -1,4 +1,4 @@
-# Copyright 2020-2025 Gentoo Authors
+# Copyright 2020-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -34,6 +34,7 @@ DEPEND="
 		media-gfx/qrencode:=
 		media-gfx/zbar
 		media-libs/libpng:=
+		x11-libs/cairo
 		x11-libs/gdk-pixbuf
 		x11-libs/gtk+:3=
 		trayicon? ( dev-libs/libayatana-appindicator )
@@ -45,7 +46,7 @@ IDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/${PN}-4.1.1-fix-no-x-deps.patch"
+	"${FILESDIR}/${PN}-4.3.1-fix-no-x-deps.patch"
 )
 
 src_prepare() {
@@ -69,6 +70,9 @@ pkg_postinst() {
 	elog "${MY_PN} requires memlock limit to be at least 64MB. You can check"
 	elog "its value by running \`ulimit -Hl\`. If the value is below 65536,"
 	elog "change the system limits by editing /etc/security/limits.conf."
+	elog ""
+	elog "If you were using <net-admin/otpclient-3.2 you must do database"
+	elog "migration by starting <net-admin/otpclient-4.3."
 
 	if use X; then
 		xdg_icon_cache_update
