@@ -1,10 +1,10 @@
-# Copyright 2020-2025 Gentoo Authors
+# Copyright 2020-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-MY_PV="ktge"
-MY_COMMIT="e22e47cbeb9e5a6cf7730d135dd95665e806c888"
+MY_PV="l2fx"
+MY_COMMIT="584eb31602a8070b95d83974cae68c30d416c19f"
 MY_P="${PN}-${MY_COMMIT}"
 
 DESCRIPTION="flat assembler"
