@@ -1,2 +1,0 @@
-TZ=UTC
-*/15 * * * * root flock -n /var/lock/sanoid-cron.lock sanoid --force-update --cron

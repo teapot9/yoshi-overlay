@@ -9,7 +9,3 @@ net-p2p/stig
 # Masked for removal (2025-05-29)
 # Audio is now supported by app-mobilephone/scrcpy
 app-mobilephone/sndcpy
-
-# Masked for removal (2025-05-26)
-# Available in ::guru
-sys-fs/sanoid
