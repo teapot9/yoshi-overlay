@@ -1,11 +1,11 @@
-# Copyright 2020-2024 Gentoo Authors
+# Copyright 2020-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 inherit estack
 
-MY_COMMIT="825d63c3c0982ae0d459faa430c8d21b8e604777"
+MY_COMMIT="2ec3518f28046b2544b97583044fc9b791210e0d"
 MY_P="${PN}-${MY_COMMIT}"
 
 DESCRIPTION="flat assembler"
@@ -13,8 +13,8 @@ HOMEPAGE="https://flatassembler.net/"
 SRC_URI="
 	https://github.com/tgrysztar/${PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz
 	!system-bootstrap? (
-		amd64? ( https://teapot9-misc.s3.nl-ams.scw.cloud/distfiles/${P}-amd64.bin.xz )
-		x86? ( https://teapot9-misc.s3.nl-ams.scw.cloud/distfiles/${P}-x86.bin.xz )
+		amd64? ( https://teapot-distfiles.s3.us-east-2.amazonaws.com/${P}-amd64.bin.xz )
+		x86? ( https://teapot-distfiles.s3.us-east-2.amazonaws.com/${P}-x86.bin.xz )
 	)
 "
 S="${WORKDIR}/${MY_P}"
