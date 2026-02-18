@@ -1,3 +1,7 @@
+# Masked for removal (2026-02-19)
+# Removal from this repository (not used)
+games-util/terrafirma
+
 # Masked for removal (2025-06-07)
 # Available in ::gentoo
 net-p2p/stig
