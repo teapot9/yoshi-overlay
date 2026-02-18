@@ -3,6 +3,7 @@
 
 EAPI=8
 
+# python3_14: failing tests: ycmd.tests.language_server.language_server_completer_test
 PYTHON_COMPAT=( python3_{12..13} )
 PYTHON_REQ_USE="xml(+)"
 COMMIT_HASH="bd0d133d070199717cddfcfa945d3236c4e3a580"
