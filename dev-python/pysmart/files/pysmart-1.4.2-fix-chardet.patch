@@ -1,0 +1,55 @@
+From 5ace5d1092120ea98025414754394b54970a2050 Mon Sep 17 00:00:00 2001
+From: Louis Leseur <louis.leseur@gmail.com>
+Date: Sat, 1 Aug 2026 02:30:28 +0200
+Subject: [PATCH] fix chardet not always detecting ISO-8859-1
+
+Since chardet-6, it seems ISO-8859-1 detection is not working for the
+file `tests/dataset/singletests/nvme_9_issue_72/_-d_nvme_--all__dev_sda`.
+
+Try the encoding found by chardet, otherwise fallback to trying both
+UTF-8 and ISO-8859-1 (Latin-1 encoding used by Windows).
+
+Closes: https://github.com/truenas/py-SMART/issues/102
+---
+ pySMART/smartctl.py | 28 +++++++++++++++-------------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
+
+diff --git a/pySMART/smartctl.py b/pySMART/smartctl.py
+index a82abf4..e724c68 100644
+--- a/pySMART/smartctl.py
++++ b/pySMART/smartctl.py
+@@ -151,19 +151,21 @@ def _decode_output(self, raw_output: bytes) -> List[str]:
+         """
+         # Detect the encoding
+         encoding: Optional[str] = None
+-        try:
+-            encoding = chardet.detect(raw_output)['encoding']
+-        except:
+-            pass
+-
+-        if not encoding:
+-            encoding = 'utf-8'
+-
+-        if encoding not in ['utf-8', 'ascii']:
+-            logger.warning(f"Detected encoding: {encoding}")
+-
+-        # Decode the output
+-        decoded_output = raw_output.decode(encoding)
++        decoded_output: Optional[str] = None
++        try_encoding = (
++            chardet.detect(raw_output).get('encoding'),
++            'utf-8',
++            'iso-8859-1',
++        )
++
++        for encoding in filter(None, try_encoding):
++            try:
++                decoded_output = raw_output.decode(encoding)
++                break
++            except Exception as err:
++                logger.warning("failed to decode using %s", encoding, exc_info=err)
++        else:
++            raise ValueError("unable to decode data")
+ 
+         if encoding != 'utf-8':
+             decoded_output = decoded_output.encode(

@@ -30,6 +30,10 @@ BDEPEND="
 	dev-python/setuptools-scm[${PYTHON_USEDEP}]
 "
 
+PATCHES=(
+	"${FILESDIR}/${P}-fix-chardet.patch"
+)
+
 export SETUPTOOLS_SCM_PRETEND_VERSION="${PV}"
 
 distutils_enable_tests pytest
