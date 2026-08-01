@@ -17,7 +17,6 @@ S="${WORKDIR}/py-SMART-${PV}"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc"
 
 RDEPEND="
 	dev-python/humanfriendly[${PYTHON_USEDEP}]
@@ -25,7 +24,6 @@ RDEPEND="
 	sys-apps/smartmontools
 "
 BDEPEND="
-	doc? ( dev-python/pdoc3 )
 	test? ( ${RDEPEND} )
 	dev-python/setuptools-scm[${PYTHON_USEDEP}]
 "
@@ -38,13 +36,6 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="${PV}"
 
 distutils_enable_tests pytest
 
-python_compile_all() {
-	if use doc; then
-		pdoc --html --output-dir docs pySMART || die "pdoc failed"
-	fi
-}
-
 python_install_all() {
-	use doc && HTML_DOCS=( docs/. )
 	distutils-r1_python_install_all
 }
