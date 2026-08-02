@@ -8,6 +8,7 @@
 	<use>
 		<flag name="cli">Build the command line interface</flag>
 		<flag name="trayicon">Enable system tray icon</flag>
+		<flag name="search-provider">Build the GNOME Shell / KRunner D-Bus daemon</flag>
 	</use>
 	<upstream>
 		<changelog>https://github.com/paolostivanin/OTPClient/releases</changelog>
