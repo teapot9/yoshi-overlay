@@ -14,5 +14,6 @@
 		<flag name="openssl">Use <pkg>dev-libs/openssl</pkg> as crypto backend</flag>
 		<flag name="gcrypt">Use <pkg>dev-libs/libgcrypt</pkg> as crypto backend</flag>
 		<flag name="mbedtls">Use <pkg>net-libs/mbedtls</pkg> as crypto backend</flag>
+		<flag name="validation">Enable validation helper APIs</flag>
 	</use>
 </pkgmetadata>
