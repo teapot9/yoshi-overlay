@@ -4,7 +4,7 @@
 EAPI=8
 
 MY_PN="OTPClient"
-inherit cmake xdg-utils
+inherit cmake gnome2-utils xdg-utils
 
 DESCRIPTION="Highly secure and easy to use OTP client written in C/GTK"
 HOMEPAGE="https://github.com/paolostivanin/OTPClient"
@@ -75,11 +75,13 @@ pkg_postinst() {
 
 	if use X; then
 		xdg_icon_cache_update
+		gnome2_schemas_update
 	fi
 }
 
 pkg_postrm() {
 	if use X; then
 		xdg_icon_cache_update
+		gnome2_schemas_update
 	fi
 }
