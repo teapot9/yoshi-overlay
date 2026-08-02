@@ -1,0 +1,30 @@
+--- a/third_party/generic_server/tsconfig.json	2026-07-31 20:39:25.418205325 +0200
++++ b/third_party/generic_server/tsconfig.json	2026-07-31 20:38:33.681094486 +0200
+@@ -1,5 +1,7 @@
+ {
+ 	"compilerOptions": {
++		"skipLibCheck": true,
++		"ignoreDeprecations": "6.0",
+ 		"module": "commonjs",
+ 		"target": "es2019",
+ 		"lib": ["ES2019"],
+--- a/third_party/generic_server/server/tsconfig.json	2026-07-31 20:39:33.455618877 +0200
++++ b/third_party/generic_server/server/tsconfig.json	2026-07-31 20:38:45.854755917 +0200
+@@ -1,5 +1,7 @@
+ {
+ 	"compilerOptions": {
++		"skipLibCheck": true,
++		"ignoreDeprecations": "6.0",
+ 		"target": "es2019",
+ 		"lib": ["ES2019"],
+ 		"module": "commonjs",
+--- a/third_party/generic_server/client/tsconfig.json	2026-07-31 20:39:39.064546888 +0200
++++ b/third_party/generic_server/client/tsconfig.json	2026-07-31 20:38:51.497979337 +0200
+@@ -1,5 +1,7 @@
+ {
+ 	"compilerOptions": {
++		"skipLibCheck": true,
++		"ignoreDeprecations": "6.0",
+ 		"module": "commonjs",
+ 		"target": "es2019",
+ 		"lib": ["ES2019"],

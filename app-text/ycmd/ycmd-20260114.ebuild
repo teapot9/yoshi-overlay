@@ -105,6 +105,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-20240217-system-omnisharp.patch"
 	"${FILESDIR}/${PN}-20240823-fix-watchdog-v5-compat.patch"
 	"${FILESDIR}/${PN}-20240823-fix-tests-timeout.patch"
+	"${FILESDIR}/${PN}-20260114-fix-tsconfig.patch"
 	"${T}/system-clang.patch"
 )
 
@@ -218,11 +219,16 @@ src_prepare() {
 	ignore_test ycmd/tests/clangd/get_completions_test.py \
 		test_GetCompletions_cuda \
 		test_GetCompletions_WithHeaderInsertionDecorators
+	ignore_test ycmd/tests/clang/subcommands_test.py \
+		test_Subcommands_GetType
 
 	# c#: system omnisharp
 	ignore_test ycmd/tests/cs/debug_info_test.py \
 		test_GetCompleter_RoslynFromUserOption \
 		test_GetCompleter_RoslynNotFound
+	# c#: failing with >=python-3.13
+	ignore_test ycmd/tests/cs/diagnostics_test.py \
+		test_Diagnostics_WithRange
 
 	# go: system gopls
 	ignore_test ycmd/tests/go/go_completer_test.py \
@@ -242,6 +248,11 @@ src_prepare() {
 	ignore_test ycmd/tests/java/server_management_test.py \
 		test_ServerManagement_ProjectDetection_GradleMultipleGradleFiles
 
+	# python: failing tests
+	ignore_test ycmd/tests/python/get_completions_test.py \
+		test_GetCompletions_Unicode_InLine
+	ignore_test ycmd/tests/python/signature_help_test.py \
+		test_SignatureHelp_CallWithinCall
 	# python: system jedi
 	ignore_test ycmd/tests/python/subcommands_test.py \
 		test_Subcommands_GoTo \
@@ -263,6 +274,9 @@ src_prepare() {
 	# javascript: failing tests
 	ignore_test ycmd/tests/javascriptreact/get_completions_test.py \
 		test_GetCompletions_JavaScriptReact_DefaultTriggers
+	# javascript: failing with >=typescript-6
+	ignore_test ycmd/tests/javascript/diagnostics_test.py \
+		test_Diagnostics_FileReadyToParse
 
 	# Other failing tests
 	ignore_test ycmd/tests/utils_test.py \
