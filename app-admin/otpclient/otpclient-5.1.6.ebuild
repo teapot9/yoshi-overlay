@@ -59,8 +59,12 @@ src_test() {
 
 src_install() {
 	cmake_src_install
+
 	insinto /etc/security/limits.d
 	newins "${FILESDIR}/limits.conf" 21-otpclient.conf
+
+	# Will collide with dev-libs/glib
+	rm -v "${ED}"/usr/share/glib-2.0/schemas/gschemas.compiled || die
 }
 
 pkg_postinst() {
