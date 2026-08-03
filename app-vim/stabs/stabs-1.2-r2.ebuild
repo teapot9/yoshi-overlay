@@ -1,4 +1,4 @@
-# Copyright 2021-2024 Gentoo Authors
+# Copyright 2021-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,6 +16,7 @@ KEYWORDS="~amd64 ~x86"
 PATCHES=(
 	"${FILESDIR}/${P}-fix-cursor-jumps.patch"
 	"${FILESDIR}/${P}-fix-quoted-cpo.patch"
+	"${FILESDIR}/${P}-add-method-to-enable-disable.patch"
 )
 
 VIM_PLUGIN_HELPFILES="stabs.txt"
