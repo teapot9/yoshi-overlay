@@ -5,10 +5,13 @@ EAPI=8
 
 inherit vim-plugin
 
+MY_COMMIT="e86bb794a1c10a2edac130feb0ea590a00d03f1e"
+MY_P="vim-${PN}-${MY_COMMIT}"
+
 DESCRIPTION="vim plugin: Helpers for UNIX"
 HOMEPAGE="https://github.com/tpope/vim-eunuch"
-SRC_URI="https://github.com/tpope/vim-${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/vim-${P}"
+SRC_URI="https://github.com/tpope/vim-${PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_P}.tar.gz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="vim"
 KEYWORDS="~amd64 ~x86"
