@@ -13,3 +13,7 @@ dev-python/haccrypto
 # Masked for removal (2026-08-03)
 # Not needed: last revdep was sys-fs/ninfs
 dev-python/pyctr
+
+# Masked for removal (2026-08-03)
+# Not needed: last revdep was dev-python/pyctr
+dev-python/pyfatfs
