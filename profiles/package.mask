@@ -5,3 +5,7 @@ app-admin/doas-sudo-shim
 # Masked for removal (2026-08-03)
 # Dependency on unmaintained dev-python/fs
 sys-fs/ninfs
+
+# Masked for removal (2026-08-03)
+# Not needed: last revdep was sys-fs/ninfs
+dev-python/haccrypto
