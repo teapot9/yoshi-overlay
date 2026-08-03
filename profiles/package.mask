@@ -1,3 +1,7 @@
 # Masked for removal (2026-08-02)
 # Available in ::guru
 app-admin/doas-sudo-shim
+
+# Masked for removal (2026-08-03)
+# Dependency on unmaintained dev-python/fs
+sys-fs/ninfs
